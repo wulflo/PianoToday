@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F6-054
+- **Tarea actual:** F7-023
 - **Última verificada en verde:** F7-022 (`58838d5`, 2026-11-22T05:47:47-03:00)
-- **Actualizado:** 2026-11-22T05:47:47-03:00
-- **Fase:** F7 completada (22 tareas: 21 cerradas y F7-009 descartada)
-- **Nota:** F7-021 corrigió el primer elemento recortado en cola de repaso, lecciones, práctica y progreso. F7-022 embelleció el README y corrigió las URLs antiguas a `https://wulflo.github.io/PianoToday/` (verificada con la API de Pages); `tests/readme.test.ts` evita la regresión. Queda pendiente solo **F6-054**, que cierra el usuario con su reporte de hardware, Safari, iOS y Android. Push y workflow pendientes de este último cierre.
+- **Actualizado:** 2026-11-22T06:10:00-03:00
+- **Fase:** F7 — corrección posterior al despliegue: tarjetas de lista pegadas y primera fila más alta
+- **Nota:** El usuario confirmó que el primer elemento sigue viéndose truncado. La causa restante no son las reglas `:first-child` (ya eliminadas), sino los contenedores de tarjetas con `gap: 0`: la cola de repaso, la práctica y las filas de lección se tocan, y sus esquinas redondeadas se recortan entre sí. Además, la primera fila de lección es la única enlazada y el `min-height` del enlace la estira a 76 px frente a 59,6 px del resto. F7-023 separa las tarjetas y uniforma la altura de las filas. **F6-054** sigue abierta para el reporte manual del usuario.
 
 ## LEYENDA
 
@@ -1799,6 +1799,11 @@ Quedó funcionando:
   - Progreso (2026-11-22T05:46:35-03:00): ✔ URL real verificada con `gh api` · ✔ README rediseñado con índice, tablas y badges; 0 apariciones de `piano-learning` · ✔ test de regresión (URLs y anclas) · ✔ 1847 tests, build y budget (277,59 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: README.md, tests/readme.test.ts, docs/CHECKLIST.md, docs/LOG.md, docs/RESUME.md, docs/ENTORNO.md, CHANGELOG.md
   - Commit: 58838d5 · 2026-11-22T05:47:47-03:00
+- [~] **F7-023** — Separar las tarjetas de las listas y uniformar la primera fila
+  - Aceptación: la cola de repaso, la práctica y las filas de lección no se tocan (separación visible entre tarjetas); la primera fila de lección mide lo mismo que las demás y su texto queda alineado; verificado con mediciones y capturas, suite y build en verde.
+  - Deps: F7-022 · Red: no
+  - Progreso (2026-11-22T06:10:00-03:00): ✔ causa reproducida con datos reales (cola de repaso y curso) · ◻ separación de tarjetas · ◻ altura uniforme de las filas · ◻ capturas, suite y build · ◻ cierre, push y workflow
+  - Archivos tocados: docs/CHECKLIST.md
 
 ## RESUMEN POR FASE
 
@@ -1811,6 +1816,6 @@ Quedó funcionando:
 | F4 | M5-M6 | 33 | Armonía y forma completas |
 | F5 | M7-M8 y repertorio | 51 | Técnica, estilos y piezas validadas |
 | F6 | PWA, MIDI, calidad, auditoría y despliegue | 55 | Suite, a11y, PWA, auditoría y demo publicada |
-| F7 | MIDI multi-navegador y rediseño visual | 22 | Suite, E2E multi-navegador, presupuesto, QA visual, licencias, correcciones y README |
+| F7 | MIDI multi-navegador y rediseño visual | 23 | Suite, E2E multi-navegador, presupuesto, QA visual, licencias, correcciones y README |
 
-Total: **330 tareas**. Los conteos se verifican con el test de formato del checklist.
+Total: **331 tareas**. Los conteos se verifican con el test de formato del checklist.
