@@ -34,6 +34,7 @@ describe('F6-033 — diagnóstico MIDI en Ajustes', () => {
     renderDiagnostics()
 
     fireEvent.click(screen.getByRole('button', { name: 'Conectar entrada MIDI' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Pedir permiso MIDI' }))
 
     await waitFor(() =>
       expect(screen.getByRole('listitem')).toHaveTextContent('Yamaha PSR-373'),
@@ -55,6 +56,7 @@ describe('F6-033 — diagnóstico MIDI en Ajustes', () => {
     renderDiagnostics()
 
     fireEvent.click(screen.getByRole('button', { name: 'Conectar entrada MIDI' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Pedir permiso MIDI' }))
 
     await waitFor(() =>
       expect(screen.getByRole('button', { name: 'Reintentar conexión' })).toBeInTheDocument(),

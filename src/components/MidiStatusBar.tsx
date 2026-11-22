@@ -7,6 +7,7 @@
  * permisos del navegador.
  */
 import { midiNameWithOctave } from '../notation'
+import { MidiPermissionFlow } from './MidiPermissionFlow'
 import { useMidi } from '../midi/context'
 import { useSettings } from '../state/settings'
 
@@ -19,8 +20,6 @@ export function MidiStatusBar() {
     lastEvent,
     error,
     supported,
-    connect,
-    retry,
     disconnect,
   } = useMidi()
 
@@ -77,15 +76,7 @@ export function MidiStatusBar() {
             ? t('midi.status.error', { message: error ?? '' })
             : t('midi.status.idle')}
       </p>
-      <button
-        type="button"
-        className="button-secondary"
-        onClick={() => void (status === 'idle' ? connect() : retry())}
-      >
-        {status === 'idle'
-          ? t('midi.status.connect')
-          : t('midi.status.retry')}
-      </button>
+      <MidiPermissionFlow variant="status" />
     </aside>
   )
 }

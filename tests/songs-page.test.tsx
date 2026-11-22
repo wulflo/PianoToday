@@ -76,6 +76,7 @@ describe('página de canciones', () => {
     fireEvent.click(
       screen.getByRole('button', { name: 'Conectar teclado MIDI' }),
     )
+    fireEvent.click(screen.getByRole('button', { name: 'Pedir permiso MIDI' }))
     await waitFor(() =>
       expect(screen.getByRole('button', { name: 'Grabar' })).toBeEnabled(),
     )

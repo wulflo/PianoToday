@@ -6,6 +6,7 @@
  * la app (no hay permiso) de uno del sistema/cable (no aparece ningún puerto).
  */
 import { midiNameWithOctave } from '../notation'
+import { MidiPermissionFlow } from './MidiPermissionFlow'
 import { midiNoteName, type MidiDeviceProfile } from '../midi/device'
 import { useMidi, type MidiStatus } from '../midi/context'
 import { useSettings } from '../state/settings'
@@ -32,8 +33,6 @@ export function MidiDiagnostics() {
     lastEvent,
     error,
     supported,
-    connect,
-    retry,
     disconnect,
   } = useMidi()
 
@@ -83,13 +82,7 @@ export function MidiDiagnostics() {
       </dl>
 
       <div className="midi-diag-actions">
-        <button
-          type="button"
-          className="button-primary"
-          onClick={() => void (status === 'idle' ? connect() : retry())}
-        >
-          {status === 'idle' ? t('midi.diag.connect') : t('midi.diag.retry')}
-        </button>
+        <MidiPermissionFlow />
         <button
           type="button"
           className="button-secondary"

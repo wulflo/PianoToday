@@ -1694,8 +1694,8 @@ Quedó funcionando:
 - [~] **F7-006** — Flujo Chromium y ayuda de permiso
   - Aceptación: pantalla previa que explica qué se pedirá; ayuda para bloqueado y descartado con rutas de configuración verificadas; cubre Chrome, Edge, Brave, Opera, Vivaldi, Samsung Internet y Chrome Android; textos en ES y EN.
   - Deps: F7-005 · Red: sí · [NET]
-  - Progreso (2026-11-22T03:48:10-03:00): ✔ rutas verificadas con red y ADR-048 escrito · ◻ módulo `permissions.ts` y tests · ◻ pantalla previa y ayuda en ES/EN · ◻ verificación completa
-  - Archivos tocados: docs/DECISIONES.md, docs/CHECKLIST.md
+  - Progreso (2026-11-22T03:53:58-03:00): ✔ rutas verificadas con red, ADR-048 y ENTORNO actualizado · ✔ `permissions.ts` y tests · ✔ pantalla previa, ayuda en ES/EN y wiring en barra de estado y diagnóstico · ✔ 1821 tests, typecheck, build y budget (275,54 kB gzip) en verde · ◻ cierre con hash y LOG
+  - Archivos tocados: src/midi/permissions.ts, src/components/MidiPermissionFlow.tsx, src/components/MidiStatusBar.tsx, src/components/MidiDiagnostics.tsx, src/state/settings.tsx, tests/midi-permissions.test.ts, tests/midi-permission-flow.test.tsx, tests/midi-diagnostics.test.tsx, tests/songs-page.test.tsx, docs/DECISIONES.md, docs/ENTORNO.md, docs/CHECKLIST.md
 - [ ] **F7-007** — Flujo Firefox y complemento de permiso del sitio
   - Aceptación: se explican los dos diálogos; ante `SecurityError` el primer consejo es encender y conectar el teclado en modo USB-MIDI o con driver y recargar; botón «Volver a buscar dispositivos» que vuelve a pedir acceso sin depender de `onstatechange`; ayuda de ventana privada y políticas solo si está verificada; aviso de Firefox Android sin Web MIDI; textos en ES y EN.
   - Deps: F7-005 · Red: no
