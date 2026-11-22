@@ -81,15 +81,18 @@ real de latencia, el equilibrio de volumen ni la ausencia de artefactos de oído
 
 **Por qué está pendiente.** La detección, la normalización de mensajes y la
 integración con la evaluación están cubiertas con mensajes MIDI simulados; falta
-la prueba con el dispositivo físico por USB.
+la prueba con el dispositivo físico por USB. En F7-011 se añadieron E2E de
+Chromium y Firefox para el flujo de permiso (con acceso simulado), pero **no
+sustituyen** esta prueba: no hay teclado conectado ni permiso real de Firefox.
 
 **Conexión**
 
 1. Conectá el **MIDI OUT** del PSR-373 al **MIDI IN** del adaptador USB-MIDI y
    el adaptador a la computadora. Encendé el teclado.
 2. Usá **Chrome, Edge o un navegador basado en Chromium**: son los que ofrecen
-   Web MIDI. (En Safari y Firefox la app muestra el aviso de soporte y sigue
-   funcionando con autoevaluación manual; ver P3.)
+   Web MIDI. Firefox 108+ también puede, pero necesita el complemento de permiso
+   del sitio (ver el paso 4bis). Safari no tiene Web MIDI nativo; ver P3. En
+   cualquier caso, sin MIDI la autoevaluación manual sigue activa.
 
 **Panel de diagnóstico**
 
@@ -100,27 +103,44 @@ la prueba con el dispositivo físico por USB.
    - **Estado**: pasa de `sin conectar` a `escuchando`.
    - **Perfil**: debe decir `Yamaha PSR-373` si se reconoce; si no,
      `MIDI genérico`.
-4. Presioná **Conectar entrada MIDI** y aceptá el permiso del navegador cuando
-   lo pida.
-5. En **Entradas MIDI** debe aparecer el nombre del PSR-373 con estado
+   - **Navegador**, **Contexto seguro** y **Último fallo**: el navegador debe
+     figurar con su familia, el contexto como `sí (HTTPS)` (o `no (HTTP)` si
+     probás por IP local) y el fallo con `name: message` real.
+4. Presioná **Conectar entrada MIDI**: primero aparece una explicación de lo que
+   se va a pedir. Confirmá con **Pedir permiso MIDI** y aceptá el diálogo del
+   navegador. Si lo descartás con **Ahora no**, no se pide nada y podés seguir
+   con la autoevaluación manual.
+4bis. En **Firefox**, la explicación muestra los dos diálogos del complemento
+   («Continuar con la instalación» y «Añadir»). Si aparece `WebMIDI requires a
+   site permission add-on to activate`, apagá y encendé el teclado en modo
+   USB-MIDI (o instalá el driver), recargá la página y usá **Volver a buscar
+   dispositivos**. El usuario con ventana privada o políticas del navegador debe
+   comprobar si el complemento queda guardado.
+5. Si el permiso figura bloqueado, usá la ayuda junto al botón: en Chrome y
+   derivados puede indicar la ruta verificada `chrome://settings/content/midiDevices`
+   (o `brave://…`/`opera://…`); en los demás navegadores, el icono de información
+   del sitio. Para enviar un informe, presioná **Copiar informe de diagnóstico** y
+   pegalo en la próxima sesión: incluye navegador, contexto, permiso, estado y
+   el fallo real, sin datos personales.
+6. En **Entradas MIDI** debe aparecer el nombre del PSR-373 con estado
    `conectado`. Si no aparece ninguna entrada, seguí el propio aviso del panel
    (revisar cable MIDI OUT → MIDI IN, encender el teclado, reconectar) y probá
    otro puerto USB o cable; en Windows algunos Yamaha necesitan el driver
    oficial.
-6. Tocá varias teclas del Yamaha. En **Último mensaje** debe cambiar en cada
+7. Tocá varias teclas del Yamaha. En **Último mensaje** debe cambiar en cada
    pulsación, mostrando el nombre del puerto, los bytes en hexadecimal y la nota
    (por ejemplo `nota Do4`). Si la última nota cambia al tocar, la app está
    recibiendo MIDI.
-7. **Salidas MIDI**: deben listarse si el adaptador expone una salida (o
+8. **Salidas MIDI**: deben listarse si el adaptador expone una salida (o
    `No hay salidas detectadas.` si es solo de entrada); no bloquea el uso.
 
 **Integración con la evaluación**
 
-8. Volvé a una lección con tarea de teclado (por ejemplo
+9. Volvé a una lección con tarea de teclado (por ejemplo
    `#/leccion/lesson.m0-01`), entrá a la tarea y tocá la secuencia pedida en el
    Yamaha. La app debe registrar las pulsaciones y mostrar el feedback de
    secuencia y ritmo (`X de Y pulsaciones acertadas en la secuencia · ritmo Z%`).
-9. Comprobá que, al desconectar el teclado o denegar el permiso, la
+10. Comprobá que, al desconectar el teclado o denegar el permiso, la
    **autoevaluación manual sigue activa** y la app no se rompe.
 
 **Resultado esperado**
@@ -132,9 +152,11 @@ la prueba con el dispositivo físico por USB.
 
 ## P3 — Safari (macOS)
 
-**Por qué está pendiente.** El binario de WebKit de Playwright no se pudo
-ejecutar en este host (faltan ICU 74 y WPE, y `playwright install-deps` requiere
-root). Ver `docs/QA-NAVEGADORES.md`.
+**Por qué está pendiente.** El binario de WebKit de Playwright se descargó en
+F7-011, pero no se puede ejecutar en este host: falta `libicudata.so.74` y
+`playwright install-deps` requiere root. Ni siquiera con
+`PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1` arranca. La guía de P3 se cubrió
+solo con tests de componente; ver `docs/QA-NAVEGADORES.md`.
 
 **Pasos**
 
@@ -147,8 +169,13 @@ root). Ver `docs/QA-NAVEGADORES.md`.
    Pages la app usa el sintetizador de respaldo, así que lo esperado es
    `Listo con piano sintetizado`.
 4. **MIDI:** entrá a `#/ajustes`. Safari no implementa Web MIDI: debe aparecer el
-   aviso de soporte y el panel debe indicar `no disponible en este navegador`.
-   La autoevaluación manual debe seguir funcionando.
+   aviso de soporte, el panel debe indicar `no disponible en este navegador` y
+   la guía opcional debe nombrar la extensión de terceros «Web MIDI for Safari»
+   con su enlace y aclarar que no es un producto de Apple ni de Piano Today. La
+   autoevaluación manual debe seguir funcionando. Si instalás la extensión
+   (macOS 13.5+, Safari 18.4+), el aviso desaparece y el botón de conexión debe
+   funcionar igual que en otros navegadores. En iPhone/iPad ningún navegador
+   ofrece Web MIDI: debe explicarse en el propio aviso.
 5. **PWA:** comprobá si Safari ofrece añadir la app a la pantalla de inicio o al
    Dock y si el uso sin conexión funciona tras la primera visita.
 

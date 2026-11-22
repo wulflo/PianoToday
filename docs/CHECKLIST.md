@@ -1724,8 +1724,8 @@ Quedó funcionando:
 - [~] **F7-011** — Pruebas y documentación multi-navegador
   - Aceptación: un test unitario por tipo de fallo con `fake-midi.ts`, tests de componente por familia de navegador, E2E de Chromium con permiso concedido y denegado y de Firefox/WebKit con mocks (WebKit real solo si el host lo permite); `docs/PRUEBAS-MANUALES.md` (P2/P3) y `docs/QA-NAVEGADORES.md` actualizados con lo realmente verificado.
   - Deps: F7-010 · Red: no
-  - Progreso (2026-11-22T04:21:55-03:00): ✔ tests de componente por familia ya presentes · ◻ cases unitarios por tipo de fallo · ◻ E2E Chromium y mocks Firefox/WebKit · ◻ documentos P2/P3 y QA actualizados
-  - Archivos tocados: docs/CHECKLIST.md
+  - Progreso (2026-11-22T04:30:10-03:00): ✔ 6 casos unitarios por categoría con fake-midi · ✔ tests de componente por familia · ✔ E2E Chromium 8/8 y Firefox 7/7, WebKit no ejecutable por host · ✔ P2/P3 y QA-NAVEGADORES actualizados · ✔ 1839 tests, typecheck, build y budget (277,39 kB gzip) en verde · ◻ cierre con hash y LOG
+  - Archivos tocados: tests/midi-input.test.ts, e2e/midi-permissions.spec.ts, docs/PRUEBAS-MANUALES.md, docs/QA-NAVEGADORES.md, docs/CHECKLIST.md
 
 ### Etapa C — Rediseño visual
 

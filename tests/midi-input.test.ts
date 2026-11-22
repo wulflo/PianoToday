@@ -1,5 +1,9 @@
 import { afterEach, describe, expect, it, vi, type Mock } from 'vitest'
 import { isWebMidiSupported } from '../src/midi/detect'
+import {
+  classifyMidiFailure,
+  type MidiFailureKind,
+} from '../src/midi/failure'
 import { connectMidiInput } from '../src/midi/input'
 import { installFakeMidi, NOTE_ON, type FakeMidi } from './helpers/fake-midi'
 
@@ -49,4 +53,65 @@ describe('F7-002 — connectMidiInput propaga el fallo tipado', () => {
     )
     result.connection.disconnect()
   })
+})
+
+describe('F7-011 — un caso por categoría de fallo con fake-midi', () => {
+  const secureDescriptor = Object.getOwnPropertyDescriptor(
+    window,
+    'isSecureContext',
+  )
+
+  afterEach(() => {
+    if (secureDescriptor) {
+      Object.defineProperty(window, 'isSecureContext', secureDescriptor)
+    } else {
+      Reflect.deleteProperty(window, 'isSecureContext')
+    }
+  })
+
+  const cases: Array<[MidiFailureKind, boolean, string, string]> = [
+    [
+      'unsupported',
+      true,
+      'NotSupportedError',
+      'Este navegador no expone la API Web MIDI.',
+    ],
+    [
+      'insecure-context',
+      false,
+      'SecurityError',
+      'Web MIDI only works in a secure context.',
+    ],
+    ['permission-denied', true, 'SecurityError', 'Permission denied'],
+    ['permission-dismissed', true, 'AbortError', 'Permission dismissed'],
+    [
+      'addon-required-or-no-device',
+      true,
+      'SecurityError',
+      'WebMIDI requires a site permission add-on to activate',
+    ],
+    ['unknown', true, 'InvalidStateError', 'Algo inesperado'],
+  ]
+
+  it.each(cases)(
+    '%s se propaga con su nombre y mensaje',
+    async (expected, secure, name, message) => {
+      Object.defineProperty(window, 'isSecureContext', {
+        configurable: true,
+        value: secure,
+      })
+      fake = installFakeMidi()
+      const request = navigator.requestMIDIAccess as unknown as Mock
+      request.mockRejectedValueOnce(new DOMException(message, name))
+
+      const result = await connectMidiInput(() => undefined)
+
+      expect(result.ok).toBe(false)
+      if (result.ok) return
+      expect(result.failure.name).toBe(name)
+      expect(result.failure.message).toBe(message)
+      expect(result.failure.isSecureContext).toBe(secure)
+      expect(classifyMidiFailure(result.failure)).toBe(expected)
+    },
+  )
 })
