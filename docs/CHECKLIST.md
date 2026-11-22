@@ -1685,8 +1685,8 @@ Quedó funcionando:
 - [~] **F7-005** — Refactorizar `MidiProvider`
   - Aceptación: se conservan `MidiStatus` y los tests; el contexto expone `failure`; `denied` solo para denegación real y el resto `error` con detalle; el permiso se pide solo ante un gesto del usuario; autoconexión solo con permiso `granted` comprobado; no asumir que `permissions.query({name:'midi'})` funciona en Firefox.
   - Deps: F7-004 · Red: no
-  - Progreso (2026-11-22T03:38:33-03:00): ✔ revisados contexto y tests existentes · ◻ exponer `failure` y clasificar estados · ◻ quitar el fijado de `denied` desde Permissions API · ◻ tests y verificación completa
-  - Archivos tocados: docs/CHECKLIST.md
+  - Progreso (2026-11-22T03:44:34-03:00): ✔ `failure` y `failureKind` expuestos en el contexto · ✔ `denied` solo para denegación real; resto `error`/`unsupported` con detalle · ✔ eliminado el fijado de `denied` desde Permissions API · ✔ 1807 tests, typecheck, build y budget (273,91 kB gzip) en verde · ◻ cierre con hash y LOG
+  - Archivos tocados: src/midi/context.tsx, tests/midi-context.test.tsx, docs/CHECKLIST.md
 
 ### Etapa B — Corrección y compatibilidad
 

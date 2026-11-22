@@ -18,11 +18,18 @@ import {
   type ReactNode,
 } from 'react'
 import {
+  describeMidiFailure,
   getMidiPermissionState,
   isWebMidiSupported,
+  type MidiAccessFailure,
   type MidiPermissionState,
 } from './detect'
 import { detectDeviceProfile, type MidiDeviceProfile } from './device'
+import {
+  classifyMidiFailure,
+  isPermissionDeniedFailure,
+  type MidiFailureKind,
+} from './failure'
 import {
   connectMidiInput,
   type MidiConnection,
@@ -62,6 +69,10 @@ export interface MidiContextValue {
   /** Último mensaje de canal, para el diagnóstico. */
   lastRaw: MidiRawMessage | null
   error: string | null
+  /** Motivo real del último fallo, con nombre y mensaje del navegador. */
+  failure: MidiAccessFailure | null
+  /** Categoría del fallo, para elegir la ayuda visible. */
+  failureKind: MidiFailureKind | null
   supported: boolean
   connect: () => Promise<void>
   retry: () => Promise<void>
@@ -87,6 +98,8 @@ const defaultContext: MidiContextValue = {
   lastEvent: null,
   lastRaw: null,
   error: null,
+  failure: null,
+  failureKind: null,
   supported: false,
   connect: async () => undefined,
   retry: async () => undefined,
@@ -118,6 +131,8 @@ export function MidiProvider({ children }: MidiProviderProps) {
   const [lastEvent, setLastEvent] = useState<MidiNoteEvent | null>(null)
   const [lastRaw, setLastRaw] = useState<MidiRawMessage | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [failure, setFailure] = useState<MidiAccessFailure | null>(null)
+  const [failureKind, setFailureKind] = useState<MidiFailureKind | null>(null)
 
   const connectionRef = useRef<MidiConnection | null>(null)
   const listenersRef = useRef(new Set<MidiNoteListener>())
@@ -163,19 +178,18 @@ export function MidiProvider({ children }: MidiProviderProps) {
     connectionRef.current = null
     connectingRef.current = false
     setHeldNotes([])
+    setFailure(null)
+    setError(null)
     setStatus(isWebMidiSupported() ? 'idle' : 'unsupported')
   }, [])
 
   const connect = useCallback(async () => {
-    if (!isWebMidiSupported()) {
-      setStatus('unsupported')
-      return
-    }
     if (connectionRef.current !== null || connectingRef.current) return
 
     connectingRef.current = true
     setStatus('requesting')
     setError(null)
+    setFailure(null)
 
     try {
       const result = await connectMidiInput(handleEvent, {
@@ -192,19 +206,33 @@ export function MidiProvider({ children }: MidiProviderProps) {
       }
       if (!result.ok) {
         connectingRef.current = false
-        // Etapa A: se mantiene el estado visible anterior. F7-005 usará el
-        // motivo real para distinguir denegación, contexto inseguro, etc.
+        const kind = classifyMidiFailure(result.failure)
+        setFailure(result.failure)
+        setFailureKind(kind)
         setError(result.failure.message)
-        setStatus('denied')
+        // Solo una denegación real es `denied`: un diálogo descartado, el
+        // complemento de Firefox o un contexto inseguro son errores con ayuda.
+        setStatus(
+          kind === 'unsupported'
+            ? 'unsupported'
+            : isPermissionDeniedFailure(result.failure)
+              ? 'denied'
+              : 'error',
+        )
         return
       }
       connectionRef.current = result.connection
       connectingRef.current = false
+      setFailure(null)
+      setFailureKind(null)
       setStatus('listening')
     } catch (reason) {
       connectingRef.current = false
       if (!mountedRef.current) return
-      setError(reason instanceof Error ? reason.message : String(reason))
+      const unexpected = describeMidiFailure(reason)
+      setFailure(unexpected)
+      setFailureKind(classifyMidiFailure(unexpected))
+      setError(unexpected.message)
       setStatus('error')
     }
   }, [handleEvent, handleRaw])
@@ -214,6 +242,8 @@ export function MidiProvider({ children }: MidiProviderProps) {
     connectionRef.current = null
     connectingRef.current = false
     setHeldNotes([])
+    setFailure(null)
+    setError(null)
     await connect()
   }, [connect])
 
@@ -224,8 +254,10 @@ export function MidiProvider({ children }: MidiProviderProps) {
     return next
   }, [])
 
-  // Si el usuario ya concedió el permiso, conectar en segundo plano sin
-  // volver a preguntar. Si está en «prompt» esperamos la acción explícita.
+  // Si el usuario ya concedió el permiso, conectar en segundo plano sin volver
+  // a preguntar. En «prompt» o «denied» esperamos la acción explícita del
+  // botón: la Permissions API no funciona igual en Firefox y un `denied` no
+  // debe fijar el estado antes de que el usuario haya intentado conectar.
   useEffect(() => {
     if (!supported) return
     let cancelled = false
@@ -241,8 +273,6 @@ export function MidiProvider({ children }: MidiProviderProps) {
         !connectingRef.current
       ) {
         void connect()
-      } else if (next === 'denied' && connectionRef.current === null) {
-        setStatus('denied')
       }
     }
 
@@ -320,6 +350,8 @@ export function MidiProvider({ children }: MidiProviderProps) {
       lastEvent,
       lastRaw,
       error,
+      failure,
+      failureKind,
       supported,
       connect,
       retry,
@@ -334,6 +366,8 @@ export function MidiProvider({ children }: MidiProviderProps) {
       disconnect,
       error,
       events,
+      failure,
+      failureKind,
       heldNotes,
       lastEvent,
       lastRaw,

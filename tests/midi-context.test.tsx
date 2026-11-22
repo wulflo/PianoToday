@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, type Mock } from 'vitest'
 import { MidiProvider, useMidi } from '../src/midi/context'
 import {
   installFakeMidi,
@@ -10,14 +10,58 @@ import {
 } from './helpers/fake-midi'
 
 let fake: FakeMidi
+const permissionsDescriptor = Object.getOwnPropertyDescriptor(
+  navigator,
+  'permissions',
+)
+
+const secureDescriptor = Object.getOwnPropertyDescriptor(
+  window,
+  'isSecureContext',
+)
 
 beforeEach(() => {
+  // jsdom sirve desde http://localhost y marca el contexto como inseguro; la
+  // app real se sirve por HTTPS, que es donde Web MIDI está disponible.
+  Object.defineProperty(window, 'isSecureContext', {
+    configurable: true,
+    value: true,
+  })
   fake = installFakeMidi()
 })
 
 afterEach(() => {
   fake.restore()
+  if (secureDescriptor) {
+    Object.defineProperty(window, 'isSecureContext', secureDescriptor)
+  } else {
+    Reflect.deleteProperty(window, 'isSecureContext')
+  }
+  if (permissionsDescriptor) {
+    Object.defineProperty(navigator, 'permissions', permissionsDescriptor)
+  } else {
+    Reflect.deleteProperty(navigator, 'permissions')
+  }
 })
+
+function setPermissionState(state: string): void {
+  Object.defineProperty(navigator, 'permissions', {
+    configurable: true,
+    writable: true,
+    value: { query: async () => ({ state, onchange: null }) },
+  })
+}
+
+function rejectWith(name: string, message: string): void {
+  fake.restore()
+  Object.defineProperty(navigator, 'requestMIDIAccess', {
+    configurable: true,
+    writable: true,
+    value: async () => {
+      throw new DOMException(message, name)
+    },
+  })
+}
 
 function Probe() {
   const midi = useMidi()
@@ -42,6 +86,12 @@ function Probe() {
         {midi.lastRaw === null ? '-' : midi.lastRaw.data.join(',')}
       </span>
       <span data-testid="events">{midi.events.length}</span>
+      <span data-testid="failure">
+        {midi.failure === null
+          ? '-'
+          : `${midi.failure.name}:${midi.failure.message}`}
+      </span>
+      <span data-testid="failureKind">{midi.failureKind ?? '-'}</span>
       <button type="button" onClick={() => void midi.connect()}>
         conectar
       </button>
@@ -148,15 +198,8 @@ describe('F6-033 — contexto MIDI compartido', () => {
     expect(fake.inputs.get('in-2')?.onmidimessage).not.toBeNull()
   })
 
-  it('queda en denied si el permiso no se concede', async () => {
-    fake.restore()
-    Object.defineProperty(navigator, 'requestMIDIAccess', {
-      configurable: true,
-      writable: true,
-      value: async () => {
-        throw new Error('denied')
-      },
-    })
+  it('queda en denied solo si la denegación es real', async () => {
+    rejectWith('SecurityError', 'Permission denied')
     render(
       <MidiProvider>
         <Probe />
@@ -167,5 +210,91 @@ describe('F6-033 — contexto MIDI compartido', () => {
     await waitFor(() =>
       expect(screen.getByTestId('status')).toHaveTextContent('denied'),
     )
+    expect(screen.getByTestId('failureKind')).toHaveTextContent(
+      'permission-denied',
+    )
+    expect(screen.getByTestId('failure')).toHaveTextContent(
+      'SecurityError:Permission denied',
+    )
+  })
+
+  it('muestra error con ayuda ante el complemento de Firefox', async () => {
+    const message = 'WebMIDI requires a site permission add-on to activate'
+    rejectWith('SecurityError', message)
+    render(
+      <MidiProvider>
+        <Probe />
+      </MidiProvider>,
+    )
+
+    fireEvent.click(screen.getByRole('button', { name: 'conectar' }))
+    await waitFor(() =>
+      expect(screen.getByTestId('status')).toHaveTextContent('error'),
+    )
+    expect(screen.getByTestId('failureKind')).toHaveTextContent(
+      'addon-required-or-no-device',
+    )
+    expect(screen.getByTestId('failure')).toHaveTextContent(message)
+  })
+
+  it('no trata un diálogo descartado como permiso denegado', async () => {
+    rejectWith('AbortError', 'Permission dismissed')
+    render(
+      <MidiProvider>
+        <Probe />
+      </MidiProvider>,
+    )
+
+    fireEvent.click(screen.getByRole('button', { name: 'conectar' }))
+    await waitFor(() =>
+      expect(screen.getByTestId('status')).toHaveTextContent('error'),
+    )
+    expect(screen.getByTestId('failureKind')).toHaveTextContent(
+      'permission-dismissed',
+    )
+  })
+
+  it('no fija denied al montar aunque Permissions API diga denied', async () => {
+    setPermissionState('denied')
+    render(
+      <MidiProvider>
+        <Probe />
+      </MidiProvider>,
+    )
+
+    await waitFor(() =>
+      expect(screen.getByTestId('permission')).toHaveTextContent('denied'),
+    )
+    expect(screen.getByTestId('status')).toHaveTextContent('idle')
+    expect((navigator.requestMIDIAccess as unknown as Mock).mock.calls).toHaveLength(0)
+  })
+
+  it('autoconecta solo cuando el permiso está concedido', async () => {
+    setPermissionState('granted')
+    render(
+      <MidiProvider>
+        <Probe />
+      </MidiProvider>,
+    )
+
+    await waitFor(() =>
+      expect(screen.getByTestId('status')).toHaveTextContent('listening'),
+    )
+  })
+
+  it('informa de la ausencia de API con el fallo tipado', async () => {
+    fake.restore()
+    render(
+      <MidiProvider>
+        <Probe />
+      </MidiProvider>,
+    )
+
+    fireEvent.click(screen.getByRole('button', { name: 'conectar' }))
+    await waitFor(() =>
+      expect(screen.getByTestId('failureKind')).toHaveTextContent('unsupported'),
+    )
+    expect(screen.getByTestId('failure')).toHaveTextContent('NotSupportedError:')
+    expect(screen.getByTestId('status')).toHaveTextContent('unsupported')
   })
 })
