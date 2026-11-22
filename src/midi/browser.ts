@@ -48,19 +48,28 @@ function isIOS(env: BrowserEnvironment): boolean {
 }
 
 export function detectBrowserFamily(env: BrowserEnvironment): MidiBrowserFamily {
+  const ua = env.userAgent
+  // Chrome incluye «Safari/» en su UA y expone `webkitAudioContext` por
+  // compatibilidad: esas dos señales solas no bastan para clasificar WebKit.
+  const brands = env.brands?.map((entry) => entry.brand).join(' ') ?? ''
+  const chromiumSignal =
+    env.hasChrome ||
+    /\b(chrome|chromium|crios|edg|edga|edgios|opr|vivaldi|samsungbrowser)\//i.test(
+      ua,
+    ) ||
+    /chrome|chromium|edge|opera|vivaldi|samsung/i.test(brands)
+
   // iOS usa WebKit en todos los navegadores, incluidos Chrome y Firefox.
-  if (env.hasChrome && !isIOS(env)) return 'chromium'
-  if (env.hasInstallTrigger || /\bfirefox\//i.test(env.userAgent)) {
-    return 'firefox'
-  }
-  if (
-    env.hasWebkitAudio ||
-    env.vendor === 'Apple Computer, Inc.' ||
-    /\bsafari\//i.test(env.userAgent)
-  ) {
+  if (chromiumSignal && !isIOS(env)) return 'chromium'
+  if (env.hasInstallTrigger || /\bfirefox\//i.test(ua)) return 'firefox'
+
+  const webkitSignal =
+    (env.vendor === 'Apple Computer, Inc.' && /\bsafari\//i.test(ua)) ||
+    (/\bsafari\//i.test(ua) && !chromiumSignal) ||
+    env.hasWebkitAudio
+  if (webkitSignal || isIOS(env)) {
     return isIOS(env) ? 'webkit-ios' : 'webkit-mac'
   }
-  if (isIOS(env)) return 'webkit-ios'
   return 'other'
 }
 

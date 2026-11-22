@@ -3298,3 +3298,63 @@ progress::-moz-progress-bar {
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.02em;
 }
+
+/* F7-016 — Ajustes, diagnóstico MIDI y estados vacíos o de error. */
+.settings-panel {
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--elev-1);
+}
+
+.settings-grid {
+  gap: var(--space-5) var(--space-4);
+}
+
+.midi-diagnostics {
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--bg-panel);
+  border-color: color-mix(in srgb, var(--primary) 16%, var(--border));
+  box-shadow: var(--elev-1);
+}
+
+.midi-diag-grid div {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid color-mix(in srgb, var(--primary) 12%, var(--border));
+  min-height: 4rem;
+}
+
+.midi-diag-grid dd {
+  overflow-wrap: anywhere;
+}
+
+.midi-diag-raw code {
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radius-xs);
+  background: var(--surface-container);
+}
+
+.midi-device-list li {
+  min-height: var(--touch-min);
+  border-radius: var(--radius-sm);
+}
+
+.error-panel {
+  padding: var(--space-4);
+  border: 1px solid var(--error);
+  border-radius: var(--radius-md);
+  background: var(--error-container);
+  color: var(--on-error-container);
+}
+
+.error-panel a {
+  color: inherit;
+}
+
+.review-empty,
+.course-empty {
+  padding: var(--space-5);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-container-low);
+}

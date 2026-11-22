@@ -156,6 +156,19 @@ describe('F7-003 — familia de navegador por características', () => {
     ).toBe('Vivaldi')
   })
 
+  it('un Chromium sin window.chrome no se confunde con WebKit', () => {
+    // El Chrome de Playwright no expone window.chrome, pero su UA contiene
+    // «Safari/» y el objeto webkitAudioContext; las dos señales solas engañan.
+    const playwrightChrome = env({
+      hasChrome: false,
+      vendor: 'Google Inc.',
+      userAgent:
+        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36',
+    })
+    expect(detectBrowserFamily(playwrightChrome)).toBe('chromium')
+    expect(browserLabel(playwrightChrome)).toBe('Chrome')
+  })
+
   it('elige el texto de bloqueo según la familia', () => {
     expect(blockedMessageKey('chromium')).toBe('midi.blocked.chromium')
     expect(blockedMessageKey('firefox')).toBe('midi.blocked.firefox')
