@@ -53,6 +53,11 @@ function showLesson(lessonId: string): void {
   fireEvent(window, new HashChangeEvent('hashchange'))
 }
 
+/** Abre la subpestaña de ejercicios del reproductor de la lección. */
+async function openExercises(): Promise<void> {
+  fireEvent.click(await screen.findByRole('tab', { name: 'Ejercicios' }))
+}
+
 async function expectNoSeriousViolations(container: HTMLElement): Promise<void> {
   const results = await axe.run(container, {
     runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa'] },
@@ -178,6 +183,7 @@ describe('F4-032 — Accesibilidad del análisis musical', () => {
 
       showLesson(analysisCase.lessonId)
       const { container } = render(<App databaseName={name} />)
+      await openExercises()
 
       const heading = await screen.findByRole('heading', {
         level: 3,
@@ -253,6 +259,7 @@ describe('F4-032 — Accesibilidad del análisis musical', () => {
 
     showLesson('lesson.m6-01')
     render(<App databaseName={name} />)
+    await openExercises()
 
     await screen.findByRole('heading', {
       level: 3,

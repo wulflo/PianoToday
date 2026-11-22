@@ -24,6 +24,7 @@ import {
 } from './router/hash-route'
 import { useHashRoute } from './router/useHashRoute'
 import { MidiProvider } from './midi/context'
+import { accentTokens } from './state/accent'
 import { ProgressProvider } from './state/progress-context'
 import { SettingsPersistence } from './state/settings-persistence'
 import { SettingsProvider, useSettings } from './state/settings'
@@ -76,8 +77,29 @@ function AppShell() {
   }, [settings.theme])
 
   useEffect(() => {
-    document.documentElement.style.setProperty('--accent', settings.accentColor)
-  }, [settings.accentColor])
+    const root = document.documentElement
+    const media =
+      typeof window.matchMedia === 'function'
+        ? window.matchMedia('(prefers-color-scheme: dark)')
+        : null
+
+    const applyAccent = () => {
+      const dark =
+        settings.theme === 'dark' ||
+        (settings.theme === 'system' && media?.matches === true)
+      const tokens = accentTokens(settings.accentColor, dark)
+      for (const [name, value] of Object.entries(tokens)) {
+        root.style.setProperty(name, value)
+      }
+    }
+
+    applyAccent()
+    if (settings.theme === 'system') {
+      media?.addEventListener('change', applyAccent)
+      return () => media?.removeEventListener('change', applyAccent)
+    }
+    return undefined
+  }, [settings.accentColor, settings.theme])
 
   useEffect(() => {
     document.title = `${t(routeTitleKey(route))} · Piano Today`

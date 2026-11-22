@@ -21,6 +21,7 @@ import { Keyboard } from './Keyboard'
 import { ExercisePlayer } from './ExercisePlayer'
 import { KeyboardTask } from './KeyboardTask'
 import { Staff } from './Staff'
+import { Tabs, type TabItem } from './Tabs'
 
 /**
  * Reproductor de una lección.
@@ -29,8 +30,10 @@ import { Staff } from './Staff'
  * pentagrama, y la tarea de teclado del contenido. Los ejemplos comparten un
  * único motor de audio para que reproducir uno detenga al anterior.
  *
- * La tarea de teclado se delega a `KeyboardTask`, que agrega diagrama,
- * digitación escrita, metrónomo, demo y lista de control marcable.
+ * El contenido se reparte en subpestañas (contenido, ejercicios y tarea) para
+ * que una lección larga no obligue a recorrer toda la página. La tarea de
+ * teclado se delega a `KeyboardTask`, que agrega diagrama, digitación escrita,
+ * metrónomo, demo y lista de control marcable.
  */
 
 export interface LessonPlayerProps {
@@ -76,6 +79,67 @@ export function LessonPlayer({ lesson }: LessonPlayerProps) {
   const exerciseSectionId = lesson.sections.find(
     (section) => section.kind === 'exercise',
   )?.id
+  const contentSections = lesson.sections.filter(
+    (section) => section.kind !== 'exercise',
+  )
+  const exerciseSections = lesson.sections.filter(
+    (section) => section.kind === 'exercise',
+  )
+  const standaloneExercises =
+    exerciseSectionId === undefined && lesson.exerciseIds.length > 0
+
+  const sectionView = (section: LessonSection) => (
+    <LessonSectionView
+      key={section.id}
+      section={section}
+      exerciseIds={section.id === exerciseSectionId ? lesson.exerciseIds : []}
+      engine={engine}
+      audio={audio}
+      activeNotes={audio.activeNotes}
+      onPlay={playTimeline}
+      onPlayMidis={playMidis}
+    />
+  )
+
+  const items: TabItem[] = []
+
+  if (contentSections.length > 0) {
+    items.push({
+      id: 'content',
+      label: t('tabs.lesson.content'),
+      content: <ol className="lesson-sections">{contentSections.map(sectionView)}</ol>,
+    })
+  }
+
+  if (exerciseSections.length > 0 || standaloneExercises) {
+    items.push({
+      id: 'exercises',
+      label: t('tabs.lesson.exercises'),
+      content: (
+        <ol className="lesson-sections">
+          {exerciseSections.map(sectionView)}
+          {standaloneExercises && (
+            <li className="lesson-section lesson-exercise">
+              <h2>{t('lesson.exercise.title')}</h2>
+              <ExercisePlayer
+                exerciseIds={lesson.exerciseIds}
+                engine={engine}
+                audio={audio}
+              />
+            </li>
+          )}
+        </ol>
+      ),
+    })
+  }
+
+  if (task !== undefined) {
+    items.push({
+      id: 'task',
+      label: t('tabs.lesson.task'),
+      content: <KeyboardTask task={task} engine={engine} audio={audio} />,
+    })
+  }
 
   return (
     <div className="lesson-player">
@@ -92,36 +156,10 @@ export function LessonPlayer({ lesson }: LessonPlayerProps) {
         )}
       </div>
 
-      <ol className="lesson-sections">
-        {lesson.sections.map((section) => (
-          <LessonSectionView
-            key={section.id}
-            section={section}
-            exerciseIds={
-              section.id === exerciseSectionId ? lesson.exerciseIds : []
-            }
-            engine={engine}
-            audio={audio}
-            activeNotes={audio.activeNotes}
-            onPlay={playTimeline}
-            onPlayMidis={playMidis}
-          />
-        ))}
-
-        {exerciseSectionId === undefined && lesson.exerciseIds.length > 0 && (
-          <li className="lesson-section lesson-exercise">
-            <h2>{t('lesson.exercise.title')}</h2>
-            <ExercisePlayer
-              exerciseIds={lesson.exerciseIds}
-              engine={engine}
-              audio={audio}
-            />
-          </li>
-        )}
-      </ol>
-
-      {task !== undefined && (
-        <KeyboardTask task={task} engine={engine} audio={audio} />
+      {items.length > 1 ? (
+        <Tabs label={t('tabs.lesson.label')} items={items} />
+      ) : (
+        items[0]?.content
       )}
     </div>
   )

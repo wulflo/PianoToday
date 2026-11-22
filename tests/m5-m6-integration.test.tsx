@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, beforeAll, describe, expect, it } from 'vitest'
 import { App } from '../src/App'
 import { LessonPlayer } from '../src/components/LessonPlayer'
@@ -260,6 +260,7 @@ describe('F4-028 — Reproductor de lección con ejercicios y tarea', () => {
       </SettingsProvider>,
     )
 
+    fireEvent.click(screen.getByRole('tab', { name: 'Ejercicios' }))
     expect(
       await screen.findByText('Ejercicio 1 de 12'),
     ).toBeInTheDocument()
@@ -272,6 +273,7 @@ describe('F4-028 — Reproductor de lección con ejercicios y tarea', () => {
     expect(
       screen.getByRole('button', { name: 'Escuchar acorde' }),
     ).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('tab', { name: 'Tarea de teclado' }))
     expect(
       screen.getByRole('heading', { level: 2, name: 'Tarea de teclado' }),
     ).toBeInTheDocument()
@@ -294,6 +296,7 @@ describe('F4-028 — Reproductor de lección con ejercicios y tarea', () => {
       </SettingsProvider>,
     )
 
+    fireEvent.click(screen.getByRole('tab', { name: 'Ejercicios' }))
     expect(
       await screen.findByText('Ejercicio 1 de 12'),
     ).toBeInTheDocument()
@@ -306,6 +309,7 @@ describe('F4-028 — Reproductor de lección con ejercicios y tarea', () => {
     expect(
       screen.getByRole('button', { name: 'Escuchar melodía completa' }),
     ).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('tab', { name: 'Tarea de teclado' }))
     expect(
       screen.getByRole('heading', { level: 2, name: 'Tarea de teclado' }),
     ).toBeInTheDocument()
@@ -325,6 +329,7 @@ describe('F4-028 — Reproductor de lección con ejercicios y tarea', () => {
       </SettingsProvider>,
     )
 
+    fireEvent.click(screen.getByRole('tab', { name: 'Ejercicios' }))
     expect(
       await screen.findByText('Ejercicio 1 de 4'),
     ).toBeInTheDocument()
@@ -338,6 +343,7 @@ describe('F4-028 — Reproductor de lección con ejercicios y tarea', () => {
     expect(
       screen.getByRole('button', { name: 'Escuchar acorde' }),
     ).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('tab', { name: 'Tarea de teclado' }))
     expect(
       screen.getByRole('heading', { level: 2, name: 'Tarea de teclado' }),
     ).toBeInTheDocument()
@@ -377,15 +383,11 @@ describe('F4-028 — Navegación completa de M5-M6', () => {
       ).toBeInTheDocument(),
     )
 
+    fireEvent.click(screen.getByRole('tab', { name: 'M5' }))
     const m5First = findCourseLesson('lesson.m5-01')!
     expect(
       screen.getByRole('link', { name: m5First.titleEs }),
     ).toHaveAttribute('href', lessonHash('lesson.m5-01'))
-
-    const m6First = findCourseLesson('lesson.m6-01')!
-    expect(
-      screen.getByRole('link', { name: m6First.titleEs }),
-    ).toHaveAttribute('href', lessonHash('lesson.m6-01'))
 
     // Las opcionales están disponibles, pero M6 no depende de ellas.
     for (const optionalId of M5_OPTIONAL_LESSON_IDS) {
@@ -396,6 +398,12 @@ describe('F4-028 — Navegación completa de M5-M6', () => {
       ).toHaveAttribute('href', lessonHash(optionalId))
     }
     expect(screen.getAllByText('Disponible · Opcional')).toHaveLength(2)
+
+    fireEvent.click(screen.getByRole('tab', { name: 'M6' }))
+    const m6First = findCourseLesson('lesson.m6-01')!
+    expect(
+      screen.getByRole('link', { name: m6First.titleEs }),
+    ).toHaveAttribute('href', lessonHash('lesson.m6-01'))
 
     // La ruta propone M6-01, la siguiente obligatoria, y no una opcional.
     expect(

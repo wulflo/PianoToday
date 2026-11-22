@@ -65,6 +65,11 @@ function showSettings(): void {
   fireEvent(window, new HashChangeEvent('hashchange'))
 }
 
+/** Abre la subpestaña de datos de la pantalla de ajustes. */
+async function openData(): Promise<void> {
+  fireEvent.click(await screen.findByRole('tab', { name: 'Datos' }))
+}
+
 beforeEach(() => {
   localStorage.clear()
   delete document.documentElement.dataset.theme
@@ -189,6 +194,7 @@ describe('F2-063 — Ajustes completos', () => {
       const name = uniqueDatabaseName()
       showSettings()
       render(<App databaseName={name} />)
+      await openData()
 
       fireEvent.change(await screen.findByLabelText('Notación'), {
         target: { value: 'do' },
@@ -256,6 +262,7 @@ describe('F2-063 — Ajustes completos', () => {
 
     showSettings()
     render(<App databaseName={name} />)
+    await openData()
 
     const input = (await screen.findByLabelText(
       'Elegir archivo .txt',
@@ -298,6 +305,7 @@ describe('F2-063 — Ajustes completos', () => {
 
     showSettings()
     render(<App databaseName={name} />)
+    await openData()
 
     const input = (await screen.findByLabelText(
       'Elegir archivo .txt',
@@ -326,6 +334,7 @@ describe('F2-063 — Ajustes completos', () => {
 
     showSettings()
     render(<App databaseName={name} />)
+    await openData()
 
     const action = await screen.findByRole('button', {
       name: 'Restablecer todo el progreso',

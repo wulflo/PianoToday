@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { App } from '../src/App'
 import { COURSE_MODULES, findCourseLesson } from '../src/content/course'
@@ -40,15 +40,26 @@ describe('F2-059 — Mapa visual del curso', () => {
       expect(screen.getByText(/0 de 79 lecciones/)).toBeInTheDocument(),
     )
 
-    expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(
-      COURSE_MODULES.length,
-    )
+    // Los nueve módulos se recorren con pestañas horizontales adosadas: solo
+    // el módulo activo está en el árbol de accesibilidad.
+    expect(screen.getAllByRole('tab')).toHaveLength(COURSE_MODULES.length)
     for (const module of COURSE_MODULES) {
+      fireEvent.click(screen.getByRole('tab', { name: module.id }))
       expect(
         screen.getByRole('heading', { level: 3, name: new RegExp(module.id) }),
       ).toBeInTheDocument()
     }
 
+    // M0 está disponible; M1–M8 bloqueados. Los paneles inactivos siguen en el
+    // DOM (ocultos), así que las consultas de texto ven el curso completo.
+    expect(screen.getAllByText('Disponible')).toHaveLength(2)
+    expect(screen.getAllByText('Bloqueado')).toHaveLength(8)
+    expect(screen.queryAllByText('Sin lecciones')).toHaveLength(0)
+    expect(screen.getAllByText('Bloqueada', { selector: '.lesson-status' }).length).toBe(72)
+    // La lección de ampliación se marca como opcional en el mapa.
+    expect(screen.getAllByText('Bloqueada · Opcional')).toHaveLength(6)
+
+    fireEvent.click(screen.getByRole('tab', { name: 'M0' }))
     const firstLesson = findCourseLesson('lesson.m0-01')!
     expect(
       screen.getByRole('link', { name: firstLesson.titleEs }),
@@ -63,14 +74,6 @@ describe('F2-059 — Mapa visual del curso', () => {
     expect(
       screen.queryByRole('link', { name: locked.titleEs }),
     ).not.toBeInTheDocument()
-
-    // M0 está disponible; M1–M8 bloqueados.
-    expect(screen.getAllByText('Disponible')).toHaveLength(2)
-    expect(screen.getAllByText('Bloqueado')).toHaveLength(8)
-    expect(screen.queryAllByText('Sin lecciones')).toHaveLength(0)
-    expect(screen.getAllByText('Bloqueada', { selector: '.lesson-status' }).length).toBe(72)
-    // La lección de ampliación se marca como opcional en el mapa.
-    expect(screen.getAllByText('Bloqueada · Opcional')).toHaveLength(6)
 
     expect(
       screen.getByRole('link', { name: 'Ver la demo de la Fase 1' }),
@@ -130,6 +133,7 @@ describe('F2-059 — Mapa visual del curso', () => {
     await waitFor(() =>
       expect(screen.getByText(/0 de 79 lecciones/)).toBeInTheDocument(),
     )
+    fireEvent.click(screen.getByRole('tab', { name: 'M8' }))
 
     expect(
       screen.getByRole('heading', { level: 4, name: 'Mapa de estilos' }),
@@ -168,6 +172,7 @@ describe('F2-059 — Mapa visual del curso', () => {
     await waitFor(() =>
       expect(screen.getByText(/4 de 79 lecciones/)).toBeInTheDocument(),
     )
+    fireEvent.click(screen.getByRole('tab', { name: 'M8' }))
 
     const entries = [
       { lessonId: 'lesson.m8-01', piece: 'Ciudad de neón' },

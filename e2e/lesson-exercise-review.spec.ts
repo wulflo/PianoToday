@@ -15,6 +15,7 @@ test('lección → ejercicio → repaso y persistencia tras recargar', async ({
   page,
 }) => {
   await page.goto('/#/leccion/lesson.m0-01')
+  await page.getByRole('tab', { name: 'Ejercicios' }).click()
 
   await expect(
     page.getByRole('heading', {

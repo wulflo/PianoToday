@@ -73,12 +73,19 @@ describe('F2-075 — Cambio de idioma en los componentes', () => {
       </SettingsProvider>,
     )
 
+    const openTab = (name: string) =>
+      fireEvent.click(screen.getByRole('tab', { name }))
+
     expect(
       await screen.findByRole('heading', { level: 2, name: 'Un mapa que se repite' }),
     ).toBeInTheDocument()
+
+    openTab('Tarea de teclado')
     expect(
       screen.getByRole('heading', { level: 3, name: 'Encontrá tres Do' }),
     ).toBeInTheDocument()
+
+    openTab('Ejercicios')
     expect(
       await screen.findByRole('heading', {
         level: 3,
@@ -89,19 +96,21 @@ describe('F2-075 — Cambio de idioma en los componentes', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Switch to English' }))
 
     expect(
-      await screen.findByRole('heading', { level: 2, name: 'A map that repeats' }),
-    ).toBeInTheDocument()
-    expect(
-      screen.getByRole('heading', { level: 3, name: 'Find three Cs' }),
-    ).toBeInTheDocument()
-    expect(
       await screen.findByRole('heading', {
         level: 3,
         name: 'Which note is the white key immediately to the left of a group of two black keys?',
       }),
     ).toBeInTheDocument()
+    expect(screen.getByRole('radio', { name: 'D' })).toBeInTheDocument()
+
+    openTab('Keyboard task')
     expect(
-      screen.getByRole('radio', { name: 'D' }),
+      screen.getByRole('heading', { level: 3, name: 'Find three Cs' }),
+    ).toBeInTheDocument()
+
+    openTab('Content')
+    expect(
+      screen.getByRole('heading', { level: 2, name: 'A map that repeats' }),
     ).toBeInTheDocument()
 
     fireEvent.click(screen.getByRole('button', { name: 'Cambiar a español' }))
@@ -109,6 +118,8 @@ describe('F2-075 — Cambio de idioma en los componentes', () => {
     expect(
       await screen.findByRole('heading', { level: 2, name: 'Un mapa que se repite' }),
     ).toBeInTheDocument()
+
+    openTab('Ejercicios')
     expect(
       screen.getByRole('heading', {
         level: 3,

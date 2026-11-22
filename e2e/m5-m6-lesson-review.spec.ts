@@ -64,6 +64,7 @@ test('M5: progresión, repaso y persistencia', async ({ page }) => {
 
   await markLessonCompleted(page, 'lesson.m5-04')
   await page.reload()
+  await page.getByRole('tab', { name: 'Ejercicios' }).click()
 
   await expect(
     page.getByRole('heading', {
@@ -94,6 +95,7 @@ test('M5: progresión, repaso y persistencia', async ({ page }) => {
   await page.reload()
   await page.goto('/#/leccion/lesson.m5-05')
   await expect(page.getByText('Lección completada.')).toBeVisible()
+  await page.getByRole('tab', { name: 'Ejercicios' }).click()
   await expect(
     page.getByRole('heading', {
       level: 3,
@@ -139,6 +141,7 @@ test('M6: análisis, repaso y persistencia', async ({ page }) => {
 
   await markLessonCompleted(page, 'lesson.m5-09')
   await page.reload()
+  await page.getByRole('tab', { name: 'Ejercicios' }).click()
 
   await expect(
     page.getByRole('heading', {
@@ -170,6 +173,7 @@ test('M6: análisis, repaso y persistencia', async ({ page }) => {
   await page.reload()
   await page.goto('/#/leccion/lesson.m6-01')
   await expect(page.getByText('Lección completada.')).toBeVisible()
+  await page.getByRole('tab', { name: 'Ejercicios' }).click()
   await expect(
     page.getByRole('heading', {
       level: 3,

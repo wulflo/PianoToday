@@ -1,5 +1,6 @@
 import { findCourseLesson } from '../content/course'
 import { StyleMap } from '../components/StyleMap'
+import { Tabs } from '../components/Tabs'
 import { DEMO_HASH, lessonHash, SONGS_HASH } from '../router/hash-route'
 import type { CourseModuleSummary } from '../state/course-progress'
 import { useCourseProgress } from '../state/use-course-progress'
@@ -90,11 +91,26 @@ export function CoursePage() {
       <section className="course-map" aria-labelledby="course-map-title">
         <h2 id="course-map-title">{t('course.map.title')}</h2>
         {status === 'ready' && summary !== null ? (
-          <ol className="module-list">
-            {summary.modules.map((module) => (
-              <ModuleCard key={module.id} module={module} english={english} />
-            ))}
-          </ol>
+          <Tabs
+            label={t('tabs.course.label')}
+            initialSelected={Math.max(
+              0,
+              summary.modules.findIndex((module) =>
+                module.lessons.some(
+                  (lesson) => lesson.id === summary.nextLessonId,
+                ),
+              ),
+            )}
+            items={summary.modules.map((module) => ({
+              id: module.id,
+              label: module.id,
+              content: (
+                <ol className="module-list">
+                  <ModuleCard module={module} english={english} />
+                </ol>
+              ),
+            }))}
+          />
         ) : status === 'error' ? (
           <p className="muted">{t('course.map.unavailable')}</p>
         ) : (

@@ -41,6 +41,11 @@ function showLesson(lessonId: string): void {
   fireEvent(window, new HashChangeEvent('hashchange'))
 }
 
+/** Abre la subpestaña de ejercicios del reproductor de la lección. */
+async function openExercises(): Promise<void> {
+  fireEvent.click(await screen.findByRole('tab', { name: 'Ejercicios' }))
+}
+
 async function expectNoSeriousViolations(container: HTMLElement): Promise<void> {
   const results = await axe.run(container, {
     runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa'] },
@@ -83,6 +88,7 @@ describe('F3-032 — Accesibilidad de los ejercicios auditivos', () => {
 
     showLesson('lesson.m3-05')
     const { container } = render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {
@@ -105,6 +111,7 @@ describe('F3-032 — Accesibilidad de los ejercicios auditivos', () => {
 
     showLesson('lesson.m4-10')
     const { container } = render(<App databaseName={name} />)
+    await openExercises()
 
     await screen.findByRole('heading', {
       level: 3,
@@ -146,6 +153,7 @@ describe('F3-032 — Accesibilidad de los ejercicios auditivos', () => {
 
     showLesson('lesson.m2-08')
     const { container } = render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {
@@ -171,6 +179,7 @@ describe('F3-032 — Accesibilidad de los ejercicios auditivos', () => {
 
     showLesson('lesson.m2-07')
     const { container } = render(<App databaseName={name} />)
+    await openExercises()
 
     await screen.findByRole('heading', {
       level: 3,
@@ -197,6 +206,7 @@ describe('F3-032 — Accesibilidad de los ejercicios auditivos', () => {
 
     showLesson('lesson.m3-05')
     render(<App databaseName={name} />)
+    await openExercises()
 
     await screen.findByRole('heading', {
       level: 3,

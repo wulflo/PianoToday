@@ -16,6 +16,7 @@ async function openSettings(page: import('@playwright/test').Page) {
   await expect(
     page.getByRole('heading', { level: 1, name: 'Ajustes' }),
   ).toBeVisible()
+  await page.getByRole('tab', { name: 'MIDI' }).click()
 }
 
 async function clickConnect(page: import('@playwright/test').Page) {

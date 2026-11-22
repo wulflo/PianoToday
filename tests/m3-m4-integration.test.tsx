@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { beforeAll, describe, expect, it } from 'vitest'
 import { LessonPlayer } from '../src/components/LessonPlayer'
 import {
@@ -197,6 +197,7 @@ describe('F3-029 — Reproductor de lección con ejercicios y tarea', () => {
       </SettingsProvider>,
     )
 
+    fireEvent.click(screen.getByRole('tab', { name: 'Ejercicios' }))
     expect(
       await screen.findByText('Ejercicio 1 de 12'),
     ).toBeInTheDocument()
@@ -209,6 +210,8 @@ describe('F3-029 — Reproductor de lección con ejercicios y tarea', () => {
     expect(
       screen.getByRole('button', { name: 'Escuchar intervalo' }),
     ).toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('tab', { name: 'Tarea de teclado' }))
     expect(
       screen.getByRole('heading', { level: 2, name: 'Tarea de teclado' }),
     ).toBeInTheDocument()
@@ -231,6 +234,7 @@ describe('F3-029 — Reproductor de lección con ejercicios y tarea', () => {
       </SettingsProvider>,
     )
 
+    fireEvent.click(screen.getByRole('tab', { name: 'Ejercicios' }))
     expect(
       await screen.findByText('Ejercicio 1 de 12'),
     ).toBeInTheDocument()
@@ -243,6 +247,8 @@ describe('F3-029 — Reproductor de lección con ejercicios y tarea', () => {
     expect(
       screen.getByRole('button', { name: 'Escuchar acorde' }),
     ).toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('tab', { name: 'Tarea de teclado' }))
     expect(
       screen.getByRole('heading', { level: 2, name: 'Tarea de teclado' }),
     ).toBeInTheDocument()

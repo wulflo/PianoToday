@@ -31,6 +31,11 @@ function showLesson(lessonId: string): void {
   fireEvent(window, new HashChangeEvent('hashchange'))
 }
 
+/** Abre la subpestaña de ejercicios del reproductor de la lección. */
+async function openExercises(): Promise<void> {
+  fireEvent.click(await screen.findByRole('tab', { name: 'Ejercicios' }))
+}
+
 /**
  * Selecciona la respuesta y pulsa «Corregir» cuando el botón está habilitado.
  *
@@ -69,6 +74,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
     const name = uniqueDatabaseName()
     showLesson('lesson.m0-01')
     render(<App databaseName={name} />)
+    await openExercises()
 
     const firstPrompt = await screen.findByRole('heading', {
       level: 3,
@@ -111,6 +117,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
     const name = uniqueDatabaseName()
     showLesson('lesson.m0-01')
     render(<App databaseName={name} />)
+    await openExercises()
 
     await screen.findByRole('heading', { level: 3, name: /grupo de dos teclas negras/ })
 
@@ -161,6 +168,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m3-04')
     render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {
@@ -189,6 +197,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m7-02')
     render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {
@@ -221,6 +230,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m7-03')
     render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {
@@ -254,6 +264,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m7-04')
     render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {
@@ -288,6 +299,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m7-05')
     render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {
@@ -325,6 +337,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m7-06')
     render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {
@@ -361,6 +374,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m7-07')
     render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {
@@ -398,6 +412,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m7-08')
     render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {
@@ -436,6 +451,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m7-09')
     render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {
@@ -472,6 +488,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m3-05')
     render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {
@@ -533,6 +550,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m3-05')
     render(<App databaseName={name} />)
+    await openExercises()
 
     await screen.findByRole('heading', {
       level: 3,
@@ -594,6 +612,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m4-03')
     render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {
@@ -642,6 +661,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m4-10')
     render(<App databaseName={name} />)
+    await openExercises()
 
     await screen.findByRole('heading', {
       level: 3,
@@ -711,6 +731,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m2-08')
     render(<App databaseName={name} />)
+    await openExercises()
 
     await screen.findByRole('heading', {
       level: 3,
@@ -769,6 +790,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m2-07')
     render(<App databaseName={name} />)
+    await openExercises()
 
     await screen.findByRole('heading', {
       level: 3,
@@ -879,6 +901,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m7-10')
     render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {
@@ -996,6 +1019,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m7-11')
     render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {
@@ -1037,6 +1061,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m8-01')
     render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {
@@ -1068,6 +1093,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m8-02')
     render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {
@@ -1100,6 +1126,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m8-03')
     render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {
@@ -1133,6 +1160,7 @@ describe('F2-072a — Reproductor de ejercicios', () => {
 
     showLesson('lesson.m8-04')
     render(<App databaseName={name} />)
+    await openExercises()
 
     expect(
       await screen.findByRole('heading', {

@@ -54,6 +54,7 @@ test('M3: lección, error con «Recordá», repaso y persistencia', async ({
 
   await markLessonCompleted(page, 'lesson.m2-12')
   await page.reload()
+  await page.getByRole('tab', { name: 'Ejercicios' }).click()
 
   await expect(
     page.getByRole('heading', {

@@ -104,6 +104,8 @@ describe('F2-060 — Reproductor de lección', () => {
     expect(
       screen.getByRole('heading', { level: 2, name: 'El mismo patrón en el pentagrama' }),
     ).toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('tab', { name: 'Tarea de teclado' }))
     expect(
       screen.getByRole('heading', { level: 2, name: 'Tarea de teclado' }),
     ).toBeInTheDocument()
@@ -118,6 +120,7 @@ describe('F2-060 — Reproductor de lección', () => {
     ).toBeInTheDocument()
     expect(screen.getAllByRole('checkbox')).toHaveLength(3)
 
+    fireEvent.click(screen.getByRole('tab', { name: 'Contenido' }))
     expect(screen.getAllByRole('button', { name: 'Escuchar ejemplo' }).length).toBeGreaterThan(0)
 
     // La lección disponible se marca en curso al abrirla.

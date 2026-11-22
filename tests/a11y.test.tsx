@@ -335,6 +335,8 @@ describe('accesibilidad de la app', () => {
         screen.getByRole('heading', { level: 1, name: 'Ajustes' }),
       ).toBeInTheDocument(),
     )
+    expect(screen.getByLabelText('Tema')).toBeInTheDocument()
+    fireEvent.click(await screen.findByRole('tab', { name: 'Datos' }))
     await waitFor(() =>
       expect(screen.getByLabelText('Elegir archivo .txt')).toBeEnabled(),
     )
@@ -350,7 +352,6 @@ describe('accesibilidad de la app', () => {
     expect(
       serious.map((violation) => `${violation.id}: ${violation.help}`),
     ).toEqual([])
-    expect(screen.getByLabelText('Tema')).toBeInTheDocument()
     expect(
       screen.getByRole('heading', { level: 2, name: 'Gestión de datos' }),
     ).toBeInTheDocument()
