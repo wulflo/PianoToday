@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-020
-- **Última verificada en verde:** F7-019 (`0398743`, 2026-11-22T05:15:10-03:00)
-- **Actualizado:** 2026-11-22T05:25:20-03:00
-- **Fase:** F7 — ampliación posterior al cierre: inventario dedicado de licencias de dependencias
-- **Nota:** F7 se cerró y se pusheó a `main`; el workflow `Deploy a GitHub Pages` se ejecutó por el push. El usuario pidió además un documento específico con las licencias de **todas** las dependencias, así que se abre F7-020. El PUNTO volverá a F6-054 al cerrarla; esa tarea solo la cierra el usuario con su reporte de hardware, Safari, iOS y Android.
+- **Tarea actual:** F6-054
+- **Última verificada en verde:** F7-020 (`1de0c03`, 2026-11-22T05:29:33-03:00)
+- **Actualizado:** 2026-11-22T05:29:33-03:00
+- **Fase:** F7 completada (20 tareas: 19 cerradas y F7-009 descartada)
+- **Nota:** F7 se pusheó a `main` (`origin/main`) y el workflow `Deploy a GitHub Pages` terminó en verde (run `45002514740`: build/test + publicación). F7-020 añade `docs/DEPENDENCIAS-LICENCIAS.md` con 599 paquetes y su generador reproducible. El PUNTO vuelve a **F6-054**, que solo cierra el usuario con su reporte de hardware, Safari, iOS y Android. Sin tags ni releases.
 
 ## LEYENDA
 
@@ -1781,11 +1781,12 @@ Quedó funcionando:
   - Progreso (2026-11-22T05:15:10-03:00): ✔ RESUME, CHANGELOG, ENTORNO y DECISIONES actualizados · ✔ entrada final en LOG · ✔ `npm run estado` en verde y ESTADO regenerado · ✔ PUNTO devuelto a F6-054, sin tags ni push
   - Archivos tocados: docs/RESUME.md, CHANGELOG.md, docs/ENTORNO.md, docs/LOG.md, docs/ESTADO.md, docs/CHECKLIST.md
   - Commit: 0398743 · 2026-11-22T05:15:10-03:00
-- [~] **F7-020** — Documento dedicado con las licencias de todas las dependencias
+- [x] **F7-020** — Documento dedicado con las licencias de todas las dependencias
   - Aceptación: `docs/DEPENDENCIAS-LICENCIAS.md` generado de forma reproducible desde `package-lock.json`, con nombre, versión, licencia, ámbito (producción/desarrollo/transitiva) y enlace de procedencia para cada paquete; un test comprueba que cubre todo el lockfile; `THIRD_PARTY_LICENSES.md` y `npm run audit:licenses` siguen en verde.
   - Deps: F7-019 · Red: no
-  - Progreso (2026-11-22T05:28:57-03:00): ✔ generador reproducible y documento con 599 paquetes (42 producción, 557 desarrollo) · ✔ test de cobertura, resumen y ámbitos · ✔ `audit:licenses` en verde · ✔ 1848 tests, build y budget (277,60 kB gzip) en verde · ◻ cierre, docs y push
-  - Archivos tocados: docs/DEPENDENCIAS-LICENCIAS.md, scripts/generate-dependency-licenses.mjs, tests/dependency-licenses.test.ts, package.json, docs/CHECKLIST.md
+  - Progreso (2026-11-22T05:28:57-03:00): ✔ generador reproducible y documento con 599 paquetes (42 producción, 557 desarrollo) · ✔ test de cobertura, resumen y ámbitos · ✔ `audit:licenses` en verde · ✔ 1848 tests, build y budget (277,60 kB gzip) en verde · ✔ cierre, docs y push
+  - Archivos tocados: docs/DEPENDENCIAS-LICENCIAS.md, scripts/generate-dependency-licenses.mjs, tests/dependency-licenses.test.ts, package.json, docs/CHECKLIST.md, docs/RESUME.md, docs/ENTORNO.md, CHANGELOG.md, docs/LOG.md
+  - Commit: 1de0c03 · 2026-11-22T05:29:33-03:00
 
 ## RESUMEN POR FASE
 

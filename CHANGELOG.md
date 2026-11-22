@@ -10,14 +10,15 @@ Formato basado en Keep a Changelog. El proyecto usa tags anotados `fase-N`, publ
 - Flujos de permiso por familia: confirmación previa al pedir acceso, ayuda verificada para Chromium, complemento de permiso del sitio en Firefox con «Volver a buscar dispositivos», guía opcional de extensión de terceros en Safari macOS y aviso de que iOS/iPadOS no tiene Web MIDI. El fallback con teclado virtual y autoevaluación manual sigue intacto.
 - Diagnóstico MIDI con navegador, contexto seguro y fallo real, más un botón «Copiar informe de diagnóstico» en texto plano sin datos personales. Los mensajes que antes mencionaban solo a Chrome se sustituyeron por ayuda por familia en ES y EN.
 - Rediseño visual con paleta cálida (papel, verde profundo y terracota), pila del sistema, espaciado 4/8, radios y elevaciones suaves, micro-celebración al acertar, foco visible, objetivos táctiles de 44 px y movimiento reducido; `theme-color` y manifiesto actualizados.
-- Documentación nueva: `docs/DIAGNOSTICO-MIDI.md`, ADR-048 a ADR-050 y QA visual con 36 capturas en Chromium y Firefox.
+- Documentación nueva: `docs/DIAGNOSTICO-MIDI.md`, ADR-048 a ADR-050, QA visual con 36 capturas en Chromium y Firefox y `docs/DEPENDENCIAS-LICENCIAS.md` (599 paquetes con licencia, ámbito y procedencia, generado por `npm run licenses:dependencies`).
 
 ### Estado
 
-- 262 archivos / 1844 tests en verde, incluidos axe y los nuevos tests de MIDI, permisos y metadatos; typecheck, contenido, build y presupuesto verdes.
-- JS inicial 277,57 kB gzip (< 300 kB) y 843 chunks diferidos. E2E: 8/8 en Chromium y 7/7 en Firefox; 36 capturas de QA visual sin errores de página.
+- 263 archivos / 1848 tests en verde, incluidos axe y los nuevos tests de MIDI, permisos, metadatos y licencias; typecheck, contenido, build y presupuesto verdes.
+- JS inicial 277,60 kB gzip (< 300 kB) y 843 chunks diferidos. E2E: 8/8 en Chromium y 7/7 en Firefox; 36 capturas de QA visual sin errores de página.
+- Push a `main` autorizado y workflow `Deploy a GitHub Pages` en verde (run `45002514740`: verificación, build y publicación). Sin tags ni releases.
 - F7-009 quedó descartada (`[-]`) por ADR-049: el teclado virtual ya soporta teclas del ordenador y conectarlas al canal MIDI duplicaría notas.
-- Limitaciones: WebKit y Safari reales, iOS, Android y el teclado Yamaha PSR-373 físico siguen sin verificación; `git bisect` no fue posible con el historial importado. Sin tags ni releases de F7 y sin push.
+- Limitaciones: WebKit y Safari reales, iOS, Android y el teclado Yamaha PSR-373 físico siguen sin verificación; `git bisect` no fue posible con el historial importado. Sin tags ni releases de F7; el push y el despliegue sí se ejecutaron con autorización.
 
 ## [Fase 6] — 2026-11-14 (tag `fase-6`)
 

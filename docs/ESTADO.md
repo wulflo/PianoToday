@@ -2,16 +2,16 @@
 
 > Generado automáticamente por `npm run estado`. No editar a mano.
 
-- **Generado:** 2026-11-22T08:20:21.451Z
+- **Generado:** 2026-11-22T08:32:47.659Z
 - **Rama:** main
-- **HEAD:** 6372296
-- **Cambios sin commitear:** no
+- **HEAD:** 1de0c03
+- **Cambios sin commitear:** sí
 
 ## Punto de reanudación
 
 - **Tarea actual:** `F6-054` — Documentar las pruebas manuales pendientes
-- **Última verificada:** `F7-019` (`0398743`)
-- **Nota:** F7 cerrada: 18 tareas completadas y F7-009 descartada por ADR-049. RESUME, CHANGELOG, ENTORNO, DECISIONES (ADR-048 a ADR-050), LOG y ESTADO actualizados; 262 archivos / 1844 tests, build y presupuesto 277,57 kB gzip en verde; E2E Chromium 8/8 y Firefox 7/7; 36 capturas de QA visual sin errores. El PUNTO vuelve a **F6-054**, que solo cierra el usuario con su reporte de hardware, Safari, iOS y Android. No hay tags ni push de F7.
+- **Última verificada:** `F7-020` (`1de0c03`)
+- **Nota:** F7 se pusheó a `main` (`origin/main`) y el workflow `Deploy a GitHub Pages` terminó en verde (run `45002514740`: build/test + publicación). F7-020 añade `docs/DEPENDENCIAS-LICENCIAS.md` con 599 paquetes y su generador reproducible. El PUNTO vuelve a **F6-054**, que solo cierra el usuario con su reporte de hardware, Safari, iOS y Android. Sin tags ni releases.
 
 ## Progreso
 
@@ -24,21 +24,21 @@
 | F4 | 33 | 33 | 100.0 % | `[############]` |
 | F5 | 51 | 51 | 100.0 % | `[############]` |
 | F6 | 52 | 55 | 94.5 % | `[###########-]` |
-| F7 | 18 | 19 | 94.7 % | `[###########-]` |
-| **Total** | **323** | **327** | **98.8 %** | `[############]` |
+| F7 | 19 | 20 | 95.0 % | `[###########-]` |
+| **Total** | **324** | **328** | **98.8 %** | `[############]` |
 
 ## Verificaciones
 
 | Paso | Resultado | Tiempo |
 |---|---|---:|
-| `typecheck` | OK | 1.6s |
-| `test` | OK | 60.0s |
-| `build` | OK | 4.9s |
+| `typecheck` | OK | 1.8s |
+| `test` | OK | 59.5s |
+| `build` | OK | 5.0s |
 
 ## Tareas
 
 - Pendientes: 1
 - En curso: 0
-- Hechas: 323
+- Hechas: 324
 - Rotas/bloqueadas: 0
 - Descartadas: 3
