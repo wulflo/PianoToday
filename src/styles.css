@@ -3239,3 +3239,62 @@ progress::-moz-progress-bar {
     opacity: 1;
   }
 }
+
+/* F7-015 — teclado táctil, pentagrama legible y tarjetas de práctica. */
+.keyboard-keys {
+  height: clamp(10rem, 20vw, 12.5rem);
+  border-color: color-mix(in srgb, var(--primary) 20%, var(--border));
+  border-radius: var(--radius-lg);
+  box-shadow: var(--elev-2);
+}
+
+.piano-key-white,
+.piano-key-black {
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+}
+
+.piano-key-black {
+  box-shadow: 0 4px 0 var(--piano-black-shadow), var(--elev-1);
+}
+
+.piano-key:focus-visible {
+  outline-offset: -3px;
+}
+
+@media (pointer: coarse) {
+  .keyboard-keys {
+    height: 12rem;
+  }
+}
+
+.staff-scroll {
+  border-color: color-mix(in srgb, var(--primary) 18%, var(--border));
+  border-radius: var(--radius-md);
+  box-shadow: var(--elev-1);
+}
+
+.practice-block,
+.review-item,
+.stat-card {
+  transition:
+    box-shadow var(--motion-base) var(--ease-out),
+    border-color var(--motion-base) var(--ease-out);
+}
+
+.practice-block:hover,
+.review-item:hover,
+.stat-card:hover {
+  border-color: color-mix(in srgb, var(--primary) 35%, var(--border));
+  box-shadow: var(--elev-2);
+}
+
+.review-rating,
+.practice-duration {
+  min-height: var(--touch-min);
+  border-radius: var(--radius-md);
+}
+
+.stat-value {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
