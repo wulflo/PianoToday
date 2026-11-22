@@ -3103,3 +3103,139 @@ progress::-moz-progress-bar {
     font-size: 0.875rem;
   }
 }
+
+/* F7-014 — mapa del curso y reproductores: tarjetas cálidas y jerarquía clara. */
+.hero {
+  box-shadow: var(--elev-1);
+}
+
+.course-overview,
+.module-card,
+.lesson-section,
+.exercise-card,
+.lesson-completion {
+  border-color: color-mix(in srgb, var(--primary) 14%, var(--border));
+  box-shadow: var(--elev-1);
+}
+
+.module-card {
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  transition:
+    box-shadow var(--motion-base) var(--ease-out),
+    transform var(--motion-base) var(--ease-out);
+}
+
+.module-card:hover {
+  box-shadow: var(--elev-2);
+  transform: translateY(-2px);
+}
+
+.module-heading h3 {
+  font-size: 1.15rem;
+  letter-spacing: -0.015em;
+}
+
+.module-code {
+  border-radius: var(--radius-xs);
+  padding: 0.15rem 0.45rem;
+  background: var(--surface-container);
+  color: var(--on-primary-container);
+  font-size: 0.8rem;
+}
+
+.lesson-row {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-panel);
+  transition:
+    background-color var(--motion-fast) var(--ease-out),
+    border-color var(--motion-fast) var(--ease-out);
+}
+
+.lesson-row:hover {
+  border-color: var(--primary);
+  background: var(--surface-container-low);
+}
+
+.lesson-row a {
+  min-height: var(--touch-min);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.lesson-status {
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  font-size: 0.8rem;
+}
+
+.lesson-player {
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* El pentagrama tiene un ancho intrínseco grande: sin esto el grid se sale
+   del contenedor en pantallas estrechas. */
+.lesson-player > *,
+.exercise-player > * {
+  min-width: 0;
+}
+
+.lesson-section {
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    135deg,
+    var(--bg-panel),
+    var(--surface-container-low)
+  );
+}
+
+.lesson-section h2 {
+  font-size: 1.25rem;
+  letter-spacing: -0.015em;
+}
+
+.exercise-player {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.exercise-card {
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+}
+
+.exercise-card:focus-within {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.exercise-choice {
+  min-height: var(--touch-min);
+  border-radius: var(--radius-md);
+  transition: background-color var(--motion-fast) var(--ease-out);
+}
+
+.exercise-feedback.is-correct {
+  border-radius: var(--radius-md);
+  background: var(--success-container);
+  color: var(--on-success-container);
+  /* Micro-celebración: un pulso breve al acertar, sin librerías. */
+  animation: f7-correct var(--motion-slow) var(--ease-out);
+}
+
+@keyframes f7-correct {
+  from {
+    transform: scale(0.98);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
