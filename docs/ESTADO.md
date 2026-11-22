@@ -2,10 +2,10 @@
 
 > Generado automáticamente por `npm run estado`. No editar a mano.
 
-- **Generado:** 2026-11-22T08:16:21.734Z
+- **Generado:** 2026-11-22T08:18:00.789Z
 - **Rama:** main
-- **HEAD:** 0398743
-- **Cambios sin commitear:** sí
+- **HEAD:** 59ba2f3
+- **Cambios sin commitear:** no
 
 ## Punto de reanudación
 
@@ -31,9 +31,9 @@
 
 | Paso | Resultado | Tiempo |
 |---|---|---:|
-| `typecheck` | OK | 1.8s |
-| `test` | OK | 57.3s |
-| `build` | OK | 4.9s |
+| `typecheck` | OK | 1.5s |
+| `test` | OK | 54.1s |
+| `build` | OK | 4.8s |
 
 ## Tareas
 
