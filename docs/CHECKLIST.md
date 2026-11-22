@@ -1739,6 +1739,8 @@ Quedó funcionando:
 - [~] **F7-013** — Rediseñar el shell
   - Aceptación: cabecera, navegación (`NAV_ITEMS` en `src/router/hash-route.ts`), barra de estado MIDI y avisos rediseñados, con versión móvil cuidada; axe sin violaciones nuevas y textos en ES y EN.
   - Deps: F7-012 · Red: no
+  - Progreso (2026-11-22T04:42:43-03:00): ✔ paleta ADR-050 aplicada a los tres bloques de tema · ✔ cabecera con icono SVG, nav táctil, barra MIDI y avisos · ✔ capturas 1280/390 claro y oscuro revisadas · ✔ 1839 tests (axe incluido), build y budget (277,52 kB gzip) en verde · ◻ cierre con hash y LOG
+  - Archivos tocados: src/styles.css, src/App.tsx, docs/CHECKLIST.md
 - [ ] **F7-014** — Rediseñar mapa del curso y lecciones
   - Aceptación: `CoursePage`, `LessonPlayer` y `ExercisePlayer` rediseñados sin tocar el contenido de lecciones ni ejercicios; navegación y foco accesibles y textos en ES y EN.
   - Deps: F7-013 · Red: no
