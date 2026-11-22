@@ -47,6 +47,21 @@ PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1 npx playwright test --project=webki
    garantiza que `requestMIDIAccess()` resuelva; el E2E usa un acceso simulado
    para comprobar la autoconexión y comprueba el rechazo con un mock.
 
+## QA visual de F7-018 (2026-11-22)
+
+- Matriz ejecutada: 3 anchos (360, 768 y 1280 px) × 2 temas (claro y oscuro) ×
+  2 navegadores (Chromium 158 y Firefox 159) × 3 pantallas (curso, lección y
+  ajustes) = **36 capturas** en `test-results/qa-visual/` (ignorado por git).
+- Mediante `pageerror` se registraron **0 errores de página** en las 36
+  combinaciones (`test-results/qa-visual/errores.json`).
+- Revisión visual: en 360 px la navegación se desplaza horizontalmente y los
+  botones se apilan; en 768 y 1280 px la jerarquía y las tarjetas se mantienen;
+  el tema oscuro conserva contraste y el pentagrama sigue sobre papel claro.
+- axe no reporta violaciones nuevas en los tests de componente, y
+  `npm run budget` queda en verde con 277,57 kB gzip iniciales.
+- WebKit no se capturó: el binario no arranca por falta de `libicudata.so.74`
+  (ver incidencia 1).
+
 ## Pendiente
 
 - Safari real en macOS y las pruebas en iOS/Android (F6-028, F6-029 y P3-P5 de
