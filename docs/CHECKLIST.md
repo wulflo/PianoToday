@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-017
-- **Última verificada en verde:** F7-016 (`e49a0a4`, 2026-11-22T05:01:06-03:00)
-- **Actualizado:** 2026-11-22T05:01:06-03:00
+- **Tarea actual:** F7-018
+- **Última verificada en verde:** F7-017 (`0097273`, 2026-11-22T05:05:42-03:00)
+- **Actualizado:** 2026-11-22T05:05:42-03:00
 - **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa C: rediseño visual)
-- **Nota:** Ajustes y diagnóstico ya usan superficies cálidas; las capturas revelaron que el Chrome de Playwright se clasificaba como WebKit y se corrigió con un test de regresión. Ahora F7-017 revisa tema oscuro, movimiento reducido, foco, objetivos táctiles y metadatos (`theme-color` y manifiesto). F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
+- **Nota:** Metadatos de tema, foco y movimiento reducido actualizados con tests propios. Ahora F7-018 hace QA visual con capturas en 360/768/1280 px, claro y oscuro, en Chromium y Firefox, y confirma axe y presupuesto. WebKit sigue sin ejecutarse por el host. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
 
 ## LEYENDA
 
@@ -1760,10 +1760,13 @@ Quedó funcionando:
   - Progreso (2026-11-22T05:01:06-03:00): ✔ ajustes y panel MIDI con superficies y rejilla de diagnóstico renovadas · ✔ estados vacíos y de error con contenedor tonal · ✔ detección de Chromium corregida (UA con «Safari/» ya no se clasifica como WebKit) · ✔ 1840 tests, typecheck, build y budget (277,57 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: src/styles.css, src/midi/browser.ts, tests/midi-browser.test.ts, docs/CHECKLIST.md, docs/LOG.md
   - Commit: e49a0a4 · 2026-11-22T05:01:06-03:00
-- [~] **F7-017** — Tema oscuro, movimiento reducido y accesibilidad
+- [x] **F7-017** — Tema oscuro, movimiento reducido y accesibilidad
   - Aceptación: tema oscuro validado, `prefers-reduced-motion`, foco visible y objetivos táctiles ≥ 44 px; `theme-color` y manifiesto actualizados; axe sin violaciones nuevas.
   - Deps: F7-012, F7-013, F7-014, F7-015, F7-016 · Red: no
-- [ ] **F7-018** — QA visual
+  - Progreso (2026-11-22T05:05:03-03:00): ✔ `theme-color` claro y oscuro y manifiesto actualizados · ✔ foco de 3 px y objetivos de 44 px en botones y campos · ✔ movimiento reducido sin transformaciones ni animación de acierto · ✔ 1844 tests (axe incluido), build y budget (277,57 kB gzip) en verde · ✔ cierre con hash y LOG
+  - Archivos tocados: index.html, public/manifest.webmanifest, src/styles.css, tests/f7-theme-metadata.test.ts, docs/CHECKLIST.md, docs/LOG.md
+  - Commit: 0097273 · 2026-11-22T05:05:42-03:00
+- [~] **F7-018** — QA visual
   - Aceptación: capturas Playwright a 360, 768 y 1280 px, claro y oscuro, en Chromium y Firefox (WebKit si el host lo permite), guardadas fuera del repo o en `test-results/`; axe sin violaciones nuevas; `npm run budget` en verde.
   - Deps: F7-017 · Red: no
 

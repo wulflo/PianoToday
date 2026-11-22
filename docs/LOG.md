@@ -2615,3 +2615,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: el texto de error sobre fondo `error-container` usa `on-error-container` para conservar contraste; los datos del diagnóstico permiten cortar mensajes largos sin desbordar la tarjeta.
 - Limitaciones: la corrección de detección se validó con el UA de Playwright y con tests unitarios, no en Edge, Brave, Opera, Vivaldi ni Samsung reales. Sin lector de pantalla ni pantalla táctil física.
 - Próximo paso: F7-017 — verificar tema oscuro, `prefers-reduced-motion`, foco, objetivos táctiles y actualizar `theme-color` y el manifiesto.
+
+## 2026-11-22T05:05:42-03:00 · F7-017
+
+- Acción: se actualizaron `theme-color` en `index.html` (claro y variante oscura por `prefers-color-scheme`) y los colores del manifiesto al papel cálido de ADR-050. Se reforzó el foco visible a 3 px, se dieron objetivos mínimos de 44 px a botones y campos (con excepción de las teclas del piano, que ya tienen un área vertical amplia) y se desactivaron el desplazamiento al pasar el cursor y la micro-celebración con `prefers-reduced-motion`. Se añadió `tests/f7-theme-metadata.test.ts`.
+- Resultado: typecheck OK; **262 archivos / 1844 tests** en verde, incluidos axe y el nuevo test de metadatos; build OK; presupuesto 277,57 kB gzip (< 300 kB). Commit `0097273`.
+- Correcciones: la regla genérica de `min-height` para botones habría forzado también a las teclas del piano, así que se excluyeron explícitamente para conservar su layout de teclado.
+- Limitaciones: `theme-color` oscuro responde al esquema del sistema, no al selector manual de tema dentro de la app; no se probó en lector de pantalla ni con pantalla táctil real.
+- Próximo paso: F7-018 — capturas a 360, 768 y 1280 px en claro y oscuro con Chromium y Firefox, axe y presupuesto.
