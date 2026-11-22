@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-010
-- **Última verificada en verde:** F7-008 (`0e8f9af`, 2026-11-22T04:03:34-03:00)
-- **Actualizado:** 2026-11-22T04:05:35-03:00
+- **Tarea actual:** F7-011
+- **Última verificada en verde:** F7-010 (`ef48626`, 2026-11-22T04:20:58-03:00)
+- **Actualizado:** 2026-11-22T04:20:58-03:00
 - **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa B: corrección y compatibilidad)
-- **Nota:** F7-009 se descartó con ADR-049: el teclado virtual ya soporta teclas del ordenador con mapa configurable y conectarlas al canal MIDI duplicaría notas. La última `[x]` sigue siendo F7-008 porque la descartada no cuenta como verificada en verde. Ahora F7-010 sustituye los textos solo-Chrome del diagnóstico y añade el informe copiable. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
+- **Nota:** El diagnóstico muestra navegador, contexto seguro y `failure.name/message` reales, con informe copiable sin datos personales; los avisos ya no mencionan solo a Chrome. F7-009 quedó descartada por ADR-049. Sigue F7-011: cubrir con tests y E2E lo verificable y actualizar los documentos de pruebas y QA con lo realmente comprobado. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
 
 ## LEYENDA
 
@@ -1715,12 +1715,13 @@ Quedó funcionando:
   - Progreso (2026-11-22T04:04:49-03:00): ✔ revisado el soporte existente en `Keyboard.tsx` y Settings · ✔ ADR-049 con la decisión · ✔ cierre con razón en la tarea
   - Archivos tocados: docs/DECISIONES.md, docs/CHECKLIST.md, docs/LOG.md
   - Descartada: c35431a · 2026-11-22T04:05:35-03:00 · ADR-049: el teclado virtual ya tiene teclas de ordenador configurables; unirlas al canal MIDI duplicaría notas con el teclado visible y exigiría un cambio transversal. El total no cambia porque el formato cuenta las tareas `[-]`.
-- [~] **F7-010** — Diagnóstico y textos por navegador
+- [x] **F7-010** — Diagnóstico y textos por navegador
   - Aceptación: `MidiDiagnostics` muestra navegador detectado, contexto seguro, estado del permiso y `failure.name`/`failure.message` reales, con botón «Copiar informe de diagnóstico» en texto plano y sin datos personales; los mensajes solo-Chrome se reemplazan por ayuda según familia en ES y EN.
   - Deps: F7-006, F7-007, F7-008 · Red: no
-  - Progreso (2026-11-22T04:20:36-03:00): ✔ diagnóstico con navegador, contexto seguro y fallo real · ✔ botón «Copiar informe de diagnóstico» en texto plano · ✔ mensajes bloqueados por familia y sin menciones a Chrome en ES/EN · ✔ 1833 tests, typecheck, build y budget (277,39 kB gzip) en verde · ◻ cierre con hash y LOG
+  - Progreso (2026-11-22T04:20:36-03:00): ✔ diagnóstico con navegador, contexto seguro y fallo real · ✔ botón «Copiar informe de diagnóstico» en texto plano · ✔ mensajes bloqueados por familia y sin menciones a Chrome en ES/EN · ✔ 1833 tests, typecheck, build y budget (277,39 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: src/components/MidiDiagnostics.tsx, src/components/MidiSupportNotice.tsx, src/components/MidiStatusBar.tsx, src/midi/browser.ts, src/state/settings.tsx, tests/midi-browser.test.ts, tests/midi-diagnostics-copy.test.tsx, docs/CHECKLIST.md
-- [ ] **F7-011** — Pruebas y documentación multi-navegador
+  - Commit: ef48626 · 2026-11-22T04:20:58-03:00
+- [~] **F7-011** — Pruebas y documentación multi-navegador
   - Aceptación: un test unitario por tipo de fallo con `fake-midi.ts`, tests de componente por familia de navegador, E2E de Chromium con permiso concedido y denegado y de Firefox/WebKit con mocks (WebKit real solo si el host lo permite); `docs/PRUEBAS-MANUALES.md` (P2/P3) y `docs/QA-NAVEGADORES.md` actualizados con lo realmente verificado.
   - Deps: F7-010 · Red: no
 

@@ -2559,3 +2559,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: se ajustó la aceptación de la propia tarea para que no exigiera cambiar tabla y total al descartarla con `[-]`.
 - Limitaciones: en Safari/iOS sigue sin haber evaluación objetiva automática sin hardware; la alternativa es el teclado virtual y la autoevaluación manual, ya documentada en F7-008.
 - Próximo paso: F7-010 — mostrar browser, contexto seguro, permiso y `failure` real en `MidiDiagnostics`, añadir «Copiar informe de diagnóstico» y reemplazar los mensajes solo-Chrome en ES y EN.
+
+## 2026-11-22T04:20:58-03:00 · F7-010
+
+- Acción: `MidiDiagnostics` muestra ahora la familia y etiqueta del navegador, el contexto seguro, el estado del permiso y `failure.name: failure.message`, con un botón «Copiar informe de diagnóstico» que escribe texto plano sin User-Agent ni datos personales. Los avisos de `MidiSupportNotice` y `MidiStatusBar` eligen su texto por familia (`midi.blocked.chromium/firefox/webkit/other`) y `midi.denied` y `midi.status.denied` dejaron de mencionar Chrome. Todo en español e inglés.
+- Resultado: typecheck OK; **261 archivos / 1833 tests** en verde; build OK; presupuesto 277,39 kB gzip (< 300 kB). Commit `ef48626`. Los tests nuevos comprueban el informe copiado, su contenido y la ausencia del User-Agent, las claves en ambos idiomas y la selección del mensaje por familia.
+- Correcciones: el texto de bloqueo de la barra de estado y del aviso superior usa la misma función pura `blockedMessageKey`, para que no haya dos decisiones distintas sobre qué decir.
+- Limitaciones: el informe se copia por `navigator.clipboard` y no se probó en un navegador real; el contexto seguro se lee de `window.isSecureContext`. No se verificó el formato del informe con un teclado físico conectado.
+- Próximo paso: F7-011 — completar tests por tipo de fallo y familia, E2E de Chromium con permiso concedido/denegado y mocks en Firefox/WebKit, y actualizar `PRUEBAS-MANUALES.md` y `QA-NAVEGADORES.md`.
