@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-015
-- **Última verificada en verde:** F7-014 (`e0806e3`, 2026-11-22T04:49:40-03:00)
-- **Actualizado:** 2026-11-22T04:49:40-03:00
+- **Tarea actual:** F7-016
+- **Última verificada en verde:** F7-015 (`cdcf2e9`, 2026-11-22T04:54:47-03:00)
+- **Actualizado:** 2026-11-22T04:54:47-03:00
 - **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa C: rediseño visual)
-- **Nota:** Mapa del curso y reproductores ya usan tarjetas cálidas con jerarquía clara, foco visible y una micro-celebración al acertar, sin tocar el contenido. Se detectó y corrigió un desbordamiento del grid con el pentagrama ancho. Ahora F7-015 cubre teclado virtual, pentagrama y páginas de práctica, repaso y progreso. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
+- **Nota:** El teclado virtual tiene un área táctil mayor, el pentagrama conserva su fondo papel y las tarjetas de práctica, repaso y progreso muestran elevación sutil. Capturas de escritorio y móvil revisadas. Ahora F7-016 ajusta Ajustes, panel MIDI y estados vacíos/de error. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
 
 ## LEYENDA
 
@@ -1748,12 +1748,13 @@ Quedó funcionando:
   - Progreso (2026-11-22T04:49:40-03:00): ✔ tarjetas de módulo, filas de lección, secciones y ejercicios con elevación sutil y foco visible · ✔ micro-celebración en aciertos · ✔ desbordamiento del pentagrama corregido con `min-width: 0` · ✔ 1839 tests, build y budget (277,51 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: src/styles.css, docs/CHECKLIST.md, docs/LOG.md
   - Commit: e0806e3 · 2026-11-22T04:49:40-03:00
-- [~] **F7-015** — Rediseñar teclado virtual, pentagrama y práctica
+- [x] **F7-015** — Rediseñar teclado virtual, pentagrama y práctica
   - Aceptación: teclado virtual, pentagrama y páginas de práctica, repaso y progreso rediseñados; objetivos táctiles ≥ 44 px; audio y evaluación siguen funcionando; textos en ES y EN.
   - Deps: F7-013 · Red: no
-  - Progreso (2026-11-22T04:49:40-03:00): ✔ mapa y reproductores cerrados · ◻ teclado, pentagrama y páginas de práctica/repaso/progreso · ◻ verificación completa
-  - Archivos tocados: docs/CHECKLIST.md
-- [ ] **F7-016** — Rediseñar ajustes, panel MIDI y estados vacíos y de error
+  - Progreso (2026-11-22T04:54:47-03:00): ✔ teclado con mayor área táctil y pentagrama con superficie suave · ✔ tarjetas de práctica, repaso y progreso con elevación al pasar el cursor · ✔ capturas de práctica, repaso, progreso y demo móvil revisadas · ✔ 1839 tests, build y budget (277,52 kB gzip) en verde · ✔ cierre con hash y LOG
+  - Archivos tocados: src/styles.css, docs/CHECKLIST.md, docs/LOG.md
+  - Commit: cdcf2e9 · 2026-11-22T04:54:47-03:00
+- [~] **F7-016** — Rediseñar ajustes, panel MIDI y estados vacíos y de error
   - Aceptación: `SettingsPage` y el panel MIDI rediseñados conservando el diagnóstico; estados vacíos y de error claros; textos en ES y EN.
   - Deps: F7-013 · Red: no
 - [ ] **F7-017** — Tema oscuro, movimiento reducido y accesibilidad

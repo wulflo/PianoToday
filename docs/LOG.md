@@ -2599,3 +2599,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: al convertir `.lesson-player` y `.exercise-player` en grid, los hijos con pentagrama tenían un ancho intrínseco de ~1400 px y desbordaban el contenedor de 1024 px; se añadió `min-width: 0` a los hijos del grid y se verificó con `boundingBox` que vuelven a 1024/974 px.
 - Limitaciones: la revisión visual es solo en Chromium y en las pantallas de curso y lección; no se comprobó con lector de pantalla real ni en los tamaños de F7-018.
 - Próximo paso: F7-015 — rediseñar teclado virtual, pentagrama y páginas de práctica, repaso y progreso.
+
+## 2026-11-22T04:54:47-03:00 · F7-015
+
+- Acción: se rediseñó el teclado virtual (mayor altura táctil, bordes redondeados, sombra de tecla negra y foco interno), se dio al pentagrama un marco tonal sin cambiar `--staff-bg`, y se añadió elevación sutil y transiciones a las tarjetas de práctica, repaso y progreso y a los botones de valoración y duración. Solo se tocó CSS.
+- Resultado: typecheck OK; **261 archivos / 1839 tests** en verde; build OK; presupuesto 277,52 kB gzip (< 300 kB). Commit `cdcf2e9`. Capturas revisadas de práctica, repaso, progreso y demo en 390 px.
+- Correcciones: se mantuvo el fondo claro del pentagrama en ambos temas para no romper el contraste AA verificado en F3-004a; las teclas negras conservan su sombra de relieve después de redondearlas.
+- Limitaciones: las teclas del piano siguen siendo más estrechas que 44 px cuando se muestran varias octavas; se compensa con un área vertical mayor y navegación por flechas, pero no se añadió desplazamiento horizontal para no cambiar el DOM. No se probó con pantalla táctil real ni con lector de pantalla.
+- Próximo paso: F7-016 — rediseñar Ajustes, panel MIDI y estados vacíos y de error.
