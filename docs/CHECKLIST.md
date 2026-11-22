@@ -1679,8 +1679,8 @@ Quedó funcionando:
 - [~] **F7-004** — Reproducir y documentar la causa raíz
   - Aceptación: tabla `causa → síntoma → corrección` en LOG; Chromium con Playwright con y sin `permissions: ['midi']`; Firefox y WebKit con `addInitScript` simulando cada rechazo y la ausencia de la API; lo no verificado en hardware real marcado como tal.
   - Deps: F7-003 · Red: no
-  - Progreso (2026-11-22T03:34:47-03:00): ✔ red disponible para fuentes · ◻ reproducir escenarios Chromium con/sin permiso · ◻ simular rechazos de Firefox y WebKit · ◻ tabla causa→síntoma→corrección en LOG
-  - Archivos tocados: docs/CHECKLIST.md
+  - Progreso (2026-11-22T03:36:30-03:00): ✔ 7 escenarios reproducidos en Chromium real y con mocks · ✔ fuentes externas verificadas con fecha · ✔ tabla causa→síntoma→corrección en `docs/DIAGNOSTICO-MIDI.md` · ◻ entrada en LOG y cierre
+  - Archivos tocados: docs/DIAGNOSTICO-MIDI.md, docs/CHECKLIST.md, test-results/reproduce-midi.mjs (ignorado)
 - [ ] **F7-005** — Refactorizar `MidiProvider`
   - Aceptación: se conservan `MidiStatus` y los tests; el contexto expone `failure`; `denied` solo para denegación real y el resto `error` con detalle; el permiso se pide solo ante un gesto del usuario; autoconexión solo con permiso `granted` comprobado; no asumir que `permissions.query({name:'midi'})` funciona en Firefox.
   - Deps: F7-004 · Red: no
