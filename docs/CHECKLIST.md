@@ -1667,6 +1667,8 @@ Quedó funcionando:
 - [~] **F7-002** — Resultado tipado de `requestMidiAccess`
   - Aceptación: `src/midi/detect.ts` devuelve `ok` con el acceso o `failure` con `name`, `message` e `isSecureContext` sin tragar excepciones; `connectMidiInput` y los tests existentes actualizados; `sysex: false` conservado.
   - Deps: F7-001 · Red: no
+  - Progreso (2026-11-22T03:24:42-03:00): ✔ hechos confirmados en detect.ts, input.ts y context.tsx · ◻ tipo `MidiAccessResult` en detect.ts · ◻ `connectMidiInput` y context adaptados · ◻ tests de éxito, excepción y ausencia de API
+  - Archivos tocados: docs/CHECKLIST.md
 - [ ] **F7-003** — Módulos puros de familia de navegador y clasificación de fallos
   - Aceptación: `src/midi/browser.ts` detecta la familia (`chromium`, `firefox`, `webkit-mac`, `webkit-ios`, `other`) por características, con UA/UA-CH solo para elegir texto de ayuda y nunca para bloquear; `src/midi/failure.ts` clasifica `unsupported`, `insecure-context`, `permission-denied`, `permission-dismissed`, `addon-required-or-no-device` y `unknown`; ambos con tests.
   - Deps: F7-002 · Red: no
