@@ -1733,6 +1733,8 @@ Quedó funcionando:
 - [~] **F7-012** — Brief de diseño en ADR antes de tocar CSS
   - Aceptación: ADR con dirección visual (cálida y serena, jerarquía clara, profundidad sutil, teclado táctil, micro-celebraciones), paleta con contraste AA, escala tipográfica, espaciado 4/8, radios, elevaciones y duraciones de movimiento; se conservan los nombres de tokens actuales como base o alias; tipografía autoalojada con licencia anotada en `THIRD_PARTY_LICENSES.md` y `REUSE.toml` o pila del sistema, sin CDN ni Google Fonts; íconos SVG en línea.
   - Deps: F7-011 · Red: no
+  - Progreso (2026-11-22T04:31:52-03:00): ✔ tokens actuales y fuente declarada revisados (Roboto no se carga) · ◻ ADR-050 con paleta AA, escalas y reglas · ◻ cierre con hash y LOG
+  - Archivos tocados: docs/CHECKLIST.md
 - [ ] **F7-013** — Rediseñar el shell
   - Aceptación: cabecera, navegación (`NAV_ITEMS` en `src/router/hash-route.ts`), barra de estado MIDI y avisos rediseñados, con versión móvil cuidada; axe sin violaciones nuevas y textos en ES y EN.
   - Deps: F7-012 · Red: no
