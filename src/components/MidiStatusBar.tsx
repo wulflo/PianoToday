@@ -6,7 +6,9 @@
  * permite reintentar la conexión después de enchufar el cable o de cambiar los
  * permisos del navegador.
  */
+import { useMemo } from 'react'
 import { midiNameWithOctave } from '../notation'
+import { blockedMessageKey, getMidiBrowserInfo } from '../midi/browser'
 import { MidiPermissionFlow } from './MidiPermissionFlow'
 import { useMidi } from '../midi/context'
 import { useSettings } from '../state/settings'
@@ -22,6 +24,7 @@ export function MidiStatusBar() {
     supported,
     disconnect,
   } = useMidi()
+  const family = useMemo(() => getMidiBrowserInfo().family, [])
 
   if (!supported || status === 'unsupported') return null
 
@@ -71,7 +74,7 @@ export function MidiStatusBar() {
     <aside className="midi-status" role="status">
       <p>
         {status === 'denied'
-          ? t('midi.status.denied')
+          ? t(blockedMessageKey(family))
           : status === 'error'
             ? t('midi.status.error', { message: error ?? '' })
             : t('midi.status.idle')}

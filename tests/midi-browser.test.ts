@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  blockedMessageKey,
   browserLabel,
   detectBrowserFamily,
   getMidiBrowserInfo,
@@ -153,6 +154,14 @@ describe('F7-003 — familia de navegador por características', () => {
         }),
       ),
     ).toBe('Vivaldi')
+  })
+
+  it('elige el texto de bloqueo según la familia', () => {
+    expect(blockedMessageKey('chromium')).toBe('midi.blocked.chromium')
+    expect(blockedMessageKey('firefox')).toBe('midi.blocked.firefox')
+    expect(blockedMessageKey('webkit-mac')).toBe('midi.blocked.webkit')
+    expect(blockedMessageKey('webkit-ios')).toBe('midi.blocked.webkit')
+    expect(blockedMessageKey('other')).toBe('midi.blocked.other')
   })
 
   it('lee el navegador real sin lanzar aunque falten señales', () => {

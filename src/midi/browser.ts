@@ -64,6 +64,16 @@ export function detectBrowserFamily(env: BrowserEnvironment): MidiBrowserFamily 
   return 'other'
 }
 
+/** Clave de texto para un permiso bloqueado, según la familia detectada. */
+export function blockedMessageKey(family: MidiBrowserFamily): string {
+  if (family === 'chromium') return 'midi.blocked.chromium'
+  if (family === 'firefox') return 'midi.blocked.firefox'
+  if (family === 'webkit-mac' || family === 'webkit-ios') {
+    return 'midi.blocked.webkit'
+  }
+  return 'midi.blocked.other'
+}
+
 /** Nombre comercial aproximado, útil solo para explicar los pasos al usuario. */
 export function browserLabel(env: BrowserEnvironment): string {
   const brands = env.brands?.map((entry) => entry.brand).join(' ') ?? ''

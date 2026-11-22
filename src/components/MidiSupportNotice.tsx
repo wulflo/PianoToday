@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { blockedMessageKey, getMidiBrowserInfo } from '../midi/browser'
 import {
   getMidiPermissionState,
   type MidiPermissionState,
@@ -15,6 +16,7 @@ import { useSettings } from '../state/settings'
 export function MidiSupportNotice() {
   const { t } = useSettings()
   const [state, setState] = useState<MidiPermissionState | null>(null)
+  const family = useMemo(() => getMidiBrowserInfo().family, [])
 
   useEffect(() => {
     let active = true
@@ -32,7 +34,7 @@ export function MidiSupportNotice() {
     state === 'unsupported'
       ? t('midi.unsupported')
       : state === 'denied'
-        ? t('midi.denied')
+        ? t(blockedMessageKey(family))
         : t('midi.available')
 
   return (
