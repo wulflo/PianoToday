@@ -2623,3 +2623,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: la regla genérica de `min-height` para botones habría forzado también a las teclas del piano, así que se excluyeron explícitamente para conservar su layout de teclado.
 - Limitaciones: `theme-color` oscuro responde al esquema del sistema, no al selector manual de tema dentro de la app; no se probó en lector de pantalla ni con pantalla táctil real.
 - Próximo paso: F7-018 — capturas a 360, 768 y 1280 px en claro y oscuro con Chromium y Firefox, axe y presupuesto.
+
+## 2026-11-22T05:11:02-03:00 · F7-018
+
+- Acción: se ejecutó una matriz de QA visual con Playwright: 3 anchos (360, 768 y 1280 px) × 2 temas × 2 navegadores (Chromium y Firefox) × 3 pantallas (curso, lección y ajustes), 36 capturas en `test-results/qa-visual/` (ignorado por git). Se registraron errores de página con `pageerror` y se actualizó `docs/QA-NAVEGADORES.md`.
+- Resultado: **36 capturas, 0 errores de página**; E2E Chromium 8/8 y Firefox 7/7; typecheck OK; **262 archivos / 1844 tests** en verde con axe; build OK; presupuesto 277,57 kB gzip (< 300 kB). Commit de la QA `db1a51d`.
+- Correcciones: la matriz usa `localStorage` para fijar el tema oscuro porque la app defaulta a claro; así las capturas oscuras son realmente oscuras.
+- Limitaciones: WebKit no se capturó porque el binario no arranca por `libicudata.so.74`. La revisión visual es humana sobre capturas, no con lector de pantalla ni con pantalla táctil real.
+- Próximo paso: F7-019 — cierre formal de F7: RESUME, CHANGELOG, ENTORNO, DECISIONES, LOG y `npm run estado`, con el PUNTO de vuelta a F6-054.

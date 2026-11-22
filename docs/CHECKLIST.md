@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-018
-- **Última verificada en verde:** F7-017 (`0097273`, 2026-11-22T05:05:42-03:00)
-- **Actualizado:** 2026-11-22T05:05:42-03:00
-- **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa C: rediseño visual)
-- **Nota:** Metadatos de tema, foco y movimiento reducido actualizados con tests propios. Ahora F7-018 hace QA visual con capturas en 360/768/1280 px, claro y oscuro, en Chromium y Firefox, y confirma axe y presupuesto. WebKit sigue sin ejecutarse por el host. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
+- **Tarea actual:** F7-019
+- **Última verificada en verde:** F7-018 (`db1a51d`, 2026-11-22T05:11:02-03:00)
+- **Actualizado:** 2026-11-22T05:11:02-03:00
+- **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa D: cierre)
+- **Nota:** Etapa C cerrada con 36 capturas, 0 errores de página, axe en verde y presupuesto 277,57 kB gzip. Falta el cierre formal: actualizar RESUME, CHANGELOG, ENTORNO, DECISIONES y LOG, correr `npm run estado` y devolver el PUNTO a F6-054. WebKit sigue sin ejecutarse por el host; no se hicieron push, tags ni releases.
 
 ## LEYENDA
 
@@ -1766,13 +1766,16 @@ Quedó funcionando:
   - Progreso (2026-11-22T05:05:03-03:00): ✔ `theme-color` claro y oscuro y manifiesto actualizados · ✔ foco de 3 px y objetivos de 44 px en botones y campos · ✔ movimiento reducido sin transformaciones ni animación de acierto · ✔ 1844 tests (axe incluido), build y budget (277,57 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: index.html, public/manifest.webmanifest, src/styles.css, tests/f7-theme-metadata.test.ts, docs/CHECKLIST.md, docs/LOG.md
   - Commit: 0097273 · 2026-11-22T05:05:42-03:00
-- [~] **F7-018** — QA visual
+- [x] **F7-018** — QA visual
   - Aceptación: capturas Playwright a 360, 768 y 1280 px, claro y oscuro, en Chromium y Firefox (WebKit si el host lo permite), guardadas fuera del repo o en `test-results/`; axe sin violaciones nuevas; `npm run budget` en verde.
   - Deps: F7-017 · Red: no
+  - Progreso (2026-11-22T05:10:29-03:00): ✔ 36 capturas (3 anchos × 2 temas × 2 navegadores × 3 pantallas) en `test-results/qa-visual/` · ✔ 0 errores de página · ✔ E2E Chromium 8/8 y Firefox 7/7, axe y budget (277,57 kB gzip) en verde · ✔ QA-NAVEGADORES actualizado · ✔ cierre con hash y LOG
+  - Archivos tocados: docs/QA-NAVEGADORES.md, docs/CHECKLIST.md, docs/LOG.md, test-results/qa-visual/ (ignorado)
+  - Commit: db1a51d · 2026-11-22T05:11:02-03:00
 
 ### Etapa D — Cierre
 
-- [ ] **F7-019** — Cerrar F7
+- [~] **F7-019** — Cerrar F7
   - Aceptación: RESUME, CHANGELOG, ENTORNO, DECISIONES y LOG actualizados; `npm run estado` en verde; el PUNTO vuelve a F6-054; sin tags ni releases remotos.
   - Deps: F7-001 a F7-018 · Red: no
 
