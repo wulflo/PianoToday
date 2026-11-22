@@ -2607,3 +2607,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: se mantuvo el fondo claro del pentagrama en ambos temas para no romper el contraste AA verificado en F3-004a; las teclas negras conservan su sombra de relieve después de redondearlas.
 - Limitaciones: las teclas del piano siguen siendo más estrechas que 44 px cuando se muestran varias octavas; se compensa con un área vertical mayor y navegación por flechas, pero no se añadió desplazamiento horizontal para no cambiar el DOM. No se probó con pantalla táctil real ni con lector de pantalla.
 - Próximo paso: F7-016 — rediseñar Ajustes, panel MIDI y estados vacíos y de error.
+
+## 2026-11-22T05:01:06-03:00 · F7-016
+
+- Acción: se rediseñaron Ajustes y el panel de diagnóstico MIDI (rejilla de datos con bordes suaves, contenedores de error y estados vacíos con borde discontinuo). La captura de Ajustes mostró que el navegador aparecía como «Chrome · webkit-mac»: el Chrome de Playwright no expone `window.chrome`, pero su UA contiene «Safari/» y expone `webkitAudioContext`. Se corrigió `detectBrowserFamily` para exigir señales de Chromium en UA/UA-CH antes de clasificar WebKit y se añadió un test de regresión.
+- Resultado: typecheck OK; **261 archivos / 1840 tests** en verde; build OK; presupuesto 277,57 kB gzip (< 300 kB). Commit `e49a0a4`. Capturas de Ajustes en claro y oscuro revisadas.
+- Correcciones: el texto de error sobre fondo `error-container` usa `on-error-container` para conservar contraste; los datos del diagnóstico permiten cortar mensajes largos sin desbordar la tarjeta.
+- Limitaciones: la corrección de detección se validó con el UA de Playwright y con tests unitarios, no en Edge, Brave, Opera, Vivaldi ni Samsung reales. Sin lector de pantalla ni pantalla táctil física.
+- Próximo paso: F7-017 — verificar tema oscuro, `prefers-reduced-motion`, foco, objetivos táctiles y actualizar `theme-color` y el manifiesto.

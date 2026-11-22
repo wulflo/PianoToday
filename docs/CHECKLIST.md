@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-016
-- **Última verificada en verde:** F7-015 (`cdcf2e9`, 2026-11-22T04:54:47-03:00)
-- **Actualizado:** 2026-11-22T04:54:47-03:00
+- **Tarea actual:** F7-017
+- **Última verificada en verde:** F7-016 (`e49a0a4`, 2026-11-22T05:01:06-03:00)
+- **Actualizado:** 2026-11-22T05:01:06-03:00
 - **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa C: rediseño visual)
-- **Nota:** El teclado virtual tiene un área táctil mayor, el pentagrama conserva su fondo papel y las tarjetas de práctica, repaso y progreso muestran elevación sutil. Capturas de escritorio y móvil revisadas. Ahora F7-016 ajusta Ajustes, panel MIDI y estados vacíos/de error. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
+- **Nota:** Ajustes y diagnóstico ya usan superficies cálidas; las capturas revelaron que el Chrome de Playwright se clasificaba como WebKit y se corrigió con un test de regresión. Ahora F7-017 revisa tema oscuro, movimiento reducido, foco, objetivos táctiles y metadatos (`theme-color` y manifiesto). F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
 
 ## LEYENDA
 
@@ -1754,10 +1754,13 @@ Quedó funcionando:
   - Progreso (2026-11-22T04:54:47-03:00): ✔ teclado con mayor área táctil y pentagrama con superficie suave · ✔ tarjetas de práctica, repaso y progreso con elevación al pasar el cursor · ✔ capturas de práctica, repaso, progreso y demo móvil revisadas · ✔ 1839 tests, build y budget (277,52 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: src/styles.css, docs/CHECKLIST.md, docs/LOG.md
   - Commit: cdcf2e9 · 2026-11-22T04:54:47-03:00
-- [~] **F7-016** — Rediseñar ajustes, panel MIDI y estados vacíos y de error
+- [x] **F7-016** — Rediseñar ajustes, panel MIDI y estados vacíos y de error
   - Aceptación: `SettingsPage` y el panel MIDI rediseñados conservando el diagnóstico; estados vacíos y de error claros; textos en ES y EN.
   - Deps: F7-013 · Red: no
-- [ ] **F7-017** — Tema oscuro, movimiento reducido y accesibilidad
+  - Progreso (2026-11-22T05:01:06-03:00): ✔ ajustes y panel MIDI con superficies y rejilla de diagnóstico renovadas · ✔ estados vacíos y de error con contenedor tonal · ✔ detección de Chromium corregida (UA con «Safari/» ya no se clasifica como WebKit) · ✔ 1840 tests, typecheck, build y budget (277,57 kB gzip) en verde · ✔ cierre con hash y LOG
+  - Archivos tocados: src/styles.css, src/midi/browser.ts, tests/midi-browser.test.ts, docs/CHECKLIST.md, docs/LOG.md
+  - Commit: e49a0a4 · 2026-11-22T05:01:06-03:00
+- [~] **F7-017** — Tema oscuro, movimiento reducido y accesibilidad
   - Aceptación: tema oscuro validado, `prefers-reduced-motion`, foco visible y objetivos táctiles ≥ 44 px; `theme-color` y manifiesto actualizados; axe sin violaciones nuevas.
   - Deps: F7-012, F7-013, F7-014, F7-015, F7-016 · Red: no
 - [ ] **F7-018** — QA visual
