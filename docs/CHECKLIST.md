@@ -1796,8 +1796,8 @@ Quedó funcionando:
 - [~] **F7-022** — Embellecer el README y corregir la URL de GitHub Pages
   - Aceptación: README con jerarquía visual clara y secciones más legibles; todas las URLs de la demo apuntan a `https://wulflo.github.io/PianoToday/` (verificada con la API de Pages) y no queda `piano-learning`; un test evita la regresión del enlace; verificación en verde.
   - Deps: F7-021 · Red: no
-  - Progreso (2026-11-22T05:42:03-03:00): ✔ URL real verificada con `gh api` · ◻ README rediseñado y enlaces corregidos · ◻ test de regresión y verificación · ◻ cierre, push y workflow
-  - Archivos tocados: docs/CHECKLIST.md
+  - Progreso (2026-11-22T05:46:35-03:00): ✔ URL real verificada con `gh api` · ✔ README rediseñado con índice, tablas y badges; 0 apariciones de `piano-learning` · ✔ test de regresión (URLs y anclas) · ✔ 1847 tests, build y budget (277,59 kB gzip) en verde · ◻ cierre, push y workflow
+  - Archivos tocados: README.md, tests/readme.test.ts, docs/CHECKLIST.md
 
 ## RESUMEN POR FASE
 
