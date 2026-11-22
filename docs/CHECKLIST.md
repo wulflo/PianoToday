@@ -1715,9 +1715,11 @@ Quedó funcionando:
   - Progreso (2026-11-22T04:04:49-03:00): ✔ revisado el soporte existente en `Keyboard.tsx` y Settings · ✔ ADR-049 con la decisión · ✔ cierre con razón en la tarea
   - Archivos tocados: docs/DECISIONES.md, docs/CHECKLIST.md, docs/LOG.md
   - Descartada: c35431a · 2026-11-22T04:05:35-03:00 · ADR-049: el teclado virtual ya tiene teclas de ordenador configurables; unirlas al canal MIDI duplicaría notas con el teclado visible y exigiría un cambio transversal. El total no cambia porque el formato cuenta las tareas `[-]`.
-- [ ] **F7-010** — Diagnóstico y textos por navegador
+- [~] **F7-010** — Diagnóstico y textos por navegador
   - Aceptación: `MidiDiagnostics` muestra navegador detectado, contexto seguro, estado del permiso y `failure.name`/`failure.message` reales, con botón «Copiar informe de diagnóstico» en texto plano y sin datos personales; los mensajes solo-Chrome se reemplazan por ayuda según familia en ES y EN.
   - Deps: F7-006, F7-007, F7-008 · Red: no
+  - Progreso (2026-11-22T04:06:40-03:00): ✔ decisión F7-009 registrada y tarea descartada · ◻ diagnóstico detallado e informe copiable · ◻ textos por familia en ES/EN · ◻ verificación completa
+  - Archivos tocados: docs/CHECKLIST.md
 - [ ] **F7-011** — Pruebas y documentación multi-navegador
   - Aceptación: un test unitario por tipo de fallo con `fake-midi.ts`, tests de componente por familia de navegador, E2E de Chromium con permiso concedido y denegado y de Firefox/WebKit con mocks (WebKit real solo si el host lo permite); `docs/PRUEBAS-MANUALES.md` (P2/P3) y `docs/QA-NAVEGADORES.md` actualizados con lo realmente verificado.
   - Deps: F7-010 · Red: no
