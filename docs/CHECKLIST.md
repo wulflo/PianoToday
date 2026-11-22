@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-004
-- **Última verificada en verde:** F7-003 (`09f00da`, 2026-11-22T03:33:50-03:00)
-- **Actualizado:** 2026-11-22T03:33:50-03:00
+- **Tarea actual:** F7-005
+- **Última verificada en verde:** F7-004 (`632d89a`, 2026-11-22T03:37:46-03:00)
+- **Actualizado:** 2026-11-22T03:37:46-03:00
 - **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa A: base y diagnóstico)
-- **Nota:** Ya hay módulos puros para familia de navegador y clasificación de fallos; la familia se detecta por características y el UA solo nombra el navegador en el diagnóstico. Falta reproducir/documentar la causa raíz (F7-004) antes de tocar el comportamiento visible en F7-005. Sin hardware MIDI, E2E pendiente por el desajuste de Chromium. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
+- **Nota:** Etapa A diagnósticada: 7 escenarios reproducidos, tabla causa→síntoma→corrección en `docs/DIAGNOSTICO-MIDI.md` y fuentes verificadas el 2026-11-22. El síntoma «permiso denegado» es común a denegación, descarte, complemento de Firefox y estado fijado al montar; no hay causa única confirmada sin hardware. Ahora F7-005 cambia el comportamiento visible. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
 
 ## LEYENDA
 
@@ -1676,12 +1676,13 @@ Quedó funcionando:
   - Progreso (2026-11-22T03:33:30-03:00): ✔ `src/midi/browser.ts` con detección por características y etiquetas · ✔ `src/midi/failure.ts` con seis categorías · ✔ 22 tests focalizados en verde · ✔ typecheck, suite completa, build y budget (273,67 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: src/midi/browser.ts, src/midi/failure.ts, tests/midi-browser.test.ts, tests/midi-failure.test.ts, docs/CHECKLIST.md
   - Commit: 09f00da · 2026-11-22T03:33:50-03:00
-- [~] **F7-004** — Reproducir y documentar la causa raíz
+- [x] **F7-004** — Reproducir y documentar la causa raíz
   - Aceptación: tabla `causa → síntoma → corrección` en LOG; Chromium con Playwright con y sin `permissions: ['midi']`; Firefox y WebKit con `addInitScript` simulando cada rechazo y la ausencia de la API; lo no verificado en hardware real marcado como tal.
   - Deps: F7-003 · Red: no
-  - Progreso (2026-11-22T03:36:30-03:00): ✔ 7 escenarios reproducidos en Chromium real y con mocks · ✔ fuentes externas verificadas con fecha · ✔ tabla causa→síntoma→corrección en `docs/DIAGNOSTICO-MIDI.md` · ◻ entrada en LOG y cierre
-  - Archivos tocados: docs/DIAGNOSTICO-MIDI.md, docs/CHECKLIST.md, test-results/reproduce-midi.mjs (ignorado)
-- [ ] **F7-005** — Refactorizar `MidiProvider`
+  - Progreso (2026-11-22T03:36:30-03:00): ✔ 7 escenarios reproducidos en Chromium real y con mocks · ✔ fuentes externas verificadas con fecha · ✔ tabla causa→síntoma→corrección en `docs/DIAGNOSTICO-MIDI.md` · ✔ entrada en LOG y cierre
+  - Archivos tocados: docs/DIAGNOSTICO-MIDI.md, docs/CHECKLIST.md, docs/LOG.md, test-results/reproduce-midi.mjs (ignorado)
+  - Commit: 632d89a · 2026-11-22T03:37:46-03:00
+- [~] **F7-005** — Refactorizar `MidiProvider`
   - Aceptación: se conservan `MidiStatus` y los tests; el contexto expone `failure`; `denied` solo para denegación real y el resto `error` con detalle; el permiso se pide solo ante un gesto del usuario; autoconexión solo con permiso `granted` comprobado; no asumir que `permissions.query({name:'midi'})` funciona en Firefox.
   - Deps: F7-004 · Red: no
 

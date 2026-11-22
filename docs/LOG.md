@@ -2502,3 +2502,20 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: se tuvo en cuenta que Chrome también expone `webkitAudioContext` por compatibilidad, por lo que la familia Chromium se comprueba antes que WebKit, y que iPadOS se declara como Macintosh pero conserva multitouch.
 - Limitaciones: la clasificación se validó con mensajes simulados (`DOMException` en jsdom); no se comprobó el texto exacto que emiten Firefox o Chrome en equipos reales. La familia de Safari se infirió de señales de WebKit, no de Safari real.
 - Próximo paso: F7-004 — reproducir y documentar la causa raíz; marcar como NO VERIFICADO lo que no se pueda probar sin hardware ni navegadores reales.
+
+## 2026-11-22T03:37:46-03:00 · F7-004
+
+- Acción: se reprodujeron siete escenarios con Chromium real de Playwright contra el artefacto construido (con y sin `permissions: ['midi']`) y con `addInitScript` para simular los rechazos de Firefox/WebKit y la ausencia de API. Se consultaron las fuentes externas con red y se escribió `docs/DIAGNOSTICO-MIDI.md` con el método, las observaciones, la tabla de causas y el estado de cada hipótesis.
+- Resultado: el síntoma es el mismo en todos los fallos —estado «permiso denegado» y ayuda de Chrome—, incluso para el mensaje del complemento de Firefox y para `AbortError`. Con permiso concedido el panel decía «concedido» y aun así el rechazo era `SecurityError: Permission to use Web MIDI API was not granted.` Commit `632d89a`. Fuentes verificadas el 2026-11-22: Chrome 124+ (blog de Chrome) y Safari/iOS y Firefox Android sin soporte (caniuse).
+
+  | Causa | Síntoma | Corrección |
+  |---|---|---|
+  | Firefox sin complemento o sin dispositivo visible | addon `SecurityError` → «permiso denegado» + ayuda de Chrome | clasificar `addon-required-or-no-device`, conectar teclado antes de pedir y volver a buscar (F7-007) |
+  | Permiso del sitio bloqueado en Chromium | «permiso denegado» sin salida | `denied` solo para denegación real + ruta de configuración (F7-006) |
+  | Diálogo descartado | `AbortError` → «permiso denegado» | clasificar `permission-dismissed` como error con ayuda (F7-005) |
+  | Permissions API responde `denied` al montar | estado fijado antes de cualquier gesto | no fijar estado desde la API; pedir solo ante gesto (F7-005) |
+  | API ausente (Safari/iOS, HTTP) | «sin soporte» genérico | detección por característica y textos por familia (F7-008, F7-010) |
+
+- Correcciones: se documentó que en este entorno headless sin dispositivo el permiso concedido no basta para abrir MIDI, de modo que no se atribuyó el fallo a una sola causa.
+- Limitaciones: **NO VERIFICADO** con teclado Yamaha PSR-373 real, Firefox real, WebKit real, iOS, Android ni con un origen HTTP inseguro (H4). Firefox y WebKit solo se simularon con mensajes; `git bisect` no es posible porque el historial importado tiene un único commit (H5 revisada por lectura de código). H2 queda sin confirmar.
+- Próximo paso: F7-005 — refactorizar `MidiProvider`, conservar `MidiStatus` y exponer `failure`, pedir permiso solo ante un gesto y no fijar `denied` desde Permissions API.
