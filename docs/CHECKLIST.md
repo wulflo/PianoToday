@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F6-054
+- **Tarea actual:** F7-020
 - **Última verificada en verde:** F7-019 (`0398743`, 2026-11-22T05:15:10-03:00)
-- **Actualizado:** 2026-11-22T05:15:10-03:00
-- **Fase:** F7 completada; F6-054 sigue pendiente de las pruebas manuales del usuario
-- **Nota:** F7 cerrada: 18 tareas completadas y F7-009 descartada por ADR-049. RESUME, CHANGELOG, ENTORNO, DECISIONES (ADR-048 a ADR-050), LOG y ESTADO actualizados; 262 archivos / 1844 tests, build y presupuesto 277,57 kB gzip en verde; E2E Chromium 8/8 y Firefox 7/7; 36 capturas de QA visual sin errores. El PUNTO vuelve a **F6-054**, que solo cierra el usuario con su reporte de hardware, Safari, iOS y Android. No hay tags ni push de F7.
+- **Actualizado:** 2026-11-22T05:25:20-03:00
+- **Fase:** F7 — ampliación posterior al cierre: inventario dedicado de licencias de dependencias
+- **Nota:** F7 se cerró y se pusheó a `main`; el workflow `Deploy a GitHub Pages` se ejecutó por el push. El usuario pidió además un documento específico con las licencias de **todas** las dependencias, así que se abre F7-020. El PUNTO volverá a F6-054 al cerrarla; esa tarea solo la cierra el usuario con su reporte de hardware, Safari, iOS y Android.
 
 ## LEYENDA
 
@@ -1781,6 +1781,11 @@ Quedó funcionando:
   - Progreso (2026-11-22T05:15:10-03:00): ✔ RESUME, CHANGELOG, ENTORNO y DECISIONES actualizados · ✔ entrada final en LOG · ✔ `npm run estado` en verde y ESTADO regenerado · ✔ PUNTO devuelto a F6-054, sin tags ni push
   - Archivos tocados: docs/RESUME.md, CHANGELOG.md, docs/ENTORNO.md, docs/LOG.md, docs/ESTADO.md, docs/CHECKLIST.md
   - Commit: 0398743 · 2026-11-22T05:15:10-03:00
+- [~] **F7-020** — Documento dedicado con las licencias de todas las dependencias
+  - Aceptación: `docs/DEPENDENCIAS-LICENCIAS.md` generado de forma reproducible desde `package-lock.json`, con nombre, versión, licencia, ámbito (producción/desarrollo/transitiva) y enlace de procedencia para cada paquete; un test comprueba que cubre todo el lockfile; `THIRD_PARTY_LICENSES.md` y `npm run audit:licenses` siguen en verde.
+  - Deps: F7-019 · Red: no
+  - Progreso (2026-11-22T05:25:20-03:00): ✔ tarea registrada · ◻ generador y documento · ◻ test de cobertura · ◻ cierre y push
+  - Archivos tocados: docs/CHECKLIST.md
 
 ## RESUMEN POR FASE
 
@@ -1793,6 +1798,6 @@ Quedó funcionando:
 | F4 | M5-M6 | 33 | Armonía y forma completas |
 | F5 | M7-M8 y repertorio | 51 | Técnica, estilos y piezas validadas |
 | F6 | PWA, MIDI, calidad, auditoría y despliegue | 55 | Suite, a11y, PWA, auditoría y demo publicada |
-| F7 | MIDI multi-navegador y rediseño visual | 19 | Suite, E2E multi-navegador, presupuesto y QA visual |
+| F7 | MIDI multi-navegador y rediseño visual | 20 | Suite, E2E multi-navegador, presupuesto, QA visual y licencias |
 
-Total: **327 tareas**. Los conteos se verifican con el test de formato del checklist.
+Total: **328 tareas**. Los conteos se verifican con el test de formato del checklist.
