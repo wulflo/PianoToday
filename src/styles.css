@@ -221,9 +221,10 @@ code {
 }
 
 .app-shell {
-  width: min(100% - 2rem, 60rem);
+  width: 100%;
+  max-width: none;
   margin: 0 auto;
-  padding: 1.5rem 0 3rem;
+  padding: clamp(1rem, 2vw, 2rem) clamp(1rem, 3vw, 3rem) var(--space-7);
 }
 
 .site-header {
@@ -2152,8 +2153,10 @@ body {
 }
 
 .app-shell {
-  width: min(100% - 2rem, 64rem);
-  padding-top: 1rem;
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  padding: clamp(1rem, 2vw, 2rem) clamp(1rem, 3vw, 3rem) var(--space-7);
 }
 
 .site-header {
@@ -2621,8 +2624,11 @@ input[type='range'] {
 /* Aviso de actualización / offline en pantallas pequeñas */
 @media (max-width: 520px) {
   .app-shell {
-    width: min(100% - 1.25rem, 64rem);
-  }
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  padding: clamp(1rem, 2vw, 2rem) clamp(1rem, 3vw, 3rem) var(--space-7);
+}
 
   .panel,
   .module-card,
@@ -2974,8 +2980,10 @@ progress::-moz-progress-bar {
 
 /* F7-013 — shell: jerarquía clara, profundidad sutil y tacto cómodo. */
 .app-shell {
-  width: min(100% - var(--space-4), 64rem);
-  padding: var(--space-4) 0 var(--space-7);
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  padding: clamp(1rem, 2vw, 2rem) clamp(1rem, 3vw, 3rem) var(--space-7);
 }
 
 .site-header {
@@ -3086,8 +3094,11 @@ progress::-moz-progress-bar {
 
 @media (max-width: 40rem) {
   .app-shell {
-    width: min(100% - var(--space-3), 64rem);
-  }
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  padding: clamp(1rem, 2vw, 2rem) clamp(1rem, 3vw, 3rem) var(--space-7);
+}
 
   .site-nav ul {
     flex-wrap: nowrap;
