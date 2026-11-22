@@ -1094,7 +1094,9 @@ h1 {
 
 .lesson-list {
   display: grid;
-  gap: 0;
+  /* Las filas son tarjetas redondeadas desde F7: sin separación, las esquinas
+     de una recortan a la siguiente y la primera parece truncada. */
+  gap: var(--space-2);
   margin: 0.75rem 0 0;
   padding: 0;
   list-style: none;
@@ -1741,7 +1743,8 @@ h1 {
 
 .review-queue {
   display: grid;
-  gap: 0;
+  /* Tarjetas con radio: necesitan aire entre ellas para no recortarse. */
+  gap: var(--space-2);
   margin: 0.75rem 0 0;
   padding: 0;
   list-style: none;
@@ -1893,7 +1896,8 @@ h1 {
 
 .practice-blocks {
   display: grid;
-  gap: 0;
+  /* Igual que la cola de repaso: son tarjetas, no filas con divisoria. */
+  gap: var(--space-2);
   margin: 0.75rem 0 0;
   padding: 0;
   list-style: none;
@@ -3139,7 +3143,11 @@ progress::-moz-progress-bar {
 }
 
 .lesson-row a {
-  min-height: var(--touch-min);
+  /* El objetivo táctil de 44 px se logra con relleno compensado: el enlace no
+     estira la fila y las lecciones conservan todas la misma altura. */
+  display: block;
+  padding-block: calc((var(--touch-min) - 1.5em) / 2);
+  margin-block: calc((1.5em - var(--touch-min)) / 2);
   color: var(--text);
   font-weight: 600;
 }
