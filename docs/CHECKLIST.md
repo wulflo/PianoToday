@@ -1700,6 +1700,8 @@ Quedó funcionando:
 - [~] **F7-007** — Flujo Firefox y complemento de permiso del sitio
   - Aceptación: se explican los dos diálogos; ante `SecurityError` el primer consejo es encender y conectar el teclado en modo USB-MIDI o con driver y recargar; botón «Volver a buscar dispositivos» que vuelve a pedir acceso sin depender de `onstatechange`; ayuda de ventana privada y políticas solo si está verificada; aviso de Firefox Android sin Web MIDI; textos en ES y EN.
   - Deps: F7-005 · Red: no
+  - Progreso (2026-11-22T03:55:44-03:00): ✔ MDN 108 verificada (complemento solo con dispositivos activos) · ◻ textos ES/EN y flujo Firefox en `MidiPermissionFlow` · ◻ tests por familia · ◻ verificación completa
+  - Archivos tocados: docs/CHECKLIST.md
 - [ ] **F7-008** — Flujo Safari y WebKit
   - Aceptación: detección por característica; con `requestMIDIAccess` se usa el flujo normal; sin API en macOS guía opcional de extensión de terceros con nombre, enlace, precio y estado verificados, enlace como constante y sin dar a entender respaldo oficial; en iOS/iPadOS se explica que ningún navegador tiene Web MIDI; el fallback con teclado virtual y autoevaluación manual sigue 100 % funcional; textos en ES y EN.
   - Deps: F7-005 · Red: sí · [NET]
