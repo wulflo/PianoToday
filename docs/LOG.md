@@ -2631,3 +2631,21 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: la matriz usa `localStorage` para fijar el tema oscuro porque la app defaulta a claro; así las capturas oscuras son realmente oscuras.
 - Limitaciones: WebKit no se capturó porque el binario no arranca por `libicudata.so.74`. La revisión visual es humana sobre capturas, no con lector de pantalla ni con pantalla táctil real.
 - Próximo paso: F7-019 — cierre formal de F7: RESUME, CHANGELOG, ENTORNO, DECISIONES, LOG y `npm run estado`, con el PUNTO de vuelta a F6-054.
+
+## 2026-11-22T05:15:10-03:00 · F7-019
+
+- Acción: se cerró F7 con 18 tareas completadas y F7-009 descartada (ADR-049). Se actualizaron RESUME, CHANGELOG, ENTORNO, DECISIONES (ADR-048 a ADR-050) y este LOG; se regeneró ESTADO con `npm run estado` y se devolvió el PUNTO a F6-054.
+- Resultado: cierre de fase en verde. 262 archivos / 1844 tests (axe incluido), typecheck, contenido y build OK; presupuesto 277,57 kB gzip (< 300 kB); E2E Chromium 8/8 y Firefox 7/7; 36 capturas de QA visual sin errores de página. Documentación de cierre en `0398743`. Sin tags, releases ni push.
+
+  | Navegador | Qué funciona | Qué no | Cómo se verificó |
+  |---|---|---|---|
+  | Chrome / Chromium 158 | Permiso concedido con autoconexión, ayuda de bloqueo, diagnóstico e informe copiable | Permiso real de usuario y PSR-373 físico | E2E con permiso y mocks, capturas y tests unitarios |
+  | Edge / Brave / Opera / Vivaldi / Samsung | Mismo flujo por motor Chromium; rutas `chrome://`, `brave://` y `opera://` verificadas en documentación | Rutas `edge://` y `vivaldi://` no escritas sin fuente; navegadores reales no probados | Equivalencia de motor, mocks y verificación documental del 2026-11-22 |
+  | Firefox 159 | Complemento explicado, consejo de conectar teclado, «Volver a buscar dispositivos», aviso de Android | Complemento real y hardware MIDI | E2E con mensaje simulado, tests de componente y MDN 108 |
+  | Safari macOS | Guía opcional de extensión de terceros y fallback manual sin API; flujo normal si la API existe | Extensión no instalada ni Safari real; compatibilidad futura no garantizada | Página del autor verificada y tests de componente |
+  | iOS / iPadOS | Aviso de que ningún navegador ofrece Web MIDI y fallback manual | Web MIDI y evaluación objetiva sin teclado | Tests de componente y caniuse; sin dispositivos reales |
+  | WebKit de Playwright | Nada ejecutado | No arranca por falta de `libicudata.so.74` | `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1 npx playwright test --project=webkit` → 10 fallos de host |
+
+- Correcciones: se documentó el desbordamiento del grid con el pentagrama, la detección errónea de Chromium como WebKit y la ausencia de ruta verificada para Edge/Vivaldi como decisiones registradas, no como éxitos.
+- Limitaciones: sin hardware MIDI, Safari real, iOS, Android, lector de pantalla ni pantalla táctil; WebKit no ejecutable. F6-054 sigue `[ ]` a propósito y solo la cierra el usuario con su reporte. No se crearon tags ni releases y no se hizo push.
+- Próximo paso: retomar desde **F6-054** al recibir el reporte de pruebas manuales; el resto de F7 está cerrado.

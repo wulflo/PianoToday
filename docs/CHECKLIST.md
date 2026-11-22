@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-019
-- **Última verificada en verde:** F7-018 (`db1a51d`, 2026-11-22T05:11:02-03:00)
-- **Actualizado:** 2026-11-22T05:11:02-03:00
-- **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa D: cierre)
-- **Nota:** Etapa C cerrada con 36 capturas, 0 errores de página, axe en verde y presupuesto 277,57 kB gzip. Falta el cierre formal: actualizar RESUME, CHANGELOG, ENTORNO, DECISIONES y LOG, correr `npm run estado` y devolver el PUNTO a F6-054. WebKit sigue sin ejecutarse por el host; no se hicieron push, tags ni releases.
+- **Tarea actual:** F6-054
+- **Última verificada en verde:** F7-019 (`0398743`, 2026-11-22T05:15:10-03:00)
+- **Actualizado:** 2026-11-22T05:15:10-03:00
+- **Fase:** F7 completada; F6-054 sigue pendiente de las pruebas manuales del usuario
+- **Nota:** F7 cerrada: 18 tareas completadas y F7-009 descartada por ADR-049. RESUME, CHANGELOG, ENTORNO, DECISIONES (ADR-048 a ADR-050), LOG y ESTADO actualizados; 262 archivos / 1844 tests, build y presupuesto 277,57 kB gzip en verde; E2E Chromium 8/8 y Firefox 7/7; 36 capturas de QA visual sin errores. El PUNTO vuelve a **F6-054**, que solo cierra el usuario con su reporte de hardware, Safari, iOS y Android. No hay tags ni push de F7.
 
 ## LEYENDA
 
@@ -1775,9 +1775,12 @@ Quedó funcionando:
 
 ### Etapa D — Cierre
 
-- [~] **F7-019** — Cerrar F7
+- [x] **F7-019** — Cerrar F7
   - Aceptación: RESUME, CHANGELOG, ENTORNO, DECISIONES y LOG actualizados; `npm run estado` en verde; el PUNTO vuelve a F6-054; sin tags ni releases remotos.
   - Deps: F7-001 a F7-018 · Red: no
+  - Progreso (2026-11-22T05:15:10-03:00): ✔ RESUME, CHANGELOG, ENTORNO y DECISIONES actualizados · ✔ entrada final en LOG · ✔ `npm run estado` en verde y ESTADO regenerado · ✔ PUNTO devuelto a F6-054, sin tags ni push
+  - Archivos tocados: docs/RESUME.md, CHANGELOG.md, docs/ENTORNO.md, docs/LOG.md, docs/ESTADO.md, docs/CHECKLIST.md
+  - Commit: 0398743 · 2026-11-22T05:15:10-03:00
 
 ## RESUMEN POR FASE
 
