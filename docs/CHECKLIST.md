@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F6-054
+- **Tarea actual:** F7-021
 - **Última verificada en verde:** F7-020 (`1de0c03`, 2026-11-22T05:29:33-03:00)
-- **Actualizado:** 2026-11-22T05:29:33-03:00
-- **Fase:** F7 completada (20 tareas: 19 cerradas y F7-009 descartada)
-- **Nota:** F7 se pusheó a `main` (`origin/main`) y el workflow `Deploy a GitHub Pages` terminó en verde (run `45002514740`: build/test + publicación). F7-020 añade `docs/DEPENDENCIAS-LICENCIAS.md` con 599 paquetes y su generador reproducible. El PUNTO vuelve a **F6-054**, que solo cierra el usuario con su reporte de hardware, Safari, iOS y Android. Sin tags ni releases.
+- **Actualizado:** 2026-11-22T05:35:42-03:00
+- **Fase:** F7 — corrección visual posterior al despliegue: primer elemento de las listas recortado
+- **Nota:** El usuario reportó que el primer ítem de «Cola de hoy» sale truncado (texto desalineado y radio distinto) y lo mismo en otras secciones. Causa identificada por lectura de CSS: cuatro reglas `:first-child` heredadas del diseño de listas con divisorias siguen haciendo `border-top: none; padding-top: 0` sobre tarjetas redondeadas. Se abre F7-021 para corregirlas en las cuatro secciones y verificar con capturas.
 
 ## LEYENDA
 
@@ -1787,6 +1787,11 @@ Quedó funcionando:
   - Progreso (2026-11-22T05:28:57-03:00): ✔ generador reproducible y documento con 599 paquetes (42 producción, 557 desarrollo) · ✔ test de cobertura, resumen y ámbitos · ✔ `audit:licenses` en verde · ✔ 1848 tests, build y budget (277,60 kB gzip) en verde · ✔ cierre, docs y push
   - Archivos tocados: docs/DEPENDENCIAS-LICENCIAS.md, scripts/generate-dependency-licenses.mjs, tests/dependency-licenses.test.ts, package.json, docs/CHECKLIST.md, docs/RESUME.md, docs/ENTORNO.md, CHANGELOG.md, docs/LOG.md
   - Commit: 1de0c03 · 2026-11-22T05:29:33-03:00
+- [~] **F7-021** — Corregir el recorte del primer elemento en listas y tarjetas
+  - Aceptación: las reglas `:first-child` que anulan `border-top` y `padding-top` no se aplican a tarjetas redondeadas; el primer ítem de la cola de repaso, las lecciones, la práctica y el progreso conservan borde y padding uniformes; verificado con capturas y suite en verde.
+  - Deps: F7-020 · Red: no
+  - Progreso (2026-11-22T05:35:42-03:00): ✔ causa identificada en 4 reglas `:first-child` · ◻ corrección CSS · ◻ capturas antes/después y verificación · ◻ cierre, push y workflow
+  - Archivos tocados: docs/CHECKLIST.md
 
 ## RESUMEN POR FASE
 
@@ -1799,6 +1804,6 @@ Quedó funcionando:
 | F4 | M5-M6 | 33 | Armonía y forma completas |
 | F5 | M7-M8 y repertorio | 51 | Técnica, estilos y piezas validadas |
 | F6 | PWA, MIDI, calidad, auditoría y despliegue | 55 | Suite, a11y, PWA, auditoría y demo publicada |
-| F7 | MIDI multi-navegador y rediseño visual | 20 | Suite, E2E multi-navegador, presupuesto, QA visual y licencias |
+| F7 | MIDI multi-navegador y rediseño visual | 21 | Suite, E2E multi-navegador, presupuesto, QA visual, licencias y correcciones |
 
-Total: **328 tareas**. Los conteos se verifican con el test de formato del checklist.
+Total: **329 tareas**. Los conteos se verifican con el test de formato del checklist.
