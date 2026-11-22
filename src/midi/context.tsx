@@ -178,7 +178,7 @@ export function MidiProvider({ children }: MidiProviderProps) {
     setError(null)
 
     try {
-      const connection = await connectMidiInput(handleEvent, {
+      const result = await connectMidiInput(handleEvent, {
         onDevices: (snapshot) => {
           if (!mountedRef.current) return
           setDevices(snapshot.inputs)
@@ -187,15 +187,18 @@ export function MidiProvider({ children }: MidiProviderProps) {
         onRawMessage: handleRaw,
       })
       if (!mountedRef.current) {
-        connection?.disconnect()
+        if (result.ok) result.connection.disconnect()
         return
       }
-      if (connection === null) {
+      if (!result.ok) {
         connectingRef.current = false
+        // Etapa A: se mantiene el estado visible anterior. F7-005 usará el
+        // motivo real para distinguir denegación, contexto inseguro, etc.
+        setError(result.failure.message)
         setStatus('denied')
         return
       }
-      connectionRef.current = connection
+      connectionRef.current = result.connection
       connectingRef.current = false
       setStatus('listening')
     } catch (reason) {

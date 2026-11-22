@@ -1,10 +1,10 @@
 /**
  * Entrada MIDI: escucha note on/off y reenvía a un callback.
  *
- * Sin dispositivo MIDI o sin permiso, la función devuelve null y la app
- * sigue funcionando con autoevaluación manual.
+ * Sin dispositivo MIDI o sin permiso, la función devuelve el motivo del fallo
+ * y la app sigue funcionando con autoevaluación manual.
  */
-import { requestMidiAccess } from './detect'
+import { requestMidiAccess, type MidiAccessFailure } from './detect'
 import { parseMidiMessage } from './device'
 
 export interface MidiNoteEvent {
@@ -60,6 +60,11 @@ export interface ConnectMidiOptions {
   onRawMessage?: (message: MidiRawMessage) => void
 }
 
+/** Conexión abierta, o el fallo concreto que impidió abrirla. */
+export type ConnectMidiResult =
+  | { ok: true; connection: MidiConnection }
+  | { ok: false; failure: MidiAccessFailure }
+
 function listInputs(access: MIDIAccess): MidiInputInfo[] {
   const inputs: MidiInputInfo[] = []
   for (const input of access.inputs.values()) {
@@ -95,15 +100,16 @@ function eventTimestamp(event: MIDIMessageEvent): number {
 
 /**
  * Conecta a todos los inputs MIDI disponibles y reenvía note on/off al
- * listener. Devuelve la conexión (con los nombres de los puertos) o `null` si
- * el navegador no soporta Web MIDI o el usuario niega el permiso.
+ * listener. Devuelve la conexión con los nombres de los puertos, o el fallo
+ * tipado que explica por qué no se pudo abrir.
  */
 export async function connectMidiInput(
   listener: MidiNoteListener,
   options: ConnectMidiOptions = {},
-): Promise<MidiConnection | null> {
-  const access = await requestMidiAccess()
-  if (access === null) return null
+): Promise<ConnectMidiResult> {
+  const result = await requestMidiAccess()
+  if (!result.ok) return result
+  const access = result.access
 
   const attach = () => {
     for (const input of access.inputs.values()) {
@@ -142,13 +148,16 @@ export async function connectMidiInput(
   access.onstatechange = attach
 
   return {
-    inputs: listInputs(access),
-    outputs: listOutputs(access),
-    disconnect: () => {
-      access.onstatechange = null
-      for (const input of access.inputs.values()) {
-        input.onmidimessage = null
-      }
+    ok: true,
+    connection: {
+      inputs: listInputs(access),
+      outputs: listOutputs(access),
+      disconnect: () => {
+        access.onstatechange = null
+        for (const input of access.inputs.values()) {
+          input.onmidimessage = null
+        }
+      },
     },
   }
 }
