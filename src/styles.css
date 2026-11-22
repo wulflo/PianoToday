@@ -1110,12 +1110,6 @@ h1 {
   border-top: 1px solid var(--border);
 }
 
-.lesson-list li:first-child .lesson-row,
-.lesson-list .lesson-row:first-child {
-  border-top: none;
-  padding-top: 0;
-}
-
 .lesson-row a {
   color: var(--accent);
   font-weight: 600;
@@ -1763,11 +1757,6 @@ h1 {
   border-top: 1px solid var(--border);
 }
 
-.review-item:first-child {
-  border-top: none;
-  padding-top: 0;
-}
-
 .review-item-label {
   font-weight: 600;
 }
@@ -1920,11 +1909,6 @@ h1 {
   border-top: 1px solid var(--border);
 }
 
-.practice-block:first-child {
-  border-top: none;
-  padding-top: 0;
-}
-
 .practice-block-name {
   font-weight: 600;
 }
@@ -2030,11 +2014,6 @@ h1 {
 .stats-list li {
   padding-top: 0.4rem;
   border-top: 1px solid var(--border);
-}
-
-.stats-list li:first-child {
-  border-top: none;
-  padding-top: 0;
 }
 
 .stats-label {
@@ -3298,6 +3277,10 @@ progress::-moz-progress-bar {
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.02em;
 }
+
+/* F7-021 — Las listas de tarjetas no recortan el primer elemento: las reglas
+   antiguas `:first-child` que anulaban `border-top` y `padding-top` pertenecían
+   al diseño de divisorias y dejaban la primera tarjeta sin borde superior. */
 
 /* F7-016 — Ajustes, diagnóstico MIDI y estados vacíos o de error. */
 .settings-panel {

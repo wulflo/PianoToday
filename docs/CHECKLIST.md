@@ -1790,8 +1790,8 @@ Quedó funcionando:
 - [~] **F7-021** — Corregir el recorte del primer elemento en listas y tarjetas
   - Aceptación: las reglas `:first-child` que anulan `border-top` y `padding-top` no se aplican a tarjetas redondeadas; el primer ítem de la cola de repaso, las lecciones, la práctica y el progreso conservan borde y padding uniformes; verificado con capturas y suite en verde.
   - Deps: F7-020 · Red: no
-  - Progreso (2026-11-22T05:35:42-03:00): ✔ causa identificada en 4 reglas `:first-child` · ◻ corrección CSS · ◻ capturas antes/después y verificación · ◻ cierre, push y workflow
-  - Archivos tocados: docs/CHECKLIST.md
+  - Progreso (2026-11-22T05:41:11-03:00): ✔ 4 reglas `:first-child` eliminadas · ✔ medición antes/después: primera fila pasa de `border-top: 0`/`padding-top: 0` a `1px`/`12px` igual que las demás · ✔ repaso, práctica y progreso verificados con elementos inyectados · ✔ 1848 tests, build y budget (277,59 kB gzip) en verde · ◻ cierre, push y workflow
+  - Archivos tocados: src/styles.css, docs/CHECKLIST.md
 
 ## RESUMEN POR FASE
 
