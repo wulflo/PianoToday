@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-021
-- **Última verificada en verde:** F7-020 (`1de0c03`, 2026-11-22T05:29:33-03:00)
-- **Actualizado:** 2026-11-22T05:35:42-03:00
-- **Fase:** F7 — corrección visual posterior al despliegue: primer elemento de las listas recortado
-- **Nota:** El usuario reportó que el primer ítem de «Cola de hoy» sale truncado (texto desalineado y radio distinto) y lo mismo en otras secciones. Causa identificada por lectura de CSS: cuatro reglas `:first-child` heredadas del diseño de listas con divisorias siguen haciendo `border-top: none; padding-top: 0` sobre tarjetas redondeadas. Se abre F7-021 para corregirlas en las cuatro secciones y verificar con capturas.
+- **Tarea actual:** F7-022
+- **Última verificada en verde:** F7-021 (`379829c`, 2026-11-22T05:42:03-03:00)
+- **Actualizado:** 2026-11-22T05:42:03-03:00
+- **Fase:** F7 — correcciones posteriores al despliegue: listas y README
+- **Nota:** F7-021 corrigió el primer elemento recortado en cola de repaso, lecciones, práctica y progreso (medido antes/después: de `0px/none` a `12px/1px` como el resto). Ahora F7-022 embellece el README y corrige las URLs antiguas de `piano-learning`: la URL real verificada con `gh api repos/wulflo/PianoToday/pages` es `https://wulflo.github.io/PianoToday/`.
 
 ## LEYENDA
 
@@ -1787,11 +1787,17 @@ Quedó funcionando:
   - Progreso (2026-11-22T05:28:57-03:00): ✔ generador reproducible y documento con 599 paquetes (42 producción, 557 desarrollo) · ✔ test de cobertura, resumen y ámbitos · ✔ `audit:licenses` en verde · ✔ 1848 tests, build y budget (277,60 kB gzip) en verde · ✔ cierre, docs y push
   - Archivos tocados: docs/DEPENDENCIAS-LICENCIAS.md, scripts/generate-dependency-licenses.mjs, tests/dependency-licenses.test.ts, package.json, docs/CHECKLIST.md, docs/RESUME.md, docs/ENTORNO.md, CHANGELOG.md, docs/LOG.md
   - Commit: 1de0c03 · 2026-11-22T05:29:33-03:00
-- [~] **F7-021** — Corregir el recorte del primer elemento en listas y tarjetas
+- [x] **F7-021** — Corregir el recorte del primer elemento en listas y tarjetas
   - Aceptación: las reglas `:first-child` que anulan `border-top` y `padding-top` no se aplican a tarjetas redondeadas; el primer ítem de la cola de repaso, las lecciones, la práctica y el progreso conservan borde y padding uniformes; verificado con capturas y suite en verde.
   - Deps: F7-020 · Red: no
-  - Progreso (2026-11-22T05:41:11-03:00): ✔ 4 reglas `:first-child` eliminadas · ✔ medición antes/después: primera fila pasa de `border-top: 0`/`padding-top: 0` a `1px`/`12px` igual que las demás · ✔ repaso, práctica y progreso verificados con elementos inyectados · ✔ 1848 tests, build y budget (277,59 kB gzip) en verde · ◻ cierre, push y workflow
-  - Archivos tocados: src/styles.css, docs/CHECKLIST.md
+  - Progreso (2026-11-22T05:41:11-03:00): ✔ 4 reglas `:first-child` eliminadas · ✔ medición antes/después: primera fila pasa de `border-top: 0`/`padding-top: 0` a `1px`/`12px` igual que las demás · ✔ repaso, práctica y progreso verificados con elementos inyectados · ✔ 1848 tests, build y budget (277,59 kB gzip) en verde · ✔ cierre con hash y LOG
+  - Archivos tocados: src/styles.css, docs/CHECKLIST.md, docs/LOG.md
+  - Commit: 379829c · 2026-11-22T05:42:03-03:00
+- [~] **F7-022** — Embellecer el README y corregir la URL de GitHub Pages
+  - Aceptación: README con jerarquía visual clara y secciones más legibles; todas las URLs de la demo apuntan a `https://wulflo.github.io/PianoToday/` (verificada con la API de Pages) y no queda `piano-learning`; un test evita la regresión del enlace; verificación en verde.
+  - Deps: F7-021 · Red: no
+  - Progreso (2026-11-22T05:42:03-03:00): ✔ URL real verificada con `gh api` · ◻ README rediseñado y enlaces corregidos · ◻ test de regresión y verificación · ◻ cierre, push y workflow
+  - Archivos tocados: docs/CHECKLIST.md
 
 ## RESUMEN POR FASE
 
@@ -1804,6 +1810,6 @@ Quedó funcionando:
 | F4 | M5-M6 | 33 | Armonía y forma completas |
 | F5 | M7-M8 y repertorio | 51 | Técnica, estilos y piezas validadas |
 | F6 | PWA, MIDI, calidad, auditoría y despliegue | 55 | Suite, a11y, PWA, auditoría y demo publicada |
-| F7 | MIDI multi-navegador y rediseño visual | 21 | Suite, E2E multi-navegador, presupuesto, QA visual, licencias y correcciones |
+| F7 | MIDI multi-navegador y rediseño visual | 22 | Suite, E2E multi-navegador, presupuesto, QA visual, licencias, correcciones y README |
 
-Total: **329 tareas**. Los conteos se verifican con el test de formato del checklist.
+Total: **330 tareas**. Los conteos se verifican con el test de formato del checklist.

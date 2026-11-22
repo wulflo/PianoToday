@@ -2657,3 +2657,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: la fecha del documento se toma del `mtime` de `package-lock.json` en lugar de `Date.now()` para que regenerarlo no produzca cambios espurios; se dejó `THIRD_PARTY_LICENSES.md` intacto para no romper `audit:licenses`.
 - Limitaciones: la auditoría automática sigue cubriendo solo las dependencias de producción; las 557 de desarrollo se inventarian pero no se auditan contra una allowlist. El workflow mostró una advertencia no bloqueante de Node 20 obsoleto en varias actions. No se crearon tags ni releases.
 - Próximo paso: retomar desde **F6-054** al recibir el reporte de pruebas manuales del usuario.
+
+## 2026-11-22T05:42:03-03:00 · F7-021
+
+- Acción: el usuario reportó que el primer ítem de «Cola de hoy» aparecía truncado, con el texto desalineado y más radio, y que veía lo mismo en otras secciones. Se identificaron cuatro reglas heredadas del diseño de listas con divisorias (`.lesson-row`, `.review-item`, `.practice-block` y `.stats-list li`) que seguían aplicando `border-top: none; padding-top: 0` al primer elemento sobre tarjetas redondeadas. Se eliminaron y se dejó una nota en el CSS explicando por qué no deben volver.
+- Resultado: medición con Playwright antes/después de la primera fila de lección: de `border-top: 0px none` y `padding-top: 0px` a `1px solid` y `12px`, igual que la segunda fila. Las mismas medidas uniformes se comprobaron en repaso, práctica y progreso con elementos inyectados. typecheck OK; 263 archivos / 1848 tests en verde; build OK; presupuesto 277,59 kB gzip (< 300 kB). Commit `379829c`.
+- Correcciones: se conservaron las reglas base de borde y padding para que todas las tarjetas —incluida la primera— compartan el mismo contorno.
+- Limitaciones: la comprobación es en Chromium con estilos computados y capturas; no se verificó en WebKit (no arranca en el host) ni en Safari real.
+- Próximo paso: F7-022 — embellecer el README y corregir las URLs del demo que apuntan al repositorio antiguo `piano-learning`.
