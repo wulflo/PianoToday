@@ -2583,3 +2583,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: se descartó autoalojar una fuente porque la app es offline y el coste de archivos y licencias no aporta sobre la pila del sistema; se conservan `--staff-*` y `--piano-*` para no romper el contraste del pentagrama.
 - Limitaciones: las ratios son cálculos de color, no una auditoría con lector de pantalla; F7-017 y F7-018 las comprobarán con axe y capturas. Ninguna pantalla se rediseñó todavía.
 - Próximo paso: F7-013 — rediseñar cabecera, navegación, barra de estado MIDI y avisos, con versión móvil cuidada.
+
+## 2026-11-22T04:43:08-03:00 · F7-013
+
+- Acción: se aplicó la paleta de ADR-050 a los tres bloques de tema de `src/styles.css`, se añadieron tokens de espacio, elevación, movimiento y objetivo táctil, se retiró `Roboto` (nunca se cargaba) y se rediseñaron cabecera, navegación, barra MIDI y avisos. La cabecera lleva un icono de nota en SVG en línea; en móvil la navegación se desplaza horizontalmente y los enlaces miden al menos 44 px.
+- Resultado: typecheck OK; **261 archivos / 1839 tests** en verde, incluidos los de axe y el de igualdad de paletas claro/oscuro; build OK; presupuesto 277,52 kB gzip (< 300 kB). Commit `3a2bb56`. Capturas revisadas en 1280 y 390 px, claro y oscuro (el oscuro con `theme: 'dark'` en almacenamiento local, porque el tema por defecto es claro).
+- Correcciones: el primer paso de recolorado no alcanzó el bloque anidado `:root:not([data-theme='light'])` por su indentación, así que `tests/theme.test.ts` detectó que la paleta del sistema seguía siendo la antigua; se aplicó la misma paleta a ese bloque y el test volvió a verde.
+- Limitaciones: las capturas se revisaron en Chromium; no hay Safari real y WebKit no arranca en este host. La revisión visual es de pantallas principales, no de todo el catálogo de componentes (F7-014 a F7-016).
+- Próximo paso: F7-014 — rediseñar mapa del curso, `LessonPlayer` y `ExercisePlayer` sin modificar el contenido pedagógico.

@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-013
-- **Última verificada en verde:** F7-012 (`4c37b6e`, 2026-11-22T04:33:16-03:00)
-- **Actualizado:** 2026-11-22T04:33:16-03:00
+- **Tarea actual:** F7-014
+- **Última verificada en verde:** F7-013 (`3a2bb56`, 2026-11-22T04:43:08-03:00)
+- **Actualizado:** 2026-11-22T04:43:08-03:00
 - **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa C: rediseño visual)
-- **Nota:** ADR-050 fija la dirección visual (papel cálido, verde profundo, terracota, pila del sistema, tokens conservados) con ratios WCAG calculados antes de tocar CSS. Ahora F7-013 rediseña el shell: cabecera, navegación, barra MIDI y avisos, con versión móvil cuidada. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
+- **Nota:** El shell ya usa la paleta cálida: cabecera con icono de nota en SVG, navegación con objetivos de 44 px y desplazamiento horizontal en móvil, barra MIDI y avisos con superficies suaves. Capturas en 1280 y 390 px, claro y oscuro, revisadas. Ahora F7-014 rediseña mapa del curso y reproductores sin tocar contenido. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
 
 ## LEYENDA
 
@@ -1736,12 +1736,13 @@ Quedó funcionando:
   - Progreso (2026-11-22T04:31:52-03:00): ✔ tokens actuales y fuente declarada revisados (Roboto no se carga) · ✔ ADR-050 con paleta AA, escalas y reglas · ✔ cierre con hash y LOG
   - Archivos tocados: docs/DECISIONES.md, docs/CHECKLIST.md, docs/LOG.md
   - Commit: 4c37b6e · 2026-11-22T04:33:16-03:00
-- [~] **F7-013** — Rediseñar el shell
+- [x] **F7-013** — Rediseñar el shell
   - Aceptación: cabecera, navegación (`NAV_ITEMS` en `src/router/hash-route.ts`), barra de estado MIDI y avisos rediseñados, con versión móvil cuidada; axe sin violaciones nuevas y textos en ES y EN.
   - Deps: F7-012 · Red: no
-  - Progreso (2026-11-22T04:42:43-03:00): ✔ paleta ADR-050 aplicada a los tres bloques de tema · ✔ cabecera con icono SVG, nav táctil, barra MIDI y avisos · ✔ capturas 1280/390 claro y oscuro revisadas · ✔ 1839 tests (axe incluido), build y budget (277,52 kB gzip) en verde · ◻ cierre con hash y LOG
+  - Progreso (2026-11-22T04:42:43-03:00): ✔ paleta ADR-050 aplicada a los tres bloques de tema · ✔ cabecera con icono SVG, nav táctil, barra MIDI y avisos · ✔ capturas 1280/390 claro y oscuro revisadas · ✔ 1839 tests (axe incluido), build y budget (277,52 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: src/styles.css, src/App.tsx, docs/CHECKLIST.md
-- [ ] **F7-014** — Rediseñar mapa del curso y lecciones
+  - Commit: 3a2bb56 · 2026-11-22T04:43:08-03:00
+- [~] **F7-014** — Rediseñar mapa del curso y lecciones
   - Aceptación: `CoursePage`, `LessonPlayer` y `ExercisePlayer` rediseñados sin tocar el contenido de lecciones ni ejercicios; navegación y foco accesibles y textos en ES y EN.
   - Deps: F7-013 · Red: no
 - [ ] **F7-015** — Rediseñar teclado virtual, pentagrama y práctica
