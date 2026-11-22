@@ -1,6 +1,6 @@
 # ENTORNO — Piano Today
 
-Última actualización: 2026-11-22T05:29:33-03:00
+Última actualización: 2026-11-22T05:47:47-03:00
 
 ## Máquina de desarrollo
 
@@ -18,8 +18,8 @@
 ## Estado actual del entorno (cierre de F7)
 
 - Scaffold compilable: `npm run dev`, `npm run typecheck`, `npm test`, `npm run build`, `npm run budget` y `npm run estado` verificados; E2E con Chromium y Firefox.
-- Bundle de producción: JS inicial 277,60 kB gzip (< 300 kB) con Tone.js, VexFlow y FSRS diferidos; 843 chunks diferidos.
-- Suite: 263 archivos de test, 1848 tests en verde (axe incluido). E2E: 8/8 en Chromium y 7/7 en Firefox, con 2 y 3 pruebas omitidas respectivamente por ser específicas de otro navegador.
+- Bundle de producción: JS inicial 277,59 kB gzip (< 300 kB) con Tone.js, VexFlow y FSRS diferidos; 843 chunks diferidos.
+- Suite: 263 archivos de test, 1847 tests en verde (axe incluido). E2E: 8/8 en Chromium y 7/7 en Firefox, con 2 y 3 pruebas omitidas respectivamente por ser específicas de otro navegador.
 - Capturas de QA: 36 PNG en `test-results/qa-visual/` (360/768/1280 px, claro y oscuro, Chromium y Firefox, pantallas de curso, lección y ajustes), sin errores de página. No se versionan.
 - Navegadores de Playwright instalados con `npx playwright install chromium firefox webkit`: Chromium 1254 (Chrome for Testing 158), Firefox 1572 (Firefox 159) y WebKit 2388 (WebKit 27.2). WebKit no arranca: falta `libicudata.so.74` y `install-deps` requiere root.
 - Contenido validado: 9 módulos, 79 lecciones publicadas, 720 ejercicios, 67 habilidades y 28 piezas de repertorio.
@@ -27,7 +27,7 @@
 - Assets de audio Salamander descargados: 30 muestras MP3, 1,92 MB total, verificadas por tamaño y SHA-256; `--dry-run` reporta 30 presentes y 0 faltantes.
 - Auditorías de calidad disponibles: `npm run audit` (encadena audio, licencias, código y texto y consolida el resultado en `docs/AUDITORIA.md`), más `audit:audio`, `audit:licenses`, `audit:code`, `audit:text` y `audit:reuse` por separado.
 - Tags locales `fase-0` a `fase-6`; remoto `origin` con push a `main` autorizado y Pages activo. No se crean tags ni releases remotos sin autorización. F7 no tiene tag ni release, pero se hizo push a `main` y el workflow `Deploy a GitHub Pages` terminó en verde (run `45002514740`).
-- F0 a F6 completas (F6-054 sigue `[ ]` a propósito, a la espera del reporte manual del usuario). F7 completada: 19 tareas cerradas y F7-009 descartada por ADR-049.
+- F0 a F6 completas (F6-054 sigue `[ ]` a propósito, a la espera del reporte manual del usuario). F7 completada: 21 tareas cerradas y F7-009 descartada por ADR-049. El README usa la URL publicada `https://wulflo.github.io/PianoToday/` (verificada con la API de Pages).
 
 ## Fuentes externas verificadas en F7
 

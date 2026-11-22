@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-022
-- **Última verificada en verde:** F7-021 (`379829c`, 2026-11-22T05:42:03-03:00)
-- **Actualizado:** 2026-11-22T05:42:03-03:00
-- **Fase:** F7 — correcciones posteriores al despliegue: listas y README
-- **Nota:** F7-021 corrigió el primer elemento recortado en cola de repaso, lecciones, práctica y progreso (medido antes/después: de `0px/none` a `12px/1px` como el resto). Ahora F7-022 embellece el README y corrige las URLs antiguas de `piano-learning`: la URL real verificada con `gh api repos/wulflo/PianoToday/pages` es `https://wulflo.github.io/PianoToday/`.
+- **Tarea actual:** F6-054
+- **Última verificada en verde:** F7-022 (`58838d5`, 2026-11-22T05:47:47-03:00)
+- **Actualizado:** 2026-11-22T05:47:47-03:00
+- **Fase:** F7 completada (22 tareas: 21 cerradas y F7-009 descartada)
+- **Nota:** F7-021 corrigió el primer elemento recortado en cola de repaso, lecciones, práctica y progreso. F7-022 embelleció el README y corrigió las URLs antiguas a `https://wulflo.github.io/PianoToday/` (verificada con la API de Pages); `tests/readme.test.ts` evita la regresión. Queda pendiente solo **F6-054**, que cierra el usuario con su reporte de hardware, Safari, iOS y Android. Push y workflow pendientes de este último cierre.
 
 ## LEYENDA
 
@@ -1793,11 +1793,12 @@ Quedó funcionando:
   - Progreso (2026-11-22T05:41:11-03:00): ✔ 4 reglas `:first-child` eliminadas · ✔ medición antes/después: primera fila pasa de `border-top: 0`/`padding-top: 0` a `1px`/`12px` igual que las demás · ✔ repaso, práctica y progreso verificados con elementos inyectados · ✔ 1848 tests, build y budget (277,59 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: src/styles.css, docs/CHECKLIST.md, docs/LOG.md
   - Commit: 379829c · 2026-11-22T05:42:03-03:00
-- [~] **F7-022** — Embellecer el README y corregir la URL de GitHub Pages
+- [x] **F7-022** — Embellecer el README y corregir la URL de GitHub Pages
   - Aceptación: README con jerarquía visual clara y secciones más legibles; todas las URLs de la demo apuntan a `https://wulflo.github.io/PianoToday/` (verificada con la API de Pages) y no queda `piano-learning`; un test evita la regresión del enlace; verificación en verde.
   - Deps: F7-021 · Red: no
-  - Progreso (2026-11-22T05:46:35-03:00): ✔ URL real verificada con `gh api` · ✔ README rediseñado con índice, tablas y badges; 0 apariciones de `piano-learning` · ✔ test de regresión (URLs y anclas) · ✔ 1847 tests, build y budget (277,59 kB gzip) en verde · ◻ cierre, push y workflow
-  - Archivos tocados: README.md, tests/readme.test.ts, docs/CHECKLIST.md
+  - Progreso (2026-11-22T05:46:35-03:00): ✔ URL real verificada con `gh api` · ✔ README rediseñado con índice, tablas y badges; 0 apariciones de `piano-learning` · ✔ test de regresión (URLs y anclas) · ✔ 1847 tests, build y budget (277,59 kB gzip) en verde · ✔ cierre con hash y LOG
+  - Archivos tocados: README.md, tests/readme.test.ts, docs/CHECKLIST.md, docs/LOG.md, docs/RESUME.md, docs/ENTORNO.md, CHANGELOG.md
+  - Commit: 58838d5 · 2026-11-22T05:47:47-03:00
 
 ## RESUMEN POR FASE
 

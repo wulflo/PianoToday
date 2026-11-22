@@ -14,8 +14,9 @@ Formato basado en Keep a Changelog. El proyecto usa tags anotados `fase-N`, publ
 
 ### Estado
 
-- 263 archivos / 1848 tests en verde, incluidos axe y los nuevos tests de MIDI, permisos, metadatos y licencias; typecheck, contenido, build y presupuesto verdes.
-- JS inicial 277,60 kB gzip (< 300 kB) y 843 chunks diferidos. E2E: 8/8 en Chromium y 7/7 en Firefox; 36 capturas de QA visual sin errores de página.
+- 263 archivos / 1847 tests en verde, incluidos axe y los nuevos tests de MIDI, permisos, metadatos, licencias y README; typecheck, contenido, build y presupuesto verdes.
+- JS inicial 277,59 kB gzip (< 300 kB) y 843 chunks diferidos. E2E: 8/8 en Chromium y 7/7 en Firefox; 36 capturas de QA visual sin errores de página.
+- Correcciones posteriores: F7-021 devolvió el borde y el padding al primer elemento de cola de repaso, lecciones, práctica y progreso; F7-022 embelleció el README y corrigió las URLs del demo a `https://wulflo.github.io/PianoToday/`.
 - Push a `main` autorizado y workflow `Deploy a GitHub Pages` en verde (run `45002514740`: verificación, build y publicación). Sin tags ni releases.
 - F7-009 quedó descartada (`[-]`) por ADR-049: el teclado virtual ya soporta teclas del ordenador y conectarlas al canal MIDI duplicaría notas.
 - Limitaciones: WebKit y Safari reales, iOS, Android y el teclado Yamaha PSR-373 físico siguen sin verificación; `git bisect` no fue posible con el historial importado. Sin tags ni releases de F7; el push y el despliegue sí se ejecutaron con autorización.

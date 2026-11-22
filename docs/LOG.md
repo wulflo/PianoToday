@@ -2665,3 +2665,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: se conservaron las reglas base de borde y padding para que todas las tarjetas —incluida la primera— compartan el mismo contorno.
 - Limitaciones: la comprobación es en Chromium con estilos computados y capturas; no se verificó en WebKit (no arranca en el host) ni en Safari real.
 - Próximo paso: F7-022 — embellecer el README y corregir las URLs del demo que apuntan al repositorio antiguo `piano-learning`.
+
+## 2026-11-22T05:47:47-03:00 · F7-022
+
+- Acción: se verificó con `gh api repos/wulflo/PianoToday/pages` que la URL publicada es `https://wulflo.github.io/PianoToday/`. Se reescribió el README con cabecera centrada y badges, índice con anclas, tablas para el público/el contenido/los navegadores, notas de práctica y una sección de estado con cifras reales. Se sustituyeron las dos apariciones de `https://wulflo.github.io/piano-learning/` (demo en línea y estado del proyecto) por la URL correcta, ya presente en el bloque superior. Se añadieron los documentos nuevos al índice de documentación y un test de regresión.
+- Resultado: typecheck OK; **263 archivos / 1847 tests** en verde (axe incluido); build OK y presupuesto 277,59 kB gzip (< 300 kB). Commit `58838d5`. `tests/readme.test.ts` comprueba que no queda `piano-learning`, que la URL correcta aparece al menos tres veces y que los anclas del índice existen.
+- Correcciones: las anclas del índice llevaban un guion inicial sobrante porque los encabezados empiezan con emoji; GitHub elimina el emoji y no genera ese guion. Se corrigieron todas y el test lo verifica.
+- Limitaciones: los badges de shields.io son decorativos y muestran datos fijos; la URL se comprobó con la API de GitHub en esta sesión, no con una petición HTTP al sitio publicado.
+- Próximo paso: único pendiente el PUNTO **F6-054**, a la espera del reporte manual del usuario; el push de estos dos últimos cambios y su workflow quedan por ejecutar en este cierre.
