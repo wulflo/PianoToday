@@ -2478,3 +2478,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: el cierre no crea tags ni releases; el único pendiente es F6-054, que por aceptación no puede marcarse `[x]` sin el reporte humano.
 - Limitaciones: la ronda se cierra sin las pruebas de hardware (audio real, MIDI físico, Safari, iOS y Android) y sin E2E de WebKit, tal como se documentó en `docs/QA-NAVEGADORES.md` y `docs/PRUEBAS-MANUALES.md`. `npm audit` conserva 4 vulnerabilidades bajas preexistentes de `deepmerge` vía `vite-plugin-pwa`/workbox, ajenas al alcance.
 - Próximo paso: esperar el reporte de pruebas manuales del usuario para cerrar F6-054 y, con la fase completa, crear el tag local `fase-6` y el resumen de fase (F6-030), siempre con confirmación explícita antes de cualquier push o tag remoto.
+
+## 2026-11-22T03:23:37-03:00 · F7-001
+
+- Acción: se registraron de una sola vez las 19 tareas de F7 en `docs/CHECKLIST.md` (tabla F7 = 19, total 327) y se fijó la línea base antes de tocar código: `npm ci`, typecheck, suite completa, build y medición del presupuesto, más 11 capturas Playwright de referencia en `test-results/baseline/` (ignorado por git). La línea base quedó escrita en `docs/ENTORNO.md` y en este LOG.
+- Resultado: `npm test -- checklist` 6/6 en verde antes y después del registro; typecheck OK; **254 archivos de test / 1767 tests** en verde; build OK; **JS inicial 273,53 kB gzip** (< 300 kB) con 843 chunks diferidos; `npm ci` instaló 502 paquetes con 0 vulnerabilidades. La cifra real de tests (1767) supera la que documentaba F6 (1759), así que se tomó la ejecución de esta sesión como línea base. Commit de la línea base `429e5e6`.
+- Correcciones: `docs/ENTORNO.md` seguía describiendo el estado de F6 (272,17 kB, 1752 tests) y se actualizó a la medición real; se documentó que los E2E de F6 no se ejecutaron en esta línea base.
+- Limitaciones: no se ejecutó ningún recorrido E2E: `@playwright/test` 1.65.0 espera Chromium 1254 y la caché local solo tiene 1255, así que las capturas se tomaron con `executablePath` apuntando a ese binario; Firefox y WebKit no están instalados. Las capturas no se versionan. Sin hardware MIDI, Safari real, iOS ni Android.
+- Próximo paso: F7-002 — devolver un resultado tipado de `requestMidiAccess` sin tragar excepciones y actualizar `connectMidiInput` y sus tests.

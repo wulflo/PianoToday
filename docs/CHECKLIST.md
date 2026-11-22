@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-001
-- **Última verificada en verde:** F6-055 (`4f22f3d`, 2026-11-14T23:00:00-03:00)
-- **Actualizado:** 2026-11-22T03:21:04-03:00
+- **Tarea actual:** F7-002
+- **Última verificada en verde:** F7-001 (`429e5e6`, 2026-11-22T03:23:37-03:00)
+- **Actualizado:** 2026-11-22T03:23:37-03:00
 - **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa A: base y diagnóstico)
-- **Nota:** Plan de 19 tareas registrado y commiteado (`8e6be9e`). Línea base: árbol limpio, `npm ci` con 502 paquetes y 0 vulnerabilidades, typecheck y 254 archivos / 1767 tests en verde; falta medir el build y el JS gzip, tomar las capturas Playwright de referencia y anotar la línea base en LOG. F6-054 sigue `[ ]` a propósito y solo la cierra el usuario. Sin push, tags ni releases sin confirmación.
+- **Nota:** Línea base fijada y documentada en ENTORNO y LOG: 254 archivos / 1767 tests, 273,53 kB gzip iniciales y 11 capturas en `test-results/baseline/`. Sigue sin ejecutarse E2E porque Playwright 1.65.0 espera Chromium 1254 y solo está 1255 en caché; se resolverá en F7-011. F6-054 sigue `[ ]` a propósito y solo la cierra el usuario. Sin push, tags ni releases sin confirmación.
 
 ## LEYENDA
 
@@ -1658,12 +1658,13 @@ Quedó funcionando:
 
 ### Etapa A — Base y diagnóstico
 
-- [~] **F7-001** — Registrar F7 y fijar la línea base
+- [x] **F7-001** — Registrar F7 y fijar la línea base
   - Aceptación: checklist con las 19 tareas de F7, fila F7 y total actualizados; `npm test -- checklist` en verde; árbol limpio; typecheck, test y build en verde con cantidad de tests y kB gzip del JS inicial anotados en LOG; capturas Playwright de las pantallas principales guardadas fuera del repo o en `test-results/`.
   - Deps: F6-055 · Red: no
-  - Progreso (2026-11-22T03:23:02-03:00): ✔ plan de 19 tareas registrado y validado · ✔ línea base medida (254 archivos / 1767 tests, 273,53 kB gzip) · ✔ 11 capturas Playwright en test-results/baseline · ◻ cierre con hash y LOG
+  - Progreso (2026-11-22T03:23:02-03:00): ✔ plan de 19 tareas registrado y validado · ✔ línea base medida (254 archivos / 1767 tests, 273,53 kB gzip) · ✔ 11 capturas Playwright en test-results/baseline · ✔ cierre con hash y LOG
   - Archivos tocados: docs/CHECKLIST.md, docs/ENTORNO.md, test-results/baseline/ (ignorado)
-- [ ] **F7-002** — Resultado tipado de `requestMidiAccess`
+  - Commit: 429e5e6 · 2026-11-22T03:23:37-03:00
+- [~] **F7-002** — Resultado tipado de `requestMidiAccess`
   - Aceptación: `src/midi/detect.ts` devuelve `ok` con el acceso o `failure` con `name`, `message` e `isSecureContext` sin tragar excepciones; `connectMidiInput` y los tests existentes actualizados; `sysex: false` conservado.
   - Deps: F7-001 · Red: no
 - [ ] **F7-003** — Módulos puros de familia de navegador y clasificación de fallos
