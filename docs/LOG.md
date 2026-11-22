@@ -2494,3 +2494,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: los tests existentes de `midi-detect` y `midi-input` solo comprobaban que jsdom no tiene Web MIDI; ahora cubren éxito, ausencia de API, cuatro nombres de `DOMException`, valores lanzados que no son `Error`, contexto seguro/inseguro y propagación hasta `connectMidiInput`.
 - Limitaciones: el cambio es interno; la UI todavía muestra «permiso denegado» para cualquier fallo hasta F7-005. No se probó con hardware MIDI ni en navegadores reales; las excepciones se simularon con `DOMException` en jsdom.
 - Próximo paso: F7-003 — crear `src/midi/browser.ts` y `src/midi/failure.ts` como módulos puros con tests.
+
+## 2026-11-22T03:33:50-03:00 · F7-003
+
+- Acción: se crearon dos módulos puros. `src/midi/browser.ts` deduce la familia (`chromium`, `firefox`, `webkit-mac`, `webkit-ios`, `other`) de señales de entorno (`window.chrome`, `InstallTrigger`, `webkitAudioContext`, plataforma y puntos táctiles) y usa UA/UA-CH solo para la etiqueta legible; no bloquea ningún flujo. `src/midi/failure.ts` clasifica los fallos en las seis categorías acordadas y expone `isPermissionDeniedFailure` para que solo una denegación real produzca el estado `denied`.
+- Resultado: typecheck OK; 22 tests focalizados nuevos y suite completa en verde; build OK; presupuesto 273,67 kB gzip (< 300 kB). Commit `09f00da`. REUSE.toml cubre los archivos nuevos con la anotación `**`.
+- Correcciones: se tuvo en cuenta que Chrome también expone `webkitAudioContext` por compatibilidad, por lo que la familia Chromium se comprueba antes que WebKit, y que iPadOS se declara como Macintosh pero conserva multitouch.
+- Limitaciones: la clasificación se validó con mensajes simulados (`DOMException` en jsdom); no se comprobó el texto exacto que emiten Firefox o Chrome en equipos reales. La familia de Safari se infirió de señales de WebKit, no de Safari real.
+- Próximo paso: F7-004 — reproducir y documentar la causa raíz; marcar como NO VERIFICADO lo que no se pueda probar sin hardware ni navegadores reales.

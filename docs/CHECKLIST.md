@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-003
-- **Última verificada en verde:** F7-002 (`9b76d30`, 2026-11-22T03:28:50-03:00)
-- **Actualizado:** 2026-11-22T03:28:50-03:00
+- **Tarea actual:** F7-004
+- **Última verificada en verde:** F7-003 (`09f00da`, 2026-11-22T03:33:50-03:00)
+- **Actualizado:** 2026-11-22T03:33:50-03:00
 - **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa A: base y diagnóstico)
-- **Nota:** `requestMidiAccess` ya devuelve `ok`/`failure` con `name`, `message` e `isSecureContext`; `connectMidiInput` propaga el fallo y el contexto mantiene el estado visible anterior hasta F7-005. Suite en 1780 tests y presupuesto 273,67 kB gzip. Sigue sin ejecutarse E2E por el desajuste de versión de Chromium; se resolverá en F7-011. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
+- **Nota:** Ya hay módulos puros para familia de navegador y clasificación de fallos; la familia se detecta por características y el UA solo nombra el navegador en el diagnóstico. Falta reproducir/documentar la causa raíz (F7-004) antes de tocar el comportamiento visible en F7-005. Sin hardware MIDI, E2E pendiente por el desajuste de Chromium. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
 
 ## LEYENDA
 
@@ -1670,12 +1670,13 @@ Quedó funcionando:
   - Progreso (2026-11-22T03:28:32-03:00): ✔ tipo `MidiAccessResult` en detect.ts · ✔ `connectMidiInput` y contexto adaptados · ✔ tests de éxito, excepción y ausencia de API · ✔ typecheck, 1780 tests, build y budget (273,67 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: src/midi/detect.ts, src/midi/input.ts, src/midi/context.tsx, tests/midi-detect.test.ts, tests/midi-input.test.ts, docs/CHECKLIST.md
   - Commit: 9b76d30 · 2026-11-22T03:28:50-03:00
-- [~] **F7-003** — Módulos puros de familia de navegador y clasificación de fallos
+- [x] **F7-003** — Módulos puros de familia de navegador y clasificación de fallos
   - Aceptación: `src/midi/browser.ts` detecta la familia (`chromium`, `firefox`, `webkit-mac`, `webkit-ios`, `other`) por características, con UA/UA-CH solo para elegir texto de ayuda y nunca para bloquear; `src/midi/failure.ts` clasifica `unsupported`, `insecure-context`, `permission-denied`, `permission-dismissed`, `addon-required-or-no-device` y `unknown`; ambos con tests.
   - Deps: F7-002 · Red: no
-  - Progreso (2026-11-22T03:33:30-03:00): ✔ `src/midi/browser.ts` con detección por características y etiquetas · ✔ `src/midi/failure.ts` con seis categorías · ✔ 22 tests focalizados en verde · ✔ typecheck, suite completa, build y budget (273,67 kB gzip) en verde · ◻ cierre con hash y LOG
+  - Progreso (2026-11-22T03:33:30-03:00): ✔ `src/midi/browser.ts` con detección por características y etiquetas · ✔ `src/midi/failure.ts` con seis categorías · ✔ 22 tests focalizados en verde · ✔ typecheck, suite completa, build y budget (273,67 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: src/midi/browser.ts, src/midi/failure.ts, tests/midi-browser.test.ts, tests/midi-failure.test.ts, docs/CHECKLIST.md
-- [ ] **F7-004** — Reproducir y documentar la causa raíz
+  - Commit: 09f00da · 2026-11-22T03:33:50-03:00
+- [~] **F7-004** — Reproducir y documentar la causa raíz
   - Aceptación: tabla `causa → síntoma → corrección` en LOG; Chromium con Playwright con y sin `permissions: ['midi']`; Firefox y WebKit con `addInitScript` simulando cada rechazo y la ausencia de la API; lo no verificado en hardware real marcado como tal.
   - Deps: F7-003 · Red: no
 - [ ] **F7-005** — Refactorizar `MidiProvider`
