@@ -1654,6 +1654,77 @@ Quedó funcionando:
   - Deps: F6-053 · Red: no
   - Commit: 4f22f3d · 2026-11-14T23:00:00-03:00
 
+## F7 — MIDI multi-navegador y rediseño visual
+
+### Etapa A — Base y diagnóstico
+
+- [ ] **F7-001** — Registrar F7 y fijar la línea base
+  - Aceptación: checklist con las 19 tareas de F7, fila F7 y total actualizados; `npm test -- checklist` en verde; árbol limpio; typecheck, test y build en verde con cantidad de tests y kB gzip del JS inicial anotados en LOG; capturas Playwright de las pantallas principales guardadas fuera del repo o en `test-results/`.
+  - Deps: F6-055 · Red: no
+- [ ] **F7-002** — Resultado tipado de `requestMidiAccess`
+  - Aceptación: `src/midi/detect.ts` devuelve `ok` con el acceso o `failure` con `name`, `message` e `isSecureContext` sin tragar excepciones; `connectMidiInput` y los tests existentes actualizados; `sysex: false` conservado.
+  - Deps: F7-001 · Red: no
+- [ ] **F7-003** — Módulos puros de familia de navegador y clasificación de fallos
+  - Aceptación: `src/midi/browser.ts` detecta la familia (`chromium`, `firefox`, `webkit-mac`, `webkit-ios`, `other`) por características, con UA/UA-CH solo para elegir texto de ayuda y nunca para bloquear; `src/midi/failure.ts` clasifica `unsupported`, `insecure-context`, `permission-denied`, `permission-dismissed`, `addon-required-or-no-device` y `unknown`; ambos con tests.
+  - Deps: F7-002 · Red: no
+- [ ] **F7-004** — Reproducir y documentar la causa raíz
+  - Aceptación: tabla `causa → síntoma → corrección` en LOG; Chromium con Playwright con y sin `permissions: ['midi']`; Firefox y WebKit con `addInitScript` simulando cada rechazo y la ausencia de la API; lo no verificado en hardware real marcado como tal.
+  - Deps: F7-003 · Red: no
+- [ ] **F7-005** — Refactorizar `MidiProvider`
+  - Aceptación: se conservan `MidiStatus` y los tests; el contexto expone `failure`; `denied` solo para denegación real y el resto `error` con detalle; el permiso se pide solo ante un gesto del usuario; autoconexión solo con permiso `granted` comprobado; no asumir que `permissions.query({name:'midi'})` funciona en Firefox.
+  - Deps: F7-004 · Red: no
+
+### Etapa B — Corrección y compatibilidad
+
+- [ ] **F7-006** — Flujo Chromium y ayuda de permiso
+  - Aceptación: pantalla previa que explica qué se pedirá; ayuda para bloqueado y descartado con rutas de configuración verificadas; cubre Chrome, Edge, Brave, Opera, Vivaldi, Samsung Internet y Chrome Android; textos en ES y EN.
+  - Deps: F7-005 · Red: sí · [NET]
+- [ ] **F7-007** — Flujo Firefox y complemento de permiso del sitio
+  - Aceptación: se explican los dos diálogos; ante `SecurityError` el primer consejo es encender y conectar el teclado en modo USB-MIDI o con driver y recargar; botón «Volver a buscar dispositivos» que vuelve a pedir acceso sin depender de `onstatechange`; ayuda de ventana privada y políticas solo si está verificada; aviso de Firefox Android sin Web MIDI; textos en ES y EN.
+  - Deps: F7-005 · Red: no
+- [ ] **F7-008** — Flujo Safari y WebKit
+  - Aceptación: detección por característica; con `requestMIDIAccess` se usa el flujo normal; sin API en macOS guía opcional de extensión de terceros con nombre, enlace, precio y estado verificados, enlace como constante y sin dar a entender respaldo oficial; en iOS/iPadOS se explica que ningún navegador tiene Web MIDI; el fallback con teclado virtual y autoevaluación manual sigue 100 % funcional; textos en ES y EN.
+  - Deps: F7-005 · Red: sí · [NET]
+- [ ] **F7-009** — Entrada por teclado del ordenador como fuente alternativa (opcional)
+  - Aceptación: decisión registrada por ADR; si entra, usa el mismo flujo de eventos que MIDI, desactivada por defecto, configurable en Ajustes y sin interferir con inputs ni atajos; si no entra limpia, se descarta con `[-]` y razón, actualizando tabla y total.
+  - Deps: F7-005 · Red: no
+- [ ] **F7-010** — Diagnóstico y textos por navegador
+  - Aceptación: `MidiDiagnostics` muestra navegador detectado, contexto seguro, estado del permiso y `failure.name`/`failure.message` reales, con botón «Copiar informe de diagnóstico» en texto plano y sin datos personales; los mensajes solo-Chrome se reemplazan por ayuda según familia en ES y EN.
+  - Deps: F7-006, F7-007, F7-008 · Red: no
+- [ ] **F7-011** — Pruebas y documentación multi-navegador
+  - Aceptación: un test unitario por tipo de fallo con `fake-midi.ts`, tests de componente por familia de navegador, E2E de Chromium con permiso concedido y denegado y de Firefox/WebKit con mocks (WebKit real solo si el host lo permite); `docs/PRUEBAS-MANUALES.md` (P2/P3) y `docs/QA-NAVEGADORES.md` actualizados con lo realmente verificado.
+  - Deps: F7-010 · Red: no
+
+### Etapa C — Rediseño visual
+
+- [ ] **F7-012** — Brief de diseño en ADR antes de tocar CSS
+  - Aceptación: ADR con dirección visual (cálida y serena, jerarquía clara, profundidad sutil, teclado táctil, micro-celebraciones), paleta con contraste AA, escala tipográfica, espaciado 4/8, radios, elevaciones y duraciones de movimiento; se conservan los nombres de tokens actuales como base o alias; tipografía autoalojada con licencia anotada en `THIRD_PARTY_LICENSES.md` y `REUSE.toml` o pila del sistema, sin CDN ni Google Fonts; íconos SVG en línea.
+  - Deps: F7-011 · Red: no
+- [ ] **F7-013** — Rediseñar el shell
+  - Aceptación: cabecera, navegación (`NAV_ITEMS` en `src/router/hash-route.ts`), barra de estado MIDI y avisos rediseñados, con versión móvil cuidada; axe sin violaciones nuevas y textos en ES y EN.
+  - Deps: F7-012 · Red: no
+- [ ] **F7-014** — Rediseñar mapa del curso y lecciones
+  - Aceptación: `CoursePage`, `LessonPlayer` y `ExercisePlayer` rediseñados sin tocar el contenido de lecciones ni ejercicios; navegación y foco accesibles y textos en ES y EN.
+  - Deps: F7-013 · Red: no
+- [ ] **F7-015** — Rediseñar teclado virtual, pentagrama y práctica
+  - Aceptación: teclado virtual, pentagrama y páginas de práctica, repaso y progreso rediseñados; objetivos táctiles ≥ 44 px; audio y evaluación siguen funcionando; textos en ES y EN.
+  - Deps: F7-013 · Red: no
+- [ ] **F7-016** — Rediseñar ajustes, panel MIDI y estados vacíos y de error
+  - Aceptación: `SettingsPage` y el panel MIDI rediseñados conservando el diagnóstico; estados vacíos y de error claros; textos en ES y EN.
+  - Deps: F7-013 · Red: no
+- [ ] **F7-017** — Tema oscuro, movimiento reducido y accesibilidad
+  - Aceptación: tema oscuro validado, `prefers-reduced-motion`, foco visible y objetivos táctiles ≥ 44 px; `theme-color` y manifiesto actualizados; axe sin violaciones nuevas.
+  - Deps: F7-012, F7-013, F7-014, F7-015, F7-016 · Red: no
+- [ ] **F7-018** — QA visual
+  - Aceptación: capturas Playwright a 360, 768 y 1280 px, claro y oscuro, en Chromium y Firefox (WebKit si el host lo permite), guardadas fuera del repo o en `test-results/`; axe sin violaciones nuevas; `npm run budget` en verde.
+  - Deps: F7-017 · Red: no
+
+### Etapa D — Cierre
+
+- [ ] **F7-019** — Cerrar F7
+  - Aceptación: RESUME, CHANGELOG, ENTORNO, DECISIONES y LOG actualizados; `npm run estado` en verde; el PUNTO vuelve a F6-054; sin tags ni releases remotos.
+  - Deps: F7-001 a F7-018 · Red: no
+
 ## RESUMEN POR FASE
 
 | Fase | Foco | Tareas | Criterio de cierre |
@@ -1665,5 +1736,6 @@ Quedó funcionando:
 | F4 | M5-M6 | 33 | Armonía y forma completas |
 | F5 | M7-M8 y repertorio | 51 | Técnica, estilos y piezas validadas |
 | F6 | PWA, MIDI, calidad, auditoría y despliegue | 55 | Suite, a11y, PWA, auditoría y demo publicada |
+| F7 | MIDI multi-navegador y rediseño visual | 19 | Suite, E2E multi-navegador, presupuesto y QA visual |
 
-Total: **308 tareas**. Los conteos se verifican con el test de formato del checklist.
+Total: **327 tareas**. Los conteos se verifican con el test de formato del checklist.
