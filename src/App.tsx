@@ -76,6 +76,10 @@ function AppShell() {
   }, [settings.theme])
 
   useEffect(() => {
+    document.documentElement.style.setProperty('--accent', settings.accentColor)
+  }, [settings.accentColor])
+
+  useEffect(() => {
     document.title = `${t(routeTitleKey(route))} · Piano Today`
   }, [route, t])
 
@@ -95,8 +99,8 @@ function AppShell() {
       </a>
       <header className="site-header">
         <div className="site-header-top">
-          <p className="brand">
-            <a href={COURSE_HASH}>
+          <h1 className="brand">
+            <a href={COURSE_HASH} className="brand-link">
               <svg
                 className="brand-mark"
                 viewBox="0 0 24 24"
@@ -108,9 +112,9 @@ function AppShell() {
                   d="M9 17.5a2.5 2.5 0 1 1-2-2.45V5.2l10-2v9.85a2.5 2.5 0 1 1-2-2.45V5.2L9 6.8v10.7Z"
                 />
               </svg>
-              Piano <span>Today</span>
+              <span className="brand-text">Piano <span className="brand-accent">Today</span></span>
             </a>
-          </p>
+          </h1>
         </div>
 
         <nav className="site-nav" aria-label={t('nav.primary')}>

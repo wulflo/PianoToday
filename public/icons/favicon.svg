@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" rx="8" fill="#2f5d50"/>
+  <!-- Teclas de piano simplificadas -->
+  <rect x="6" y="12" width="3" height="12" rx="1" fill="#fff"/>
+  <rect x="10" y="12" width="3" height="12" rx="1" fill="#fff"/>
+  <rect x="14" y="12" width="3" height="12" rx="1" fill="#fff"/>
+  <rect x="18" y="12" width="3" height="12" rx="1" fill="#fff"/>
+  <rect x="22" y="12" width="3" height="12" rx="1" fill="#fff"/>
+  <!-- Teclas negras -->
+  <rect x="8" y="12" width="2" height="7" rx="0.5" fill="#20232a"/>
+  <rect x="12" y="12" width="2" height="7" rx="0.5" fill="#20232a"/>
+  <rect x="16" y="12" width="2" height="7" rx="0.5" fill="#20232a"/>
+  <rect x="20" y="12" width="2" height="7" rx="0.5" fill="#20232a"/>
+  <!-- Nota musical -->
+  <path d="M20 6a2 2 0 1 1 4 0v6a2 2 0 1 1-4 0v-6ZM22 6v12" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+</svg>

@@ -9,7 +9,8 @@
 :root {
   color-scheme: light;
   /* Superficies y contenido */
-  --bg: #faf7f2;
+  --bg-base: #faf7f2;
+  --bg: color-mix(in srgb, var(--accent) 15%, var(--bg-base));
   --bg-panel: #fffdf9;
   --surface: #fffdf9;
   --surface-container-low: #f5efe6;
@@ -53,11 +54,11 @@
   --focus: #2f5d50;
   --shadow: 42 34 26;
   /* Formas M3 */
-  --radius-xs: 0.5rem;
-  --radius-sm: 0.75rem;
-  --radius-md: 1rem;
-  --radius-lg: 1.5rem;
-  --radius-xl: 1.75rem;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
   /* Espaciado 4/8, elevaciones y movimiento (ADR-050). */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -86,7 +87,8 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     color-scheme: dark;
-    --bg: #171a18;
+    --bg-base: #171a18;
+  --bg: color-mix(in srgb, var(--accent) 15%, var(--bg-base));
     --bg-panel: #202521;
     --surface: #202521;
     --surface-container-low: #1c211d;
@@ -133,7 +135,8 @@
 
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --bg: #171a18;
+  --bg-base: #171a18;
+  --bg: color-mix(in srgb, var(--accent) 15%, var(--bg-base));
   --bg-panel: #202521;
   --surface: #202521;
   --surface-container-low: #1c211d;
@@ -319,7 +322,7 @@ h1 {
 .panel {
   background: var(--bg-panel);
   border: 1px solid var(--border);
-  border-radius: 1rem;
+  border-radius: 0.375rem;
   padding: 1.25rem 1.5rem;
 }
 
@@ -370,7 +373,7 @@ h1 {
   top: -4rem;
   z-index: 10;
   padding: 0.6rem 0.9rem;
-  border-radius: 0.5rem;
+  border-radius: 0.375rem;
   background: var(--surface);
   color: var(--text);
   text-decoration: none;
@@ -426,7 +429,7 @@ h1 {
   height: 10rem;
   padding: 0;
   border: 1px solid var(--border);
-  border-radius: 0.5rem;
+  border-radius: 0.375rem;
   background: var(--bg-panel);
   overflow: hidden;
   touch-action: none;
@@ -456,7 +459,7 @@ h1 {
   background: var(--piano-white);
   color: var(--piano-white-text);
   border-right: 1px solid var(--piano-white-border);
-  border-radius: 0 0 0.35rem 0.35rem;
+  border-radius: 0 0 0.25rem 0.25rem;
 }
 
 .piano-key-white:last-of-type {
@@ -470,7 +473,7 @@ h1 {
   height: 62%;
   background: var(--piano-black);
   color: var(--piano-black-text);
-  border-radius: 0 0 0.3rem 0.3rem;
+  border-radius: 0 0 0.2rem 0.2rem;
   box-shadow: 0 3px 0 var(--piano-black-shadow);
 }
 
@@ -611,7 +614,7 @@ h1 {
   color: var(--text);
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 0.45rem;
+  border-radius: 0.3rem;
   font: inherit;
 }
 
@@ -674,7 +677,7 @@ h1 {
 .staff-scroll {
   overflow-x: auto;
   border: 1px solid var(--border);
-  border-radius: 0.75rem;
+  border-radius: 0.375rem;
   background: var(--staff-bg);
   padding: 0.25rem;
 }
@@ -764,7 +767,7 @@ h1 {
   align-items: center;
   margin: 0;
   border: 1px solid var(--border);
-  border-radius: 0.75rem;
+  border-radius: 0.375rem;
   padding: 0.5rem 0.75rem;
 }
 
@@ -857,7 +860,7 @@ h1 {
   margin: 0.75rem 0 0;
   padding: 0.6rem 0.75rem;
   border: 1px solid var(--border);
-  border-radius: 0.5rem;
+  border-radius: 0.375rem;
   background: color-mix(in srgb, var(--bg-panel) 75%, var(--bg));
   font-size: 0.9rem;
 }
@@ -1037,7 +1040,7 @@ h1 {
 .module-card {
   padding: 1rem 1.25rem;
   border: 1px solid var(--border);
-  border-radius: 0.75rem;
+  border-radius: 0.375rem;
   background: var(--bg-panel);
 }
 
@@ -1177,7 +1180,7 @@ h1 {
 .style-map-entry {
   padding: 0.75rem;
   border: 1px solid var(--border);
-  border-radius: 0.6rem;
+  border-radius: 0.3rem;
   background: var(--bg);
 }
 
@@ -1276,7 +1279,7 @@ h1 {
   gap: 0.5rem 1rem;
   padding: 0.6rem 0.85rem;
   border: 1px solid var(--border);
-  border-radius: 0.6rem;
+  border-radius: 0.3rem;
   background: var(--bg-panel);
 }
 
@@ -1320,7 +1323,7 @@ h1 {
 .lesson-callout aside {
   padding: 0.85rem 1rem;
   border-left: 0.3rem solid var(--accent);
-  border-radius: 0 0.5rem 0.5rem 0;
+  border-radius: 0 0.375rem 0.375rem 0;
   background: var(--bg-panel);
 }
 
@@ -1346,7 +1349,7 @@ h1 {
 .exercise-card {
   padding: 1rem;
   border: 1px solid var(--border);
-  border-radius: 0.75rem;
+  border-radius: 0.375rem;
   background: var(--bg-panel);
 }
 
@@ -1381,14 +1384,14 @@ h1 {
   color: var(--text);
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 0.45rem;
+  border-radius: 0.3rem;
 }
 
 .progression-player {
   margin: 0.9rem 0;
   padding: 0.85rem 1rem;
   border: 1px solid var(--border);
-  border-radius: 0.6rem;
+  border-radius: 0.3rem;
   background: var(--bg);
 }
 
@@ -1462,7 +1465,7 @@ h1 {
   margin: 0.75rem 0;
   padding: 0.75rem;
   border: 1px solid var(--border);
-  border-radius: 0.5rem;
+  border-radius: 0.375rem;
 }
 
 .exercise-choices legend {
@@ -1477,7 +1480,7 @@ h1 {
   align-items: flex-start;
   gap: 0.5rem;
   padding: 0.4rem 0.5rem;
-  border-radius: 0.4rem;
+  border-radius: 0.3rem;
   cursor: pointer;
 }
 
@@ -1499,7 +1502,7 @@ h1 {
 .exercise-written input {
   padding: 0.5rem 0.6rem;
   border: 1px solid var(--border);
-  border-radius: 0.4rem;
+  border-radius: 0.3rem;
   background: var(--bg);
   color: var(--text);
   font: inherit;
@@ -1515,7 +1518,7 @@ h1 {
 .exercise-feedback {
   margin-top: 1rem;
   padding: 0.85rem 1rem;
-  border-radius: 0.6rem;
+  border-radius: 0.3rem;
   border: 1px solid var(--border);
 }
 
@@ -1538,7 +1541,7 @@ h1 {
   margin-top: 0.85rem;
   padding: 0.75rem 0.9rem;
   border-left: 0.3rem solid var(--accent);
-  border-radius: 0 0.5rem 0.5rem 0;
+  border-radius: 0 0.375rem 0.375rem 0;
   background: var(--bg);
 }
 
@@ -1568,7 +1571,7 @@ h1 {
   padding: 0.6rem 0.8rem;
   background: var(--bg);
   border-left: 3px solid var(--accent);
-  border-radius: 0.35rem;
+  border-radius: 0.25rem;
 }
 
 .task-actions {
@@ -1593,7 +1596,7 @@ h1 {
   color: var(--muted);
   background: var(--bg);
   border-left: 3px solid var(--accent);
-  border-radius: 0.35rem;
+  border-radius: 0.25rem;
   font-size: 0.9rem;
 }
 
@@ -1606,7 +1609,7 @@ h1 {
   padding: 0.6rem 0.9rem;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 0.5rem;
+  border-radius: 0.375rem;
 }
 
 .task-midi-feedback p {
@@ -1625,7 +1628,7 @@ h1 {
   padding: 0.6rem 0.9rem;
   background: var(--bg-panel);
   border: 1px dashed var(--border);
-  border-radius: 0.75rem;
+  border-radius: 0.375rem;
   font-size: 0.9rem;
 }
 
@@ -1653,7 +1656,7 @@ h1 {
   margin: 1.25rem 0 0;
   padding: 0.75rem 1rem 1rem;
   border: 1px solid var(--border);
-  border-radius: 0.75rem;
+  border-radius: 0.375rem;
 }
 
 .task-checklist legend {
@@ -1816,7 +1819,7 @@ h1 {
   margin: 1.25rem 0 0;
   padding: 0.75rem 1rem 1rem;
   border: 1px solid var(--border);
-  border-radius: 0.75rem;
+  border-radius: 0.375rem;
 }
 
 .review-assessment legend {
@@ -1879,7 +1882,7 @@ h1 {
   margin: 1rem 0;
   padding: 0.75rem 1rem 1rem;
   border: 1px solid var(--border);
-  border-radius: 0.75rem;
+  border-radius: 0.375rem;
 }
 
 .practice-durations legend {
@@ -2044,7 +2047,7 @@ h1 {
   padding: 1rem;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 0.75rem;
+  border-radius: 0.375rem;
 }
 
 .data-card h3 {
@@ -2060,7 +2063,7 @@ h1 {
   padding: 0.6rem 0.8rem;
   background: var(--bg-panel);
   border: 1px solid var(--border);
-  border-radius: 0.5rem;
+  border-radius: 0.375rem;
 }
 
 .data-feedback.error-panel {
@@ -2340,11 +2343,11 @@ input[type='range'] {
 
 .piano-key-white {
   border-right-color: #c9c4cf;
-  border-radius: 0 0 0.6rem 0.6rem;
+  border-radius: 0 0 0.4rem 0.4rem;
 }
 
 .piano-key-black {
-  border-radius: 0 0 0.5rem 0.5rem;
+  border-radius: 0 0 0.375rem 0.375rem;
 }
 
 .piano-key.is-pressed {
@@ -2738,7 +2741,7 @@ input[type='range'] {
   padding: 0.9rem 1rem;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 0.75rem;
+  border-radius: 0.375rem;
 }
 
 .song-card h3 {
@@ -2755,7 +2758,7 @@ input[type='range'] {
   padding: 1.25rem 1.5rem;
   background: var(--bg-panel);
   border: 1px solid var(--border);
-  border-radius: 1rem;
+  border-radius: 0.375rem;
 }
 
 .song-player .panel-heading {
@@ -3379,4 +3382,68 @@ input:focus-visible {
   .exercise-feedback.is-correct {
     animation: none;
   }
+}
+
+/* ── Nombre de la app más grande y estilizado ── */
+.brand {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.brand-link {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-mark {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.brand-text {
+  color: var(--text);
+}
+
+.brand-accent {
+  color: var(--accent);
+}
+
+/* ── Selector de colores de acento ── */
+.accent-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.accent-swatch {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease, border-color 0.15s ease;
+}
+
+.accent-swatch:hover {
+  transform: scale(1.1);
+  border-color: var(--accent);
+}
+
+.accent-swatch.selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.accent-swatch.selected:hover {
+  transform: scale(1.15);
 }

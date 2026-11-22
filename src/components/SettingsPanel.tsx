@@ -8,6 +8,7 @@ import {
 } from '../state/fsrs-settings'
 import { DAILY_CAP_MAX, DAILY_CAP_MIN } from '../state/load-forecast'
 import { DEFAULT_SETTINGS, useSettings } from '../state/settings'
+import { ACCENT_COLORS } from '../state/settings'
 
 export interface SettingsPanelProps {
   /**
@@ -90,6 +91,23 @@ export function SettingsPanel({ labelledBy }: SettingsPanelProps = {}) {
             <option value="light">{t('settings.theme.light')}</option>
             <option value="dark">{t('settings.theme.dark')}</option>
           </select>
+        </label>
+
+        <label className="field">
+          <span>{t('settings.accentColor')}</span>
+          <div className="accent-picker">
+            {ACCENT_COLORS.map((color) => (
+              <button
+                key={color.id}
+                type="button"
+                className={`accent-swatch ${settings.accentColor === color.value ? 'selected' : ''}`}
+                title={color.label}
+                style={{ backgroundColor: color.value }}
+                onClick={() => updateSettings({ accentColor: color.value })}
+                aria-pressed={settings.accentColor === color.value}
+              />
+            ))}
+          </div>
         </label>
 
         <label className="field">

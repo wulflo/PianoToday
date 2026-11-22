@@ -36,8 +36,26 @@ export interface Settings {
   midiEnabled: boolean
   /** Muestra el número de dedo y la mano sobre las teclas con digitación. */
   showFingering: boolean
+  /** Color de acento de la app (hex). */
+  accentColor: string
   computerKeys: Record<string, number>
 }
+
+/** Paleta de 10 colores de acento disponibles. */
+export const ACCENT_COLORS: Array<{ id: string; label: string; value: string }> = [
+  { id: 'verde', label: 'Verde', value: '#2f5d50' },
+  { id: 'azul', label: 'Azul', value: '#1d4ed8' },
+  { id: 'indigo', label: 'Índigo', value: '#4338ca' },
+  { id: 'purpura', label: 'Púrpura', value: '#7c3aed' },
+  { id: 'rosa', label: 'Rosa', value: '#db2777' },
+  { id: 'rojo', label: 'Rojo', value: '#b91c1c' },
+  { id: 'naranja', label: 'Naranja', value: '#d97706' },
+  { id: 'ambar', label: 'Ámbar', value: '#ca8a04' },
+  { id: 'esmeralda', label: 'Esmeralda', value: '#059669' },
+  { id: 'cian', label: 'Cian', value: '#0891b2' },
+]
+
+export const DEFAULT_ACCENT_COLOR = '#2f5d50'
 
 export const SETTINGS_STORAGE_KEY = 'pdc.settings.v1'
 
@@ -53,6 +71,7 @@ export const DEFAULT_SETTINGS: Settings = {
   newPerDay: DEFAULT_DAILY_CAP,
   midiEnabled: false,
   showFingering: true,
+  accentColor: DEFAULT_ACCENT_COLOR,
   computerKeys: { ...DEFAULT_COMPUTER_KEY_MAP },
 }
 
@@ -83,6 +102,11 @@ export function normalizeSettings(input: unknown): Settings {
   const newPerDay = normalizeDailyCap(input.newPerDay)
   const midiEnabled = input.midiEnabled === true
   const showFingering = input.showFingering !== false
+  const accentColors = new Set(ACCENT_COLORS.map((c) => c.value))
+  const accentColor =
+    typeof input.accentColor === 'string' && accentColors.has(input.accentColor)
+      ? input.accentColor
+      : DEFAULT_ACCENT_COLOR
   const computerKeys: Record<string, number> = isPlainObject(input.computerKeys)
     ? {}
     : { ...DEFAULT_COMPUTER_KEY_MAP }
@@ -111,6 +135,7 @@ export function normalizeSettings(input: unknown): Settings {
     newPerDay,
     midiEnabled,
     showFingering,
+    accentColor,
     computerKeys,
   }
 }
@@ -683,6 +708,7 @@ const ES_DICTIONARY = {
     'settings.theme': 'Tema',
     'settings.theme.light': 'Claro',
     'settings.theme.dark': 'Oscuro',
+    'settings.accentColor': 'Color de acento',
     'settings.newPerDay': 'Ítems nuevos por día',
     'settings.newPerDay.help': 'Entre {min} y {max}; se aplica a la cola de repaso.',
     'settings.volume': 'Volumen',
@@ -1405,6 +1431,7 @@ const EN_DICTIONARY: Record<keyof typeof ES_DICTIONARY, string> = {
     'settings.theme': 'Theme',
     'settings.theme.light': 'Light',
     'settings.theme.dark': 'Dark',
+    'settings.accentColor': 'Accent color',
     'settings.newPerDay': 'New items per day',
     'settings.newPerDay.help': 'Between {min} and {max}; applies to the review queue.',
     'settings.volume': 'Volume',
