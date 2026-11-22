@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-009
+- **Tarea actual:** F7-010
 - **Última verificada en verde:** F7-008 (`0e8f9af`, 2026-11-22T04:03:34-03:00)
-- **Actualizado:** 2026-11-22T04:03:34-03:00
+- **Actualizado:** 2026-11-22T04:05:35-03:00
 - **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa B: corrección y compatibilidad)
-- **Nota:** Safari/WebKit ya detecta por característica: usa el flujo normal si existe la API, ofrece una guía opcional de extensión de terceros en macOS y explica que ningún navegador de iOS/iPadOS tiene Web MIDI. El fallback manual sigue intacto. F7-009 decidirá con ADR si entra la entrada por teclado de ordenador; después vienen los textos del diagnóstico (F7-010). F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
+- **Nota:** F7-009 se descartó con ADR-049: el teclado virtual ya soporta teclas del ordenador con mapa configurable y conectarlas al canal MIDI duplicaría notas. La última `[x]` sigue siendo F7-008 porque la descartada no cuenta como verificada en verde. Ahora F7-010 sustituye los textos solo-Chrome del diagnóstico y añade el informe copiable. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
 
 ## LEYENDA
 
@@ -1709,11 +1709,12 @@ Quedó funcionando:
   - Progreso (2026-11-22T04:03:13-03:00): ✔ extensión verificada y URL aislada como constante · ✔ textos ES/EN · ✔ flujo WebKit en `MidiPermissionFlow` y 4 tests (iOS, macOS sin API, macOS con API, claves) · ✔ 1829 tests, typecheck, build y budget (276,66 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: src/components/MidiPermissionFlow.tsx, src/midi/permissions.ts, src/state/settings.tsx, tests/midi-webkit-flow.test.tsx, docs/ENTORNO.md, docs/CHECKLIST.md
   - Commit: 0e8f9af · 2026-11-22T04:03:34-03:00
-- [~] **F7-009** — Entrada por teclado del ordenador como fuente alternativa (opcional)
+- [-] **F7-009** — Entrada por teclado del ordenador como fuente alternativa (opcional)
   - Aceptación: decisión registrada por ADR; si entra, usa el mismo flujo de eventos que MIDI, desactivada por defecto, configurable en Ajustes y sin interferir con inputs ni atajos; si no entra limpia, se descarta con `[-]` y razón.
   - Deps: F7-005 · Red: no
-  - Progreso (2026-11-22T04:04:49-03:00): ✔ revisado el soporte existente en `Keyboard.tsx` y Settings · ◻ ADR de decisión · ◻ cierre con razón en la tarea
-  - Archivos tocados: docs/CHECKLIST.md
+  - Progreso (2026-11-22T04:04:49-03:00): ✔ revisado el soporte existente en `Keyboard.tsx` y Settings · ✔ ADR-049 con la decisión · ✔ cierre con razón en la tarea
+  - Archivos tocados: docs/DECISIONES.md, docs/CHECKLIST.md, docs/LOG.md
+  - Descartada: c35431a · 2026-11-22T04:05:35-03:00 · ADR-049: el teclado virtual ya tiene teclas de ordenador configurables; unirlas al canal MIDI duplicaría notas con el teclado visible y exigiría un cambio transversal. El total no cambia porque el formato cuenta las tareas `[-]`.
 - [ ] **F7-010** — Diagnóstico y textos por navegador
   - Aceptación: `MidiDiagnostics` muestra navegador detectado, contexto seguro, estado del permiso y `failure.name`/`failure.message` reales, con botón «Copiar informe de diagnóstico» en texto plano y sin datos personales; los mensajes solo-Chrome se reemplazan por ayuda según familia en ES y EN.
   - Deps: F7-006, F7-007, F7-008 · Red: no

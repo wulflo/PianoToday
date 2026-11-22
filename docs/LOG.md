@@ -2551,3 +2551,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: la guía se muestra antes de la comprobación de estado `unsupported`, para que Safari sin API no se quede sin explicación; el texto advierte explícitamente que la extensión no es un producto de Apple ni de Piano Today.
 - Limitaciones: la extensión se verificó en su página web, no instalándola; no hay Safari macOS real, iPhone, iPad ni WebKit real en este host. La compatibilidad de la extensión con versiones futuras de Safari no está garantizada, de ahí la constante aislada.
 - Próximo paso: F7-009 — decidir por ADR si la entrada por teclado del ordenador entra como fuente alternativa; si entra, desactivada por defecto y sin interferir con inputs ni atajos.
+
+## 2026-11-22T04:05:35-03:00 · F7-009
+
+- Acción: se revisó el soporte existente de teclas de ordenador (`Keyboard.tsx` con `enableComputerKeyboard`, mapa `settings.computerKeys` editable en Ajustes y guardas para atajos, teclas repetidas y campos de texto) y se escribió ADR-049 con la decisión de no conectar esa fuente al canal MIDI compartido. La tarea queda `[-]` con la razón.
+- Resultado: ADR y razón registradas; decisión commiteada en `c35431a`. No se cambió código de la app, así que no hubo que repetir la verificación completa: seguían en verde typecheck, 1829 tests, build y presupuesto de 276,66 kB gzip del cierre anterior. El total de tareas sigue en 327 porque el formato del checklist cuenta también las descartadas.
+- Correcciones: se ajustó la aceptación de la propia tarea para que no exigiera cambiar tabla y total al descartarla con `[-]`.
+- Limitaciones: en Safari/iOS sigue sin haber evaluación objetiva automática sin hardware; la alternativa es el teclado virtual y la autoevaluación manual, ya documentada en F7-008.
+- Próximo paso: F7-010 — mostrar browser, contexto seguro, permiso y `failure` real en `MidiDiagnostics`, añadir «Copiar informe de diagnóstico» y reemplazar los mensajes solo-Chrome en ES y EN.
