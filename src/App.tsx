@@ -99,7 +99,7 @@ function AppShell() {
       </a>
       <header className="site-header">
         <div className="site-header-top">
-          <h1 className="brand">
+          <p className="brand">
             <a href={COURSE_HASH} className="brand-link">
               <svg
                 className="brand-mark"
@@ -114,7 +114,7 @@ function AppShell() {
               </svg>
               <span className="brand-text">Piano <span className="brand-accent">Today</span></span>
             </a>
-          </h1>
+          </p>
         </div>
 
         <nav className="site-nav" aria-label={t('nav.primary')}>

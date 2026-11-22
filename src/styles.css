@@ -10,7 +10,8 @@
   color-scheme: light;
   /* Superficies y contenido */
   --bg-base: #faf7f2;
-  --bg: color-mix(in srgb, var(--accent) 15%, var(--bg-base));
+  --bg: #faf7f2;
+  --bg-tint: color-mix(in srgb, var(--accent) 15%, var(--bg-base));
   --bg-panel: #fffdf9;
   --surface: #fffdf9;
   --surface-container-low: #f5efe6;
@@ -88,7 +89,8 @@
   :root:not([data-theme='light']) {
     color-scheme: dark;
     --bg-base: #171a18;
-  --bg: color-mix(in srgb, var(--accent) 15%, var(--bg-base));
+    --bg: #171a18;
+    --bg-tint: color-mix(in srgb, var(--accent) 15%, var(--bg-base));
     --bg-panel: #202521;
     --surface: #202521;
     --surface-container-low: #1c211d;
@@ -136,7 +138,8 @@
 :root[data-theme='dark'] {
   color-scheme: dark;
   --bg-base: #171a18;
-  --bg: color-mix(in srgb, var(--accent) 15%, var(--bg-base));
+  --bg: #171a18;
+  --bg-tint: color-mix(in srgb, var(--accent) 15%, var(--bg-base));
   --bg-panel: #202521;
   --surface: #202521;
   --surface-container-low: #1c211d;
@@ -187,7 +190,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--bg);
+  background: var(--bg-tint);
   color: var(--text);
   /* Reserva el ancho de la barra de scroll: evita el salto horizontal (CLS)
      cuando la página crece al cargar el progreso. */
@@ -612,7 +615,7 @@ h1 {
   min-height: 2.2rem;
   padding: 0.3rem 0.5rem;
   color: var(--text);
-  background: var(--bg);
+  background: var(--bg-tint);
   border: 1px solid var(--border);
   border-radius: 0.3rem;
   font: inherit;
@@ -861,7 +864,7 @@ h1 {
   padding: 0.6rem 0.75rem;
   border: 1px solid var(--border);
   border-radius: 0.375rem;
-  background: color-mix(in srgb, var(--bg-panel) 75%, var(--bg));
+  background: color-mix(in srgb, var(--bg-panel) 75%, var(--bg-tint));
   font-size: 0.9rem;
 }
 
@@ -1181,7 +1184,7 @@ h1 {
   padding: 0.75rem;
   border: 1px solid var(--border);
   border-radius: 0.3rem;
-  background: var(--bg);
+  background: var(--bg-tint);
 }
 
 .style-map-entry-heading {
@@ -1382,7 +1385,7 @@ h1 {
   min-height: 2.2rem;
   padding: 0.3rem 0.5rem;
   color: var(--text);
-  background: var(--bg);
+  background: var(--bg-tint);
   border: 1px solid var(--border);
   border-radius: 0.3rem;
 }
@@ -1392,7 +1395,7 @@ h1 {
   padding: 0.85rem 1rem;
   border: 1px solid var(--border);
   border-radius: 0.3rem;
-  background: var(--bg);
+  background: var(--bg-tint);
 }
 
 .progression-player .muted {
@@ -1485,7 +1488,7 @@ h1 {
 }
 
 .exercise-choice:hover {
-  background: var(--bg);
+  background: var(--bg-tint);
 }
 
 .exercise-choice input {
@@ -1503,7 +1506,7 @@ h1 {
   padding: 0.5rem 0.6rem;
   border: 1px solid var(--border);
   border-radius: 0.3rem;
-  background: var(--bg);
+  background: var(--bg-tint);
   color: var(--text);
   font: inherit;
 }
@@ -1512,7 +1515,7 @@ h1 {
   margin: 0.75rem 0;
   padding: 0.75rem;
   border-left: 0.3rem solid var(--accent);
-  background: var(--bg);
+  background: var(--bg-tint);
 }
 
 .exercise-feedback {
@@ -1542,7 +1545,7 @@ h1 {
   padding: 0.75rem 0.9rem;
   border-left: 0.3rem solid var(--accent);
   border-radius: 0 0.375rem 0.375rem 0;
-  background: var(--bg);
+  background: var(--bg-tint);
 }
 
 .exercise-remember h4 {
@@ -1569,7 +1572,7 @@ h1 {
 
 .task-fingering {
   padding: 0.6rem 0.8rem;
-  background: var(--bg);
+  background: var(--bg-tint);
   border-left: 3px solid var(--accent);
   border-radius: 0.25rem;
 }
@@ -1594,7 +1597,7 @@ h1 {
   margin: 0 0 0.75rem;
   padding: 0.55rem 0.8rem;
   color: var(--muted);
-  background: var(--bg);
+  background: var(--bg-tint);
   border-left: 3px solid var(--accent);
   border-radius: 0.25rem;
   font-size: 0.9rem;
@@ -1607,7 +1610,7 @@ h1 {
   gap: 0.5rem 0.9rem;
   margin: 0 0 1rem;
   padding: 0.6rem 0.9rem;
-  background: var(--bg);
+  background: var(--bg-tint);
   border: 1px solid var(--border);
   border-radius: 0.375rem;
 }
@@ -2045,7 +2048,7 @@ h1 {
 
 .data-card {
   padding: 1rem;
-  background: var(--bg);
+  background: var(--bg-tint);
   border: 1px solid var(--border);
   border-radius: 0.375rem;
 }
@@ -2117,7 +2120,7 @@ body {
       color-mix(in srgb, var(--primary-container) 60%, transparent),
       transparent 42rem
     ),
-    var(--bg);
+    var(--bg-tint);
   background-attachment: fixed;
 }
 
@@ -2739,7 +2742,7 @@ input[type='range'] {
   justify-content: space-between;
   gap: 0.75rem 1rem;
   padding: 0.9rem 1rem;
-  background: var(--bg);
+  background: var(--bg-tint);
   border: 1px solid var(--border);
   border-radius: 0.375rem;
 }
@@ -2790,7 +2793,7 @@ body {
       color-mix(in srgb, var(--tertiary-container) 45%, transparent),
       transparent 34rem
     ),
-    var(--bg);
+    var(--bg-tint);
   background-attachment: fixed;
 }
 

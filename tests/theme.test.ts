@@ -144,7 +144,7 @@ describe('F4-032 — Contraste de análisis y partituras', () => {
   it('usa la paleta AA en la descripción del pentagrama y en el Recordá', () => {
     expect(block('.staff-text {')).toContain('color: var(--muted)')
     expect(block('.staff-text-label {')).toContain('color: var(--text)')
-    expect(block('.exercise-remember {')).toContain('background: var(--bg)')
+    expect(block('.exercise-remember {')).toContain('background: var(--bg-tint)')
     expect(block('.exercise-feedback.is-incorrect {')).toContain(
       'background: color-mix(in srgb, var(--accent) 7%, var(--bg-panel))',
     )
