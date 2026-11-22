@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-008
-- **Última verificada en verde:** F7-007 (`0e0244d`, 2026-11-22T03:58:58-03:00)
-- **Actualizado:** 2026-11-22T03:58:58-03:00
+- **Tarea actual:** F7-009
+- **Última verificada en verde:** F7-008 (`0e8f9af`, 2026-11-22T04:03:34-03:00)
+- **Actualizado:** 2026-11-22T04:03:34-03:00
 - **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa B: corrección y compatibilidad)
-- **Nota:** Firefox ya explica los dos diálogos del complemento, prioriza conectar el teclado antes de pedir acceso, ofrece «Volver a buscar dispositivos» y avisa de que Firefox Android no tiene Web MIDI. Falta el flujo Safari/WebKit (F7-008), la decisión sobre teclado de ordenador (F7-009) y los textos del diagnóstico (F7-010). F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
+- **Nota:** Safari/WebKit ya detecta por característica: usa el flujo normal si existe la API, ofrece una guía opcional de extensión de terceros en macOS y explica que ningún navegador de iOS/iPadOS tiene Web MIDI. El fallback manual sigue intacto. F7-009 decidirá con ADR si entra la entrada por teclado de ordenador; después vienen los textos del diagnóstico (F7-010). F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
 
 ## LEYENDA
 
@@ -1703,12 +1703,13 @@ Quedó funcionando:
   - Progreso (2026-11-22T03:58:37-03:00): ✔ MDN 108 verificada · ✔ textos ES/EN y flujo Firefox en `MidiPermissionFlow` (dos diálogos, conectar primero, «Volver a buscar dispositivos», aviso Android) · ✔ 4 tests de Firefox · ✔ 1825 tests, typecheck, build y budget (276,19 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: src/components/MidiPermissionFlow.tsx, src/state/settings.tsx, tests/midi-firefox-flow.test.tsx, docs/CHECKLIST.md
   - Commit: 0e0244d · 2026-11-22T03:58:58-03:00
-- [~] **F7-008** — Flujo Safari y WebKit
+- [x] **F7-008** — Flujo Safari y WebKit
   - Aceptación: detección por característica; con `requestMIDIAccess` se usa el flujo normal; sin API en macOS guía opcional de extensión de terceros con nombre, enlace, precio y estado verificados, enlace como constante y sin dar a entender respaldo oficial; en iOS/iPadOS se explica que ningún navegador tiene Web MIDI; el fallback con teclado virtual y autoevaluación manual sigue 100 % funcional; textos en ES y EN.
   - Deps: F7-005 · Red: sí · [NET]
-  - Progreso (2026-11-22T04:03:13-03:00): ✔ extensión verificada y URL aislada como constante · ✔ textos ES/EN · ✔ flujo WebKit en `MidiPermissionFlow` y 4 tests (iOS, macOS sin API, macOS con API, claves) · ✔ 1829 tests, typecheck, build y budget (276,66 kB gzip) en verde · ◻ cierre con hash y LOG
+  - Progreso (2026-11-22T04:03:13-03:00): ✔ extensión verificada y URL aislada como constante · ✔ textos ES/EN · ✔ flujo WebKit en `MidiPermissionFlow` y 4 tests (iOS, macOS sin API, macOS con API, claves) · ✔ 1829 tests, typecheck, build y budget (276,66 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: src/components/MidiPermissionFlow.tsx, src/midi/permissions.ts, src/state/settings.tsx, tests/midi-webkit-flow.test.tsx, docs/ENTORNO.md, docs/CHECKLIST.md
-- [ ] **F7-009** — Entrada por teclado del ordenador como fuente alternativa (opcional)
+  - Commit: 0e8f9af · 2026-11-22T04:03:34-03:00
+- [~] **F7-009** — Entrada por teclado del ordenador como fuente alternativa (opcional)
   - Aceptación: decisión registrada por ADR; si entra, usa el mismo flujo de eventos que MIDI, desactivada por defecto, configurable en Ajustes y sin interferir con inputs ni atajos; si no entra limpia, se descarta con `[-]` y razón, actualizando tabla y total.
   - Deps: F7-005 · Red: no
 - [ ] **F7-010** — Diagnóstico y textos por navegador

@@ -2543,3 +2543,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: el reintento ya no depende de `onstatechange`: «Volver a buscar dispositivos» llama a `retry()`, que vuelve a invocar `requestMIDIAccess`.
 - Limitaciones: los nombres de los dos diálogos provienen de las fuentes proporcionadas en la misión y no se reproduceron en Firefox real; el comportamiento en ventana privada y con políticas se plantea como comprobación a realizar, no como hecho verificado. Sin teclado físico ni Firefox real.
 - Próximo paso: F7-008 [NET] — flujo Safari/WebKit, extensión de terceros verificada y aviso en iOS/iPadOS.
+
+## 2026-11-22T04:03:34-03:00 · F7-008
+
+- Acción: se verificó la extensión «Web MIDI for Safari» en la página de su autor (v0.1.11, gratuita, macOS 13.5+, Safari 18.4+, solo Mac) y se aisló su URL en `SAFARI_WEBMIDI_EXTENSION_URL`. `MidiPermissionFlow` detecta WebKit por característica: si existe `requestMIDIAccess` usa el flujo normal; si no, en macOS muestra la guía opcional con el enlace y el descargo de responsabilidad, y en iOS/iPadOS explica que ningún navegador ofrece Web MIDI. El teclado virtual y la autoevaluación manual quedan intactos. Se añadieron tres claves en español e inglés y se actualizó ENTORNO con la fuente.
+- Resultado: typecheck OK; **260 archivos / 1829 tests** en verde; build OK; presupuesto 276,66 kB gzip (< 300 kB). Commit `0e8f9af`. Cuatro tests cubren iOS, macOS sin API, macOS con API y la presencia de las claves en ambos idiomas.
+- Correcciones: la guía se muestra antes de la comprobación de estado `unsupported`, para que Safari sin API no se quede sin explicación; el texto advierte explícitamente que la extensión no es un producto de Apple ni de Piano Today.
+- Limitaciones: la extensión se verificó en su página web, no instalándola; no hay Safari macOS real, iPhone, iPad ni WebKit real en este host. La compatibilidad de la extensión con versiones futuras de Safari no está garantizada, de ahí la constante aislada.
+- Próximo paso: F7-009 — decidir por ADR si la entrada por teclado del ordenador entra como fuente alternativa; si entra, desactivada por defecto y sin interferir con inputs ni atajos.
