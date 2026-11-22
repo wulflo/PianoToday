@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-002
-- **Última verificada en verde:** F7-001 (`429e5e6`, 2026-11-22T03:23:37-03:00)
-- **Actualizado:** 2026-11-22T03:23:37-03:00
+- **Tarea actual:** F7-003
+- **Última verificada en verde:** F7-002 (`9b76d30`, 2026-11-22T03:28:50-03:00)
+- **Actualizado:** 2026-11-22T03:28:50-03:00
 - **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa A: base y diagnóstico)
-- **Nota:** Línea base fijada y documentada en ENTORNO y LOG: 254 archivos / 1767 tests, 273,53 kB gzip iniciales y 11 capturas en `test-results/baseline/`. Sigue sin ejecutarse E2E porque Playwright 1.65.0 espera Chromium 1254 y solo está 1255 en caché; se resolverá en F7-011. F6-054 sigue `[ ]` a propósito y solo la cierra el usuario. Sin push, tags ni releases sin confirmación.
+- **Nota:** `requestMidiAccess` ya devuelve `ok`/`failure` con `name`, `message` e `isSecureContext`; `connectMidiInput` propaga el fallo y el contexto mantiene el estado visible anterior hasta F7-005. Suite en 1780 tests y presupuesto 273,67 kB gzip. Sigue sin ejecutarse E2E por el desajuste de versión de Chromium; se resolverá en F7-011. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
 
 ## LEYENDA
 
@@ -1667,9 +1667,10 @@ Quedó funcionando:
 - [~] **F7-002** — Resultado tipado de `requestMidiAccess`
   - Aceptación: `src/midi/detect.ts` devuelve `ok` con el acceso o `failure` con `name`, `message` e `isSecureContext` sin tragar excepciones; `connectMidiInput` y los tests existentes actualizados; `sysex: false` conservado.
   - Deps: F7-001 · Red: no
-  - Progreso (2026-11-22T03:28:32-03:00): ✔ tipo `MidiAccessResult` en detect.ts · ✔ `connectMidiInput` y contexto adaptados · ✔ tests de éxito, excepción y ausencia de API · ✔ typecheck, 1780 tests, build y budget (273,67 kB gzip) en verde · ◻ cierre con hash y LOG
+  - Progreso (2026-11-22T03:28:32-03:00): ✔ tipo `MidiAccessResult` en detect.ts · ✔ `connectMidiInput` y contexto adaptados · ✔ tests de éxito, excepción y ausencia de API · ✔ typecheck, 1780 tests, build y budget (273,67 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: src/midi/detect.ts, src/midi/input.ts, src/midi/context.tsx, tests/midi-detect.test.ts, tests/midi-input.test.ts, docs/CHECKLIST.md
-- [ ] **F7-003** — Módulos puros de familia de navegador y clasificación de fallos
+  - Commit: 9b76d30 · 2026-11-22T03:28:50-03:00
+- [~] **F7-003** — Módulos puros de familia de navegador y clasificación de fallos
   - Aceptación: `src/midi/browser.ts` detecta la familia (`chromium`, `firefox`, `webkit-mac`, `webkit-ios`, `other`) por características, con UA/UA-CH solo para elegir texto de ayuda y nunca para bloquear; `src/midi/failure.ts` clasifica `unsupported`, `insecure-context`, `permission-denied`, `permission-dismissed`, `addon-required-or-no-device` y `unknown`; ambos con tests.
   - Deps: F7-002 · Red: no
 - [ ] **F7-004** — Reproducir y documentar la causa raíz

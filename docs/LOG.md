@@ -2486,3 +2486,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: `docs/ENTORNO.md` seguía describiendo el estado de F6 (272,17 kB, 1752 tests) y se actualizó a la medición real; se documentó que los E2E de F6 no se ejecutaron en esta línea base.
 - Limitaciones: no se ejecutó ningún recorrido E2E: `@playwright/test` 1.65.0 espera Chromium 1254 y la caché local solo tiene 1255, así que las capturas se tomaron con `executablePath` apuntando a ese binario; Firefox y WebKit no están instalados. Las capturas no se versionan. Sin hardware MIDI, Safari real, iOS ni Android.
 - Próximo paso: F7-002 — devolver un resultado tipado de `requestMidiAccess` sin tragar excepciones y actualizar `connectMidiInput` y sus tests.
+
+## 2026-11-22T03:28:50-03:00 · F7-002
+
+- Acción: se confirmaron los hechos informados (detect.ts tragaba toda excepción, input.ts propagaba `null` y context.tsx lo convertía siempre en `denied`). `requestMidiAccess` devuelve ahora `{ ok: true, access }` o `{ ok: false, failure }` con `name`, `message` e `isSecureContext`; `connectMidiInput` propaga ese resultado y el contexto guarda el mensaje real manteniendo todavía el estado visible `denied` (Etapa A, sin cambiar el flujo). Se conserva `sysex: false`.
+- Resultado: typecheck OK; 15 tests MIDI focalizados y **1780 tests** de la suite completa en verde; build OK; `npm run budget` OK con 273,67 kB gzip iniciales (< 300 kB) y 843 chunks diferidos. Commit `9b76d30`.
+- Correcciones: los tests existentes de `midi-detect` y `midi-input` solo comprobaban que jsdom no tiene Web MIDI; ahora cubren éxito, ausencia de API, cuatro nombres de `DOMException`, valores lanzados que no son `Error`, contexto seguro/inseguro y propagación hasta `connectMidiInput`.
+- Limitaciones: el cambio es interno; la UI todavía muestra «permiso denegado» para cualquier fallo hasta F7-005. No se probó con hardware MIDI ni en navegadores reales; las excepciones se simularon con `DOMException` en jsdom.
+- Próximo paso: F7-003 — crear `src/midi/browser.ts` y `src/midi/failure.ts` como módulos puros con tests.
