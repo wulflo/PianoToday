@@ -1710,8 +1710,10 @@ Quedó funcionando:
   - Archivos tocados: src/components/MidiPermissionFlow.tsx, src/midi/permissions.ts, src/state/settings.tsx, tests/midi-webkit-flow.test.tsx, docs/ENTORNO.md, docs/CHECKLIST.md
   - Commit: 0e8f9af · 2026-11-22T04:03:34-03:00
 - [~] **F7-009** — Entrada por teclado del ordenador como fuente alternativa (opcional)
-  - Aceptación: decisión registrada por ADR; si entra, usa el mismo flujo de eventos que MIDI, desactivada por defecto, configurable en Ajustes y sin interferir con inputs ni atajos; si no entra limpia, se descarta con `[-]` y razón, actualizando tabla y total.
+  - Aceptación: decisión registrada por ADR; si entra, usa el mismo flujo de eventos que MIDI, desactivada por defecto, configurable en Ajustes y sin interferir con inputs ni atajos; si no entra limpia, se descarta con `[-]` y razón.
   - Deps: F7-005 · Red: no
+  - Progreso (2026-11-22T04:04:49-03:00): ✔ revisado el soporte existente en `Keyboard.tsx` y Settings · ◻ ADR de decisión · ◻ cierre con razón en la tarea
+  - Archivos tocados: docs/CHECKLIST.md
 - [ ] **F7-010** — Diagnóstico y textos por navegador
   - Aceptación: `MidiDiagnostics` muestra navegador detectado, contexto seguro, estado del permiso y `failure.name`/`failure.message` reales, con botón «Copiar informe de diagnóstico» en texto plano y sin datos personales; los mensajes solo-Chrome se reemplazan por ayuda según familia en ES y EN.
   - Deps: F7-006, F7-007, F7-008 · Red: no
