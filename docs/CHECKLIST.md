@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-007
-- **Última verificada en verde:** F7-006 (`934d4e7`, 2026-11-22T03:54:23-03:00)
-- **Actualizado:** 2026-11-22T03:54:23-03:00
+- **Tarea actual:** F7-008
+- **Última verificada en verde:** F7-007 (`0e0244d`, 2026-11-22T03:58:58-03:00)
+- **Actualizado:** 2026-11-22T03:58:58-03:00
 - **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa B: corrección y compatibilidad)
-- **Nota:** El botón de conexión explica ahora qué se va a pedir y muestra ayuda verificada por familia; las rutas `edge://` y `vivaldi://` no se escribieron por falta de fuente (ADR-048). Faltan los flujos de Firefox y Safari/WebKit y la sustitución de los textos viejos en el diagnóstico (F7-010). F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
+- **Nota:** Firefox ya explica los dos diálogos del complemento, prioriza conectar el teclado antes de pedir acceso, ofrece «Volver a buscar dispositivos» y avisa de que Firefox Android no tiene Web MIDI. Falta el flujo Safari/WebKit (F7-008), la decisión sobre teclado de ordenador (F7-009) y los textos del diagnóstico (F7-010). F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
 
 ## LEYENDA
 
@@ -1697,12 +1697,13 @@ Quedó funcionando:
   - Progreso (2026-11-22T03:53:58-03:00): ✔ rutas verificadas con red, ADR-048 y ENTORNO actualizado · ✔ `permissions.ts` y tests · ✔ pantalla previa, ayuda en ES/EN y wiring en barra de estado y diagnóstico · ✔ 1821 tests, typecheck, build y budget (275,54 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: src/midi/permissions.ts, src/components/MidiPermissionFlow.tsx, src/components/MidiStatusBar.tsx, src/components/MidiDiagnostics.tsx, src/state/settings.tsx, tests/midi-permissions.test.ts, tests/midi-permission-flow.test.tsx, tests/midi-diagnostics.test.tsx, tests/songs-page.test.tsx, docs/DECISIONES.md, docs/ENTORNO.md, docs/CHECKLIST.md
   - Commit: 934d4e7 · 2026-11-22T03:54:23-03:00
-- [~] **F7-007** — Flujo Firefox y complemento de permiso del sitio
+- [x] **F7-007** — Flujo Firefox y complemento de permiso del sitio
   - Aceptación: se explican los dos diálogos; ante `SecurityError` el primer consejo es encender y conectar el teclado en modo USB-MIDI o con driver y recargar; botón «Volver a buscar dispositivos» que vuelve a pedir acceso sin depender de `onstatechange`; ayuda de ventana privada y políticas solo si está verificada; aviso de Firefox Android sin Web MIDI; textos en ES y EN.
   - Deps: F7-005 · Red: no
-  - Progreso (2026-11-22T03:58:37-03:00): ✔ MDN 108 verificada · ✔ textos ES/EN y flujo Firefox en `MidiPermissionFlow` (dos diálogos, conectar primero, «Volver a buscar dispositivos», aviso Android) · ✔ 4 tests de Firefox · ✔ 1825 tests, typecheck, build y budget (276,19 kB gzip) en verde · ◻ cierre con hash y LOG
+  - Progreso (2026-11-22T03:58:37-03:00): ✔ MDN 108 verificada · ✔ textos ES/EN y flujo Firefox en `MidiPermissionFlow` (dos diálogos, conectar primero, «Volver a buscar dispositivos», aviso Android) · ✔ 4 tests de Firefox · ✔ 1825 tests, typecheck, build y budget (276,19 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: src/components/MidiPermissionFlow.tsx, src/state/settings.tsx, tests/midi-firefox-flow.test.tsx, docs/CHECKLIST.md
-- [ ] **F7-008** — Flujo Safari y WebKit
+  - Commit: 0e0244d · 2026-11-22T03:58:58-03:00
+- [~] **F7-008** — Flujo Safari y WebKit
   - Aceptación: detección por característica; con `requestMIDIAccess` se usa el flujo normal; sin API en macOS guía opcional de extensión de terceros con nombre, enlace, precio y estado verificados, enlace como constante y sin dar a entender respaldo oficial; en iOS/iPadOS se explica que ningún navegador tiene Web MIDI; el fallback con teclado virtual y autoevaluación manual sigue 100 % funcional; textos en ES y EN.
   - Deps: F7-005 · Red: sí · [NET]
 - [ ] **F7-009** — Entrada por teclado del ordenador como fuente alternativa (opcional)

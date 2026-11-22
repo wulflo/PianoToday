@@ -2535,3 +2535,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: `navigator.platform` en Android es `Linux armv8l`, así que la detección de Android se apoya también en el User-Agent; se ajustó el texto del botón según esté en la barra de estado o en el diagnóstico para conservar las etiquetas que ya usaban los tests.
 - Limitaciones: las rutas se verificaron en documentación, no abriendo cada navegador. No se encontró fuente fiable para `edge://…` ni `vivaldi://…`, por lo que esos navegadores reciben la instrucción genérica del icono del sitio. No se probó en Edge, Vivaldi, Samsung Internet ni Chrome Android reales, ni con teclado físico.
 - Próximo paso: F7-007 — flujo Firefox: dos diálogos del complemento, consejo de conectar el teclado primero, botón «Volver a buscar dispositivos» y aviso de Firefox Android.
+
+## 2026-11-22T03:58:58-03:00 · F7-007
+
+- Acción: se verificó en las notas de Firefox 108 de MDN que el complemento de permiso del sitio se ofrece a usuarios con dispositivos MIDI activos. `MidiPermissionFlow` recibe ahora la información del navegador (inyectable en tests) y, para Firefox, explica los dos diálogos, pone primero el consejo de encender y conectar el teclado y recargar, cambia el botón de reintento por «Volver a buscar dispositivos» —que vuelve a pedir acceso— y muestra un aviso propio en Firefox Android. Se añadieron cuatro claves en español e inglés.
+- Resultado: typecheck OK; **259 archivos / 1825 tests** en verde; build OK; presupuesto 276,19 kB gzip (< 300 kB). Commit `0e0244d`. Cuatro tests nuevos cubren la explicación, el `SecurityError` del complemento con segundo intento, el aviso de Android y la presencia de las claves en ambos idiomas.
+- Correcciones: el reintento ya no depende de `onstatechange`: «Volver a buscar dispositivos» llama a `retry()`, que vuelve a invocar `requestMIDIAccess`.
+- Limitaciones: los nombres de los dos diálogos provienen de las fuentes proporcionadas en la misión y no se reproduceron en Firefox real; el comportamiento en ventana privada y con políticas se plantea como comprobación a realizar, no como hecho verificado. Sin teclado físico ni Firefox real.
+- Próximo paso: F7-008 [NET] — flujo Safari/WebKit, extensión de terceros verificada y aviso en iOS/iPadOS.
