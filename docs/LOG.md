@@ -2591,3 +2591,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: el primer paso de recolorado no alcanzó el bloque anidado `:root:not([data-theme='light'])` por su indentación, así que `tests/theme.test.ts` detectó que la paleta del sistema seguía siendo la antigua; se aplicó la misma paleta a ese bloque y el test volvió a verde.
 - Limitaciones: las capturas se revisaron en Chromium; no hay Safari real y WebKit no arranca en este host. La revisión visual es de pantallas principales, no de todo el catálogo de componentes (F7-014 a F7-016).
 - Próximo paso: F7-014 — rediseñar mapa del curso, `LessonPlayer` y `ExercisePlayer` sin modificar el contenido pedagógico.
+
+## 2026-11-22T04:49:40-03:00 · F7-014
+
+- Acción: se rediseñaron con CSS las tarjetas del mapa del curso, las filas de lección, las secciones de `LessonPlayer` y las tarjetas de `ExercisePlayer`: elevación sutil, bordes tonales, foco visible en opciones y una micro-celebración de 320 ms al acertar (neutralizada por `prefers-reduced-motion`). No se tocó ningún archivo de contenido.
+- Resultado: typecheck OK; **261 archivos / 1839 tests** en verde; build OK; presupuesto 277,51 kB gzip (< 300 kB). Commit `e0806e3`. Capturas de curso y lección revisadas en 1280 px.
+- Correcciones: al convertir `.lesson-player` y `.exercise-player` en grid, los hijos con pentagrama tenían un ancho intrínseco de ~1400 px y desbordaban el contenedor de 1024 px; se añadió `min-width: 0` a los hijos del grid y se verificó con `boundingBox` que vuelven a 1024/974 px.
+- Limitaciones: la revisión visual es solo en Chromium y en las pantallas de curso y lección; no se comprobó con lector de pantalla real ni en los tamaños de F7-018.
+- Próximo paso: F7-015 — rediseñar teclado virtual, pentagrama y páginas de práctica, repaso y progreso.
