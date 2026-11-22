@@ -3358,3 +3358,34 @@ progress::-moz-progress-bar {
   border-radius: var(--radius-md);
   background: var(--surface-container-low);
 }
+
+/* F7-017 — accesibilidad: foco ancho, objetivos táctiles y menos movimiento. */
+button,
+select,
+.field input,
+.exercise-written input,
+.repertoire-player-controls input[type='text'] {
+  min-height: var(--touch-min);
+}
+
+.piano-key {
+  min-height: 0;
+}
+
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .module-card:hover {
+    transform: none;
+  }
+
+  .exercise-feedback.is-correct {
+    animation: none;
+  }
+}
