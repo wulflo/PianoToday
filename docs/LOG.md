@@ -2575,3 +2575,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: el E2E de permiso concedido comprobó que el contexto se autoconecta sin gesto, así que se ajustó para verificar la conexión sin pulsar el botón; se delimitaron los localizadores al panel de diagnóstico porque el mismo texto aparece en la barra de estado y en Ajustes.
 - Limitaciones: **NO VERIFICADO** en WebKit real: `MiniBrowser: error while loading shared libraries: libicudata.so.74` persiste incluso con `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1`; `install-deps` requiere root. Tampoco hay teclado físico, Safari macOS, iOS ni Android. Los E2E de permisos usan accesos simulados.
 - Próximo paso: F7-012 — escribir el ADR de dirección visual (paleta AA, tipografía, espaciado, radios, elevaciones y movimiento) antes de tocar CSS.
+
+## 2026-11-22T04:33:16-03:00 · F7-012
+
+- Acción: se revisaron los tokens de `src/styles.css` y se confirmó que `Roboto` está declarada pero nunca se carga. Se escribió ADR-050 con la dirección visual (papel cálido, verde profundo y terracota), paletas clara y oscura con ratios WCAG calculados previamente (mínimo 6,35:1 en los pares previstos), escala tipográfica 1,25, espaciado 4/8, radios, elevaciones, duraciones de movimiento, objetivos de 44 px y SVG en línea, conservando todos los nombres de tokens.
+- Resultado: brief registrado y commiteado en `4c37b6e`. No se tocó CSS ni se cambió el comportamiento, así que la verificación de la tarea anterior sigue vigente: typecheck, 1839 tests, build y 277,39 kB gzip en verde.
+- Correcciones: se descartó autoalojar una fuente porque la app es offline y el coste de archivos y licencias no aporta sobre la pila del sistema; se conservan `--staff-*` y `--piano-*` para no romper el contraste del pentagrama.
+- Limitaciones: las ratios son cálculos de color, no una auditoría con lector de pantalla; F7-017 y F7-018 las comprobarán con axe y capturas. Ninguna pantalla se rediseñó todavía.
+- Próximo paso: F7-013 — rediseñar cabecera, navegación, barra de estado MIDI y avisos, con versión móvil cuidada.
