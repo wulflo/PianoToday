@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-005
-- **Última verificada en verde:** F7-004 (`632d89a`, 2026-11-22T03:37:46-03:00)
-- **Actualizado:** 2026-11-22T03:37:46-03:00
-- **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa A: base y diagnóstico)
-- **Nota:** Etapa A diagnósticada: 7 escenarios reproducidos, tabla causa→síntoma→corrección en `docs/DIAGNOSTICO-MIDI.md` y fuentes verificadas el 2026-11-22. El síntoma «permiso denegado» es común a denegación, descarte, complemento de Firefox y estado fijado al montar; no hay causa única confirmada sin hardware. Ahora F7-005 cambia el comportamiento visible. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
+- **Tarea actual:** F7-006
+- **Última verificada en verde:** F7-005 (`7491baa`, 2026-11-22T03:44:55-03:00)
+- **Actualizado:** 2026-11-22T03:44:55-03:00
+- **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa B: corrección y compatibilidad)
+- **Nota:** Etapa A cerrada y corrección iniciada: el contexto ya distingue denegación real de descarte, complemento o contexto inseguro, expone `failure`/`failureKind` y no fija `denied` al montar. Los textos siguen siendo los antiguos (solo Chrome) y se cambiarán en F7-010. F7-006 requiere verificar rutas de configuración con red. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
 
 ## LEYENDA
 
@@ -1682,15 +1682,16 @@ Quedó funcionando:
   - Progreso (2026-11-22T03:36:30-03:00): ✔ 7 escenarios reproducidos en Chromium real y con mocks · ✔ fuentes externas verificadas con fecha · ✔ tabla causa→síntoma→corrección en `docs/DIAGNOSTICO-MIDI.md` · ✔ entrada en LOG y cierre
   - Archivos tocados: docs/DIAGNOSTICO-MIDI.md, docs/CHECKLIST.md, docs/LOG.md, test-results/reproduce-midi.mjs (ignorado)
   - Commit: 632d89a · 2026-11-22T03:37:46-03:00
-- [~] **F7-005** — Refactorizar `MidiProvider`
+- [x] **F7-005** — Refactorizar `MidiProvider`
   - Aceptación: se conservan `MidiStatus` y los tests; el contexto expone `failure`; `denied` solo para denegación real y el resto `error` con detalle; el permiso se pide solo ante un gesto del usuario; autoconexión solo con permiso `granted` comprobado; no asumir que `permissions.query({name:'midi'})` funciona en Firefox.
   - Deps: F7-004 · Red: no
-  - Progreso (2026-11-22T03:44:34-03:00): ✔ `failure` y `failureKind` expuestos en el contexto · ✔ `denied` solo para denegación real; resto `error`/`unsupported` con detalle · ✔ eliminado el fijado de `denied` desde Permissions API · ✔ 1807 tests, typecheck, build y budget (273,91 kB gzip) en verde · ◻ cierre con hash y LOG
+  - Progreso (2026-11-22T03:44:34-03:00): ✔ `failure` y `failureKind` expuestos en el contexto · ✔ `denied` solo para denegación real; resto `error`/`unsupported` con detalle · ✔ eliminado el fijado de `denied` desde Permissions API · ✔ 1807 tests, typecheck, build y budget (273,91 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: src/midi/context.tsx, tests/midi-context.test.tsx, docs/CHECKLIST.md
+  - Commit: 7491baa · 2026-11-22T03:44:55-03:00
 
 ### Etapa B — Corrección y compatibilidad
 
-- [ ] **F7-006** — Flujo Chromium y ayuda de permiso
+- [~] **F7-006** — Flujo Chromium y ayuda de permiso
   - Aceptación: pantalla previa que explica qué se pedirá; ayuda para bloqueado y descartado con rutas de configuración verificadas; cubre Chrome, Edge, Brave, Opera, Vivaldi, Samsung Internet y Chrome Android; textos en ES y EN.
   - Deps: F7-005 · Red: sí · [NET]
 - [ ] **F7-007** — Flujo Firefox y complemento de permiso del sitio

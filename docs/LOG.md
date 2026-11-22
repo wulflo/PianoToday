@@ -2519,3 +2519,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: se documentó que en este entorno headless sin dispositivo el permiso concedido no basta para abrir MIDI, de modo que no se atribuyó el fallo a una sola causa.
 - Limitaciones: **NO VERIFICADO** con teclado Yamaha PSR-373 real, Firefox real, WebKit real, iOS, Android ni con un origen HTTP inseguro (H4). Firefox y WebKit solo se simularon con mensajes; `git bisect` no es posible porque el historial importado tiene un único commit (H5 revisada por lectura de código). H2 queda sin confirmar.
 - Próximo paso: F7-005 — refactorizar `MidiProvider`, conservar `MidiStatus` y exponer `failure`, pedir permiso solo ante un gesto y no fijar `denied` desde Permissions API.
+
+## 2026-11-22T03:44:55-03:00 · F7-005
+
+- Acción: `MidiProvider` conserva `MidiStatus` y añade `failure` y `failureKind` al contexto. El resultado tipado de `connectMidiInput` decide el estado: `denied` solo cuando el clasificador dice denegación real, `unsupported` cuando falta la API y `error` con el mensaje original en los demás casos. Se eliminó la rama del efecto de montaje que fijaba `denied` cuando Permissions API respondía `denied`; la autoconexión sigue exigiendo `granted` comprobado y los reintentos parten de un botón.
+- Resultado: typecheck OK; **256 archivos / 1807 tests** en verde; build OK; presupuesto 273,91 kB gzip (< 300 kB). Commit `7491baa`. Los tests del contexto cubren denegación real, complemento de Firefox, diálogo descartado, `denied` al montar, autoconexión con `granted` y API ausente.
+- Correcciones: los nuevos tests fallaron al principio porque jsdom marca `window.isSecureContext = false` y todo se clasificaba como `insecure-context`; se fijó el contexto seguro en el setup del test, que es el equivalente a la app servida por HTTPS. Se actualizó el test antiguo que lanzaba un `Error` genérico y esperaba `denied`, acorde a la nueva semántica.
+- Limitaciones: los textos visibles siguen siendo los antiguos y mencionan solo Chrome; se sustituirán en F7-010. No se probó en navegadores reales ni con el teclado físico.
+- Próximo paso: F7-006 [NET] — verificar las rutas de configuración MIDI de los navegadores Chromium y escribir la pantalla previa y la ayuda de bloqueado/descartado.
