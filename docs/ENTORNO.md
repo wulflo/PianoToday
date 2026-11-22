@@ -1,6 +1,6 @@
 # ENTORNO — Piano Today
 
-Última actualización: 2026-11-22T03:23:02-03:00
+Última actualización: 2026-11-22T05:12:25-03:00
 
 ## Máquina de desarrollo
 
@@ -15,18 +15,19 @@
 | Red | disponible (registry.npmjs.org respondió HTTP 200 al bootstrap) |
 | Directorio | la raíz del repositorio; no se fija una ruta absoluta porque el proyecto es portátil |
 
-## Estado actual del entorno (F7 en curso, línea base F7-001)
+## Estado actual del entorno (cierre de F7)
 
-- Scaffold compilable: `npm run dev`, `npm run typecheck`, `npm test` y `npm run build` verificados en la línea base de F7; `npm run budget` y `npm run test:e2e` se verifican en cada tarea que los toca.
-- Bundle de producción (línea base F7-001): JS inicial 273,53 kB gzip (< 300 kB) con Tone.js, VexFlow y FSRS diferidos; 843 chunks diferidos. `npm run budget` valida el presupuesto y los chunks separados.
-- Suite (línea base F7-001): 254 archivos de test, 1767 tests en verde. Los recorridos E2E no se ejecutaron en esta línea base; hay cinco specs y solo el navegador Chromium está disponible en la caché local.
-- Capturas de referencia F7-001: 11 PNG en `test-results/baseline/` (curso, lección, demo, práctica, repaso, progreso, ajustes y repertorio en claro; curso y ajustes en oscuro; anchos 1280 y 390 px). No se versionan.
+- Scaffold compilable: `npm run dev`, `npm run typecheck`, `npm test`, `npm run build`, `npm run budget` y `npm run estado` verificados; E2E con Chromium y Firefox.
+- Bundle de producción: JS inicial 277,57 kB gzip (< 300 kB) con Tone.js, VexFlow y FSRS diferidos; 843 chunks diferidos.
+- Suite: 262 archivos de test, 1844 tests en verde (axe incluido). E2E: 8/8 en Chromium y 7/7 en Firefox, con 2 y 3 pruebas omitidas respectivamente por ser específicas de otro navegador.
+- Capturas de QA: 36 PNG en `test-results/qa-visual/` (360/768/1280 px, claro y oscuro, Chromium y Firefox, pantallas de curso, lección y ajustes), sin errores de página. No se versionan.
+- Navegadores de Playwright instalados con `npx playwright install chromium firefox webkit`: Chromium 1254 (Chrome for Testing 158), Firefox 1572 (Firefox 159) y WebKit 2388 (WebKit 27.2). WebKit no arranca: falta `libicudata.so.74` y `install-deps` requiere root.
 - Contenido validado: 9 módulos, 79 lecciones publicadas, 720 ejercicios, 67 habilidades y 28 piezas de repertorio.
 - `package-lock.json` versionado y reproducible con `npm ci`.
 - Assets de audio Salamander descargados: 30 muestras MP3, 1,92 MB total, verificadas por tamaño y SHA-256; `--dry-run` reporta 30 presentes y 0 faltantes.
 - Auditorías de calidad disponibles: `npm run audit` (encadena audio, licencias, código y texto y consolida el resultado en `docs/AUDITORIA.md`), más `audit:audio`, `audit:licenses`, `audit:code`, `audit:text` y `audit:reuse` por separado.
-- Tags locales `fase-0` a `fase-6`; remoto `origin` con push a `main` autorizado y Pages activo. No se crean tags ni releases remotos sin autorización.
-- F0 a F5 completas. F6 en cierre de auditoría (estado del árbol, audio, licencias, originalidad y documentación).
+- Tags locales `fase-0` a `fase-6`; remoto `origin` con push a `main` autorizado y Pages activo. No se crean tags ni releases remotos sin autorización. F7 no tiene tag, release ni push.
+- F0 a F6 completas (F6-054 sigue `[ ]` a propósito, a la espera del reporte manual del usuario). F7 completada: 18 tareas cerradas y F7-009 descartada por ADR-049.
 
 ## Fuentes externas verificadas en F7
 
@@ -191,10 +192,10 @@ Todo lo demás debe funcionar sin red, y la app no debe pedir red en runtime.
 
 ## Pruebas E2E con Playwright
 
-- `@playwright/test` 1.65.0 (Apache-2.0) espera el navegador Chromium 1254, pero la caché local tiene solo 1255 (instalado por otra versión de Playwright). Para las capturas de la línea base F7-001 se usó `executablePath` apuntando a ese binario; antes de correr `npm run test:e2e` hay que instalar el navegador que corresponde o fijar el mismo `executablePath`. Firefox y WebKit no están en la caché local.
+- `@playwright/test` 1.65.0 (Apache-2.0) con Chromium 1254, Firefox 1572 y WebKit 2388 instalados en la caché. WebKit no arranca en este host por falta de `libicudata.so.74`, incluso con `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1`.
 - `playwright.config.ts` compila la app con `npm run build`, sirve `dist/` con `vite preview` en `127.0.0.1:4173` y ejecuta un solo worker para que las bases IndexedDB no se crucen.
-- `npm run test:e2e` corre el recorrido `e2e/lesson-exercise-review.spec.ts`: abre M0-01, falla un ejercicio, comprueba el «Recordá», repasa una habilidad nueva y verifica tras recargar que las dos respuestas siguen en el progreso.
-- Los artefactos (`test-results/`, `playwright-report/`) están ignorados por git. El workflow de Pages todavía no ejecuta E2E: instalar el navegador en CI suma tiempo y se decidirá al cerrar F6.
+- `npm run test:e2e` corre solo el proyecto Chromium (8/8 en verde). Para Firefox: `npx playwright test --project=firefox` (7/7). Los cinco recorridos anteriores cubren lección, M3-M4, M5-M6, repertorio y PWA offline; `e2e/midi-permissions.spec.ts` añade los flujos de permiso con accesos simulados.
+- Los artefactos (`test-results/`, `playwright-report/`) están ignorados por git. El workflow de Pages no ejecuta E2E.
 
 ## Comandos de referencia
 

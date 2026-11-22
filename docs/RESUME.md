@@ -19,7 +19,8 @@ real. Sin backend, sin cuentas y sin analytics: el progreso vive en IndexedDB.
 
 ## Estado actual
 
-- Fase: **F5 en curso** — M7-01 «Independencia de manos», M7-02 «Arpegios y
+- **Fase F7 completada el 2026-11-22** (18 tareas cerradas y F7-009 descartada con ADR-049). Web MIDI ahora distingue denegación real, descarte, complemento de Firefox, contexto inseguro y navegador sin API; hay flujos de ayuda por familia, diagnóstico con informe copiable y textos ES/EN. El rediseño usa una paleta cálida con tokens conservados, tipografía del sistema, teclado táctil, foco visible y movimiento reducido. El PUNTO vuelve a **F6-054**, que solo cierra el usuario con sus pruebas manuales. Sin tags ni push de F7.
+- Historial de fase (F5): **F5 en curso** — M7-01 «Independencia de manos», M7-02 «Arpegios y
   acordes quebrados», M7-03 «Pedal», M7-04 «Acompañamiento en bloque», M7-05
   «Acompañamiento arpegiado», M7-06 «Alberti», M7-07 «Walking bass», M7-08
   «Stride», M7-09 «Lectura a primera vista», M7-10 «Tocar de oído,
@@ -50,8 +51,10 @@ real. Sin backend, sin cuentas y sin analytics: el progreso vive en IndexedDB.
   próxima tarea es F5-033 (transcribir el «Soldatenmarsch» de Schumann).
 - Punto de reanudación: ver el bloque `PUNTO DE REANUDACIÓN` de
   `docs/CHECKLIST.md` (fuente única de verdad).
-- Suite: 212 archivos de test, 1541 tests en verde, más 4 recorridos E2E de
-  Playwright; typecheck, build y presupuesto de 253,87 kB gzip inicial verdes.
+- Suite al cierre de F7: 262 archivos de test, 1844 tests en verde (axe incluido),
+  8 recorridos E2E en Chromium y 7 en Firefox; typecheck, build y presupuesto de
+  277,57 kB gzip iniciales (< 300 kB). WebKit no se pudo ejecutar por falta de
+  `libicudata.so.74` en el host.
 - M0-01 completa: lección publicada, tres ejercicios con corrección, demo de
   pentagrama/audio y tarea real con digitación.
 - M0-02 completa: Do-Re-Mi/C-D-E, octavas 2-6, cinco ejercicios de teclado y
@@ -991,7 +994,8 @@ Después continuá desde la tarea actual del checklist, respetando el protocolo:
   autorización explícita.
 - El workflow `.github/workflows/deploy-pages.yml` corre typecheck + tests + build
   y publica `dist/` con `VITE_BASE=/<repo>/`.
-- Un commit atómico por tarea con el ID en el mensaje.
+- Un commit atómico por tarea con el ID en el mensaje. F7 no creó tags ni releases
+  y no hizo push: se dejó todo en commits locales a la espera de autorización.
 - Marcá [~] antes de empezar y [x] con el hash cuando typecheck + tests + build pasen.
 - No dependas de la red en runtime. Las tareas [NET] se identifican en el checklist.
 - Documentación en español; código y nombres técnicos en inglés cuando sea natural.
