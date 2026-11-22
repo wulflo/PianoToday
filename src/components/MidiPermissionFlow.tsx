@@ -6,7 +6,7 @@
  * la familia del navegador; el mensaje crudo sigue en el diagnóstico de F7-010.
  */
 import { useMemo, useState } from 'react'
-import { getMidiBrowserInfo } from '../midi/browser'
+import { getMidiBrowserInfo, type MidiBrowserInfo } from '../midi/browser'
 import { useMidi } from '../midi/context'
 import { permissionHelpFor } from '../midi/permissions'
 import { useSettings } from '../state/settings'
@@ -14,16 +14,31 @@ import { useSettings } from '../state/settings'
 export interface MidiPermissionFlowProps {
   /** La barra de estado y el panel de diagnóstico nombran distinto al botón. */
   variant?: 'status' | 'diagnostics'
+  /** Se puede inyectar en los tests; la app usa la detección del navegador. */
+  browserInfo?: MidiBrowserInfo
 }
 
 export function MidiPermissionFlow({
   variant = 'diagnostics',
+  browserInfo,
 }: MidiPermissionFlowProps = {}) {
   const { t } = useSettings()
   const { status, failureKind, connect, retry } = useMidi()
-  const info = useMemo(() => getMidiBrowserInfo(), [])
+  const detected = useMemo(() => getMidiBrowserInfo(), [browserInfo])
+  const info = browserInfo ?? detected
   const help = useMemo(() => permissionHelpFor(info), [info])
   const [confirming, setConfirming] = useState(false)
+
+  if (
+    info.family === 'firefox' &&
+    /android/i.test(`${info.platform} ${info.userAgent}`)
+  ) {
+    return (
+      <aside className="notice" role="status">
+        <p>{t('midi.firefox.android')}</p>
+      </aside>
+    )
+  }
 
   if (status === 'requesting' || status === 'unsupported') return null
 
@@ -38,6 +53,11 @@ export function MidiPermissionFlow({
     helpText = t('midi.help.dismissed')
   } else if (failureKind === 'insecure-context') {
     helpText = t('midi.help.insecure')
+  } else if (failureKind === 'addon-required-or-no-device') {
+    helpText =
+      info.family === 'firefox'
+        ? t('midi.firefox.addon.help')
+        : t('midi.help.denied.siteInfo')
   }
 
   const request = () => {
@@ -48,7 +68,13 @@ export function MidiPermissionFlow({
   if (confirming) {
     return (
       <div className="midi-permission-confirm" role="group">
-        <p>{t('midi.connect.intro')}</p>
+        <p>
+          {t(
+            info.family === 'firefox'
+              ? 'midi.firefox.intro'
+              : 'midi.connect.intro',
+          )}
+        </p>
         <button type="button" className="button-primary" onClick={request}>
           {t('midi.connect.accept')}
         </button>
@@ -75,7 +101,10 @@ export function MidiPermissionFlow({
       >
         {status === 'idle'
           ? t(variant === 'status' ? 'midi.status.connect' : 'midi.diag.connect')
-          : t(variant === 'status' ? 'midi.status.retry' : 'midi.diag.retry')}
+          : failureKind === 'addon-required-or-no-device' &&
+              info.family === 'firefox'
+            ? t('midi.firefox.rescan')
+            : t(variant === 'status' ? 'midi.status.retry' : 'midi.diag.retry')}
       </button>
       {helpText !== null && (
         <aside className="notice" role="status">
