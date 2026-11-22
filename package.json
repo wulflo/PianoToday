@@ -27,6 +27,7 @@
     "audit:text": "node scripts/audit-text-similarity.mjs",
     "audit:reuse": "uvx reuse lint",
     "audit": "tsx scripts/audit-all.ts",
+    "licenses:dependencies": "node scripts/generate-dependency-licenses.mjs",
     "estado": "node scripts/estado.mjs"
   },
   "dependencies": {

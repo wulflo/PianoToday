@@ -1784,8 +1784,8 @@ Quedó funcionando:
 - [~] **F7-020** — Documento dedicado con las licencias de todas las dependencias
   - Aceptación: `docs/DEPENDENCIAS-LICENCIAS.md` generado de forma reproducible desde `package-lock.json`, con nombre, versión, licencia, ámbito (producción/desarrollo/transitiva) y enlace de procedencia para cada paquete; un test comprueba que cubre todo el lockfile; `THIRD_PARTY_LICENSES.md` y `npm run audit:licenses` siguen en verde.
   - Deps: F7-019 · Red: no
-  - Progreso (2026-11-22T05:25:20-03:00): ✔ tarea registrada · ◻ generador y documento · ◻ test de cobertura · ◻ cierre y push
-  - Archivos tocados: docs/CHECKLIST.md
+  - Progreso (2026-11-22T05:28:57-03:00): ✔ generador reproducible y documento con 599 paquetes (42 producción, 557 desarrollo) · ✔ test de cobertura, resumen y ámbitos · ✔ `audit:licenses` en verde · ✔ 1848 tests, build y budget (277,60 kB gzip) en verde · ◻ cierre, docs y push
+  - Archivos tocados: docs/DEPENDENCIAS-LICENCIAS.md, scripts/generate-dependency-licenses.mjs, tests/dependency-licenses.test.ts, package.json, docs/CHECKLIST.md
 
 ## RESUMEN POR FASE
 
