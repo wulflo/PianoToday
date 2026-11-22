@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F6-054
+- **Tarea actual:** F7-001
 - **Última verificada en verde:** F6-055 (`4f22f3d`, 2026-11-14T23:00:00-03:00)
-- **Actualizado:** 2026-11-14T23:00:00-03:00
-- **Fase:** F6 en cierre de auditoría (estado del árbol, audio, licencias, originalidad y documentación)
-- **Nota:** Ronda de auditoría cerrada: F6-038 a F6-053 y F6-055 hechas; `npm run estado` verde (typecheck 1,8 s, 254 archivos / 1759 tests, build 6,0 s; JS inicial 272,18 kB gzip < 300 kB) y F6 progreso 51/55 (92,7 %). Queda solo **F6-054** en `[ ]` a propósito: `docs/PRUEBAS-MANUALES.md` está listo (commit `fe1feca`) y la tarea la cierra el usuario cuando reporte los resultados de las pruebas manuales. Sin push, tags ni releases sin confirmación.
+- **Actualizado:** 2026-11-22T03:21:04-03:00
+- **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa A: base y diagnóstico)
+- **Nota:** Plan de 19 tareas registrado y commiteado (`8e6be9e`). Línea base: árbol limpio, `npm ci` con 502 paquetes y 0 vulnerabilidades, typecheck y 254 archivos / 1767 tests en verde; falta medir el build y el JS gzip, tomar las capturas Playwright de referencia y anotar la línea base en LOG. F6-054 sigue `[ ]` a propósito y solo la cierra el usuario. Sin push, tags ni releases sin confirmación.
 
 ## LEYENDA
 
@@ -1658,7 +1658,7 @@ Quedó funcionando:
 
 ### Etapa A — Base y diagnóstico
 
-- [ ] **F7-001** — Registrar F7 y fijar la línea base
+- [~] **F7-001** — Registrar F7 y fijar la línea base
   - Aceptación: checklist con las 19 tareas de F7, fila F7 y total actualizados; `npm test -- checklist` en verde; árbol limpio; typecheck, test y build en verde con cantidad de tests y kB gzip del JS inicial anotados en LOG; capturas Playwright de las pantallas principales guardadas fuera del repo o en `test-results/`.
   - Deps: F6-055 · Red: no
 - [ ] **F7-002** — Resultado tipado de `requestMidiAccess`
