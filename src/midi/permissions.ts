@@ -16,6 +16,14 @@ export interface MidiPermissionHelp {
   useAndroidMenu: boolean
 }
 
+/**
+ * Extensión de terceros para Safari en macOS, verificada el 2026-11-22:
+ * «Web MIDI for Safari» v0.1.11, gratuita, macOS 13.5+/Safari 18.4+, solo Mac.
+ * Se aísla aquí para poder cambiarla sin tocar textos ni componentes.
+ */
+export const SAFARI_WEBMIDI_EXTENSION_URL =
+  'https://triglavmodular.hu/mods/safari-webmidi/'
+
 const VERIFIED_SETTINGS_URLS: Readonly<Record<string, string>> = {
   Chrome: 'chrome://settings/content/midiDevices',
   Chromium: 'chrome://settings/content/midiDevices',

@@ -8,7 +8,10 @@
 import { useMemo, useState } from 'react'
 import { getMidiBrowserInfo, type MidiBrowserInfo } from '../midi/browser'
 import { useMidi } from '../midi/context'
-import { permissionHelpFor } from '../midi/permissions'
+import {
+  permissionHelpFor,
+  SAFARI_WEBMIDI_EXTENSION_URL,
+} from '../midi/permissions'
 import { useSettings } from '../state/settings'
 
 export interface MidiPermissionFlowProps {
@@ -23,7 +26,7 @@ export function MidiPermissionFlow({
   browserInfo,
 }: MidiPermissionFlowProps = {}) {
   const { t } = useSettings()
-  const { status, failureKind, connect, retry } = useMidi()
+  const { status, failureKind, supported, connect, retry } = useMidi()
   const detected = useMemo(() => getMidiBrowserInfo(), [browserInfo])
   const info = browserInfo ?? detected
   const help = useMemo(() => permissionHelpFor(info), [info])
@@ -37,6 +40,31 @@ export function MidiPermissionFlow({
       <aside className="notice" role="status">
         <p>{t('midi.firefox.android')}</p>
       </aside>
+    )
+  }
+
+  if (info.family === 'webkit-ios') {
+    return (
+      <aside className="notice" role="status">
+        <p>{t('midi.webkit.ios')}</p>
+      </aside>
+    )
+  }
+
+  // En macOS sin API (Safari sin la extensión) no se puede pedir permiso: se
+  // ofrece la guía opcional y se recuerda que el modo manual sigue disponible.
+  if (info.family === 'webkit-mac' && !supported) {
+    return (
+      <div className="midi-webkit-guide">
+        <aside className="notice" role="status">
+          <p>
+            {t('midi.webkit.mac.guide', {
+              url: SAFARI_WEBMIDI_EXTENSION_URL,
+            })}
+          </p>
+        </aside>
+        <p className="muted">{t('midi.webkit.fallback')}</p>
+      </div>
     )
   }
 

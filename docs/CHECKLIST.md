@@ -1706,8 +1706,8 @@ Quedó funcionando:
 - [~] **F7-008** — Flujo Safari y WebKit
   - Aceptación: detección por característica; con `requestMIDIAccess` se usa el flujo normal; sin API en macOS guía opcional de extensión de terceros con nombre, enlace, precio y estado verificados, enlace como constante y sin dar a entender respaldo oficial; en iOS/iPadOS se explica que ningún navegador tiene Web MIDI; el fallback con teclado virtual y autoevaluación manual sigue 100 % funcional; textos en ES y EN.
   - Deps: F7-005 · Red: sí · [NET]
-  - Progreso (2026-11-22T04:00:23-03:00): ✔ extensión verificada (nombre, versión 0.1.11, gratuita, macOS 13.5+/Safari 18.4+, solo Mac) · ◻ constantes y textos ES/EN · ◻ flujo WebKit en `MidiPermissionFlow` y tests · ◻ verificación completa
-  - Archivos tocados: docs/CHECKLIST.md
+  - Progreso (2026-11-22T04:03:13-03:00): ✔ extensión verificada y URL aislada como constante · ✔ textos ES/EN · ✔ flujo WebKit en `MidiPermissionFlow` y 4 tests (iOS, macOS sin API, macOS con API, claves) · ✔ 1829 tests, typecheck, build y budget (276,66 kB gzip) en verde · ◻ cierre con hash y LOG
+  - Archivos tocados: src/components/MidiPermissionFlow.tsx, src/midi/permissions.ts, src/state/settings.tsx, tests/midi-webkit-flow.test.tsx, docs/ENTORNO.md, docs/CHECKLIST.md
 - [ ] **F7-009** — Entrada por teclado del ordenador como fuente alternativa (opcional)
   - Aceptación: decisión registrada por ADR; si entra, usa el mismo flujo de eventos que MIDI, desactivada por defecto, configurable en Ajustes y sin interferir con inputs ni atajos; si no entra limpia, se descarta con `[-]` y razón, actualizando tabla y total.
   - Deps: F7-005 · Red: no

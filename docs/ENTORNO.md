@@ -32,6 +32,8 @@
 
 - 2026-11-22, con red: <https://developer.chrome.com/blog/web-midi-permission-prompt> (permiso para todo Web MIDI desde Chrome 124, denegación `SecurityError`) y <https://caniuse.com/webmidi> (Safari y iOS sin soporte, Firefox Android sin soporte, Samsung Internet y Chrome Android con soporte).
 - 2026-11-22, con red: rutas profundas confirmadas para Chrome (`chrome://settings/content/midiDevices`, commit de Chromium y ayuda de Google), Brave (`brave://settings/content/midiDevices`, comunidad de Brave) y Opera (`opera://settings/content/midiDevices`, documentación de terceros). **No verificadas:** `edge://…` ni `vivaldi://…`; la app usa en esos casos la ruta genérica del icono del sitio (ADR-048).
+- 2026-11-22, con red: <https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/108> confirma que el complemento de permiso del sitio se ofrece a usuarios con dispositivos MIDI activos. La página de soporte de Mozilla no se pudo cargar, así que el nombre de los dos diálogos queda marcado como no reproducido en navegador real.
+- 2026-11-22, con red: <https://triglavmodular.hu/mods/safari-webmidi/> confirma «Web MIDI for Safari» v0.1.11, gratuita, macOS 13.5+, Safari 18.4+, solo Mac (no iPhone/iPad), con código en GitHub. Es una extensión de terceros; la URL vive en `SAFARI_WEBMIDI_EXTENSION_URL` para poder cambiarla.
 - Nota de reproducción: con Playwright, conceder solo `midi` puede seguir rechazando `requestMIDIAccess()` en Chromium headless; se documentó en `docs/DIAGNOSTICO-MIDI.md`.
 
 ## Repositorio y política de git
