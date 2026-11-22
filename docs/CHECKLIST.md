@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-011
-- **Última verificada en verde:** F7-010 (`ef48626`, 2026-11-22T04:20:58-03:00)
-- **Actualizado:** 2026-11-22T04:20:58-03:00
-- **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa B: corrección y compatibilidad)
-- **Nota:** El diagnóstico muestra navegador, contexto seguro y `failure.name/message` reales, con informe copiable sin datos personales; los avisos ya no mencionan solo a Chrome. F7-009 quedó descartada por ADR-049. Sigue F7-011: cubrir con tests y E2E lo verificable y actualizar los documentos de pruebas y QA con lo realmente comprobado. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
+- **Tarea actual:** F7-012
+- **Última verificada en verde:** F7-011 (`2660473`, 2026-11-22T04:30:33-03:00)
+- **Actualizado:** 2026-11-22T04:30:33-03:00
+- **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa C: rediseño visual)
+- **Nota:** Etapa B cerrada: flujos por familia, diagnóstico con informe copiable y cobertura E2E real de Chromium (8/8) y Firefox (7/7). WebKit no arranca por falta de ICU 74 en el host; queda documentado como NO VERIFICADO. Ahora F7-012 escribe el brief visual en un ADR antes de tocar CSS. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
 
 ## LEYENDA
 
@@ -1721,15 +1721,16 @@ Quedó funcionando:
   - Progreso (2026-11-22T04:20:36-03:00): ✔ diagnóstico con navegador, contexto seguro y fallo real · ✔ botón «Copiar informe de diagnóstico» en texto plano · ✔ mensajes bloqueados por familia y sin menciones a Chrome en ES/EN · ✔ 1833 tests, typecheck, build y budget (277,39 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: src/components/MidiDiagnostics.tsx, src/components/MidiSupportNotice.tsx, src/components/MidiStatusBar.tsx, src/midi/browser.ts, src/state/settings.tsx, tests/midi-browser.test.ts, tests/midi-diagnostics-copy.test.tsx, docs/CHECKLIST.md
   - Commit: ef48626 · 2026-11-22T04:20:58-03:00
-- [~] **F7-011** — Pruebas y documentación multi-navegador
+- [x] **F7-011** — Pruebas y documentación multi-navegador
   - Aceptación: un test unitario por tipo de fallo con `fake-midi.ts`, tests de componente por familia de navegador, E2E de Chromium con permiso concedido y denegado y de Firefox/WebKit con mocks (WebKit real solo si el host lo permite); `docs/PRUEBAS-MANUALES.md` (P2/P3) y `docs/QA-NAVEGADORES.md` actualizados con lo realmente verificado.
   - Deps: F7-010 · Red: no
-  - Progreso (2026-11-22T04:30:10-03:00): ✔ 6 casos unitarios por categoría con fake-midi · ✔ tests de componente por familia · ✔ E2E Chromium 8/8 y Firefox 7/7, WebKit no ejecutable por host · ✔ P2/P3 y QA-NAVEGADORES actualizados · ✔ 1839 tests, typecheck, build y budget (277,39 kB gzip) en verde · ◻ cierre con hash y LOG
+  - Progreso (2026-11-22T04:30:10-03:00): ✔ 6 casos unitarios por categoría con fake-midi · ✔ tests de componente por familia · ✔ E2E Chromium 8/8 y Firefox 7/7, WebKit no ejecutable por host · ✔ P2/P3 y QA-NAVEGADORES actualizados · ✔ 1839 tests, typecheck, build y budget (277,39 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: tests/midi-input.test.ts, e2e/midi-permissions.spec.ts, docs/PRUEBAS-MANUALES.md, docs/QA-NAVEGADORES.md, docs/CHECKLIST.md
+  - Commit: 2660473 · 2026-11-22T04:30:33-03:00
 
 ### Etapa C — Rediseño visual
 
-- [ ] **F7-012** — Brief de diseño en ADR antes de tocar CSS
+- [~] **F7-012** — Brief de diseño en ADR antes de tocar CSS
   - Aceptación: ADR con dirección visual (cálida y serena, jerarquía clara, profundidad sutil, teclado táctil, micro-celebraciones), paleta con contraste AA, escala tipográfica, espaciado 4/8, radios, elevaciones y duraciones de movimiento; se conservan los nombres de tokens actuales como base o alias; tipografía autoalojada con licencia anotada en `THIRD_PARTY_LICENSES.md` y `REUSE.toml` o pila del sistema, sin CDN ni Google Fonts; íconos SVG en línea.
   - Deps: F7-011 · Red: no
 - [ ] **F7-013** — Rediseñar el shell

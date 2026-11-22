@@ -2567,3 +2567,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: el texto de bloqueo de la barra de estado y del aviso superior usa la misma función pura `blockedMessageKey`, para que no haya dos decisiones distintas sobre qué decir.
 - Limitaciones: el informe se copia por `navigator.clipboard` y no se probó en un navegador real; el contexto seguro se lee de `window.isSecureContext`. No se verificó el formato del informe con un teclado físico conectado.
 - Próximo paso: F7-011 — completar tests por tipo de fallo y familia, E2E de Chromium con permiso concedido/denegado y mocks en Firefox/WebKit, y actualizar `PRUEBAS-MANUALES.md` y `QA-NAVEGADORES.md`.
+
+## 2026-11-22T04:30:33-03:00 · F7-011
+
+- Acción: se añadieron seis casos unitarios —uno por categoría de fallo— que pasan por `fake-midi.ts` y `connectMidiInput`, y `e2e/midi-permissions.spec.ts` con recorridos de Chromium (permiso concedido con autoconexión y rechazo `SecurityError`), Firefox (mensaje del complemento) y WebKit (guía sin API). Se actualizaron `docs/PRUEBAS-MANUALES.md` (P2 y P3) y `docs/QA-NAVEGADORES.md` con lo realmente ejecutado. Se instalaron los tres navegadores de Playwright con red.
+- Resultado: typecheck OK; **261 archivos / 1839 tests** en verde; build OK; presupuesto 277,39 kB gzip (< 300 kB). Commit `2660473`. E2E: **Chromium 8/8** (2 omitidas por navegador), **Firefox 7/7** (3 omitidas), WebKit 10/10 fallidos por el host, no por la app.
+- Correcciones: el E2E de permiso concedido comprobó que el contexto se autoconecta sin gesto, así que se ajustó para verificar la conexión sin pulsar el botón; se delimitaron los localizadores al panel de diagnóstico porque el mismo texto aparece en la barra de estado y en Ajustes.
+- Limitaciones: **NO VERIFICADO** en WebKit real: `MiniBrowser: error while loading shared libraries: libicudata.so.74` persiste incluso con `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1`; `install-deps` requiere root. Tampoco hay teclado físico, Safari macOS, iOS ni Android. Los E2E de permisos usan accesos simulados.
+- Próximo paso: F7-012 — escribir el ADR de dirección visual (paleta AA, tipografía, espaciado, radios, elevaciones y movimiento) antes de tocar CSS.
