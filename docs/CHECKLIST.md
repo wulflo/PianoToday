@@ -1673,8 +1673,8 @@ Quedó funcionando:
 - [~] **F7-003** — Módulos puros de familia de navegador y clasificación de fallos
   - Aceptación: `src/midi/browser.ts` detecta la familia (`chromium`, `firefox`, `webkit-mac`, `webkit-ios`, `other`) por características, con UA/UA-CH solo para elegir texto de ayuda y nunca para bloquear; `src/midi/failure.ts` clasifica `unsupported`, `insecure-context`, `permission-denied`, `permission-dismissed`, `addon-required-or-no-device` y `unknown`; ambos con tests.
   - Deps: F7-002 · Red: no
-  - Progreso (2026-11-22T03:30:22-03:00): ✔ revisada cobertura REUSE (`**`) para archivos nuevos · ◻ `src/midi/browser.ts` y tests · ◻ `src/midi/failure.ts` y tests · ◻ verificación completa
-  - Archivos tocados: docs/CHECKLIST.md
+  - Progreso (2026-11-22T03:33:30-03:00): ✔ `src/midi/browser.ts` con detección por características y etiquetas · ✔ `src/midi/failure.ts` con seis categorías · ✔ 22 tests focalizados en verde · ✔ typecheck, suite completa, build y budget (273,67 kB gzip) en verde · ◻ cierre con hash y LOG
+  - Archivos tocados: src/midi/browser.ts, src/midi/failure.ts, tests/midi-browser.test.ts, tests/midi-failure.test.ts, docs/CHECKLIST.md
 - [ ] **F7-004** — Reproducir y documentar la causa raíz
   - Aceptación: tabla `causa → síntoma → corrección` en LOG; Chromium con Playwright con y sin `permissions: ['midi']`; Firefox y WebKit con `addInitScript` simulando cada rechazo y la ausencia de la API; lo no verificado en hardware real marcado como tal.
   - Deps: F7-003 · Red: no
