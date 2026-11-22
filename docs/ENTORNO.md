@@ -1,6 +1,6 @@
 # ENTORNO — Piano Today
 
-Última actualización: 2026-11-14T22:10:00-03:00
+Última actualización: 2026-11-22T03:23:02-03:00
 
 ## Máquina de desarrollo
 
@@ -15,11 +15,12 @@
 | Red | disponible (registry.npmjs.org respondió HTTP 200 al bootstrap) |
 | Directorio | la raíz del repositorio; no se fija una ruta absoluta porque el proyecto es portátil |
 
-## Estado actual del entorno (F6 en cierre de auditoría)
+## Estado actual del entorno (F7 en curso, línea base F7-001)
 
-- Scaffold compilable: `npm run dev`, `npm run typecheck`, `npm test`, `npm run build`, `npm run budget` y `npm run test:e2e` verificados.
-- Bundle de producción: JS inicial 272,17 kB gzip (< 300 kB) con Tone.js, VexFlow y FSRS diferidos; 843 chunks diferidos. `npm run budget` valida el presupuesto y los chunks separados.
-- Suite: 253 archivos de test, 1752 tests en verde; un recorrido E2E de Playwright en verde.
+- Scaffold compilable: `npm run dev`, `npm run typecheck`, `npm test` y `npm run build` verificados en la línea base de F7; `npm run budget` y `npm run test:e2e` se verifican en cada tarea que los toca.
+- Bundle de producción (línea base F7-001): JS inicial 273,53 kB gzip (< 300 kB) con Tone.js, VexFlow y FSRS diferidos; 843 chunks diferidos. `npm run budget` valida el presupuesto y los chunks separados.
+- Suite (línea base F7-001): 254 archivos de test, 1767 tests en verde. Los recorridos E2E no se ejecutaron en esta línea base; hay cinco specs y solo el navegador Chromium está disponible en la caché local.
+- Capturas de referencia F7-001: 11 PNG en `test-results/baseline/` (curso, lección, demo, práctica, repaso, progreso, ajustes y repertorio en claro; curso y ajustes en oscuro; anchos 1280 y 390 px). No se versionan.
 - Contenido validado: 9 módulos, 79 lecciones publicadas, 720 ejercicios, 67 habilidades y 28 piezas de repertorio.
 - `package-lock.json` versionado y reproducible con `npm ci`.
 - Assets de audio Salamander descargados: 30 muestras MP3, 1,92 MB total, verificadas por tamaño y SHA-256; `--dry-run` reporta 30 presentes y 0 faltantes.
@@ -182,7 +183,7 @@ Todo lo demás debe funcionar sin red, y la app no debe pedir red en runtime.
 
 ## Pruebas E2E con Playwright
 
-- `@playwright/test` 1.65.0 (Apache-2.0). El navegador Chromium 158 se instala aparte con `npx playwright install chromium` y queda en `~/.cache/ms-playwright` (no se versiona).
+- `@playwright/test` 1.65.0 (Apache-2.0) espera el navegador Chromium 1254, pero la caché local tiene solo 1255 (instalado por otra versión de Playwright). Para las capturas de la línea base F7-001 se usó `executablePath` apuntando a ese binario; antes de correr `npm run test:e2e` hay que instalar el navegador que corresponde o fijar el mismo `executablePath`. Firefox y WebKit no están en la caché local.
 - `playwright.config.ts` compila la app con `npm run build`, sirve `dist/` con `vite preview` en `127.0.0.1:4173` y ejecuta un solo worker para que las bases IndexedDB no se crucen.
 - `npm run test:e2e` corre el recorrido `e2e/lesson-exercise-review.spec.ts`: abre M0-01, falla un ejercicio, comprueba el «Recordá», repasa una habilidad nueva y verifica tras recargar que las dos respuestas siguen en el progreso.
 - Los artefactos (`test-results/`, `playwright-report/`) están ignorados por git. El workflow de Pages todavía no ejecuta E2E: instalar el navegador en CI suma tiempo y se decidirá al cerrar F6.

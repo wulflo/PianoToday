@@ -1661,6 +1661,8 @@ Quedó funcionando:
 - [~] **F7-001** — Registrar F7 y fijar la línea base
   - Aceptación: checklist con las 19 tareas de F7, fila F7 y total actualizados; `npm test -- checklist` en verde; árbol limpio; typecheck, test y build en verde con cantidad de tests y kB gzip del JS inicial anotados en LOG; capturas Playwright de las pantallas principales guardadas fuera del repo o en `test-results/`.
   - Deps: F6-055 · Red: no
+  - Progreso (2026-11-22T03:23:02-03:00): ✔ plan de 19 tareas registrado y validado · ✔ línea base medida (254 archivos / 1767 tests, 273,53 kB gzip) · ✔ 11 capturas Playwright en test-results/baseline · ◻ cierre con hash y LOG
+  - Archivos tocados: docs/CHECKLIST.md, docs/ENTORNO.md, test-results/baseline/ (ignorado)
 - [ ] **F7-002** — Resultado tipado de `requestMidiAccess`
   - Aceptación: `src/midi/detect.ts` devuelve `ok` con el acceso o `failure` con `name`, `message` e `isSecureContext` sin tragar excepciones; `connectMidiInput` y los tests existentes actualizados; `sysex: false` conservado.
   - Deps: F7-001 · Red: no
