@@ -2527,3 +2527,11 @@ Bitácora cronológica. Solo se agrega al final. Cada entrada registra fecha-hor
 - Correcciones: los nuevos tests fallaron al principio porque jsdom marca `window.isSecureContext = false` y todo se clasificaba como `insecure-context`; se fijó el contexto seguro en el setup del test, que es el equivalente a la app servida por HTTPS. Se actualizó el test antiguo que lanzaba un `Error` genérico y esperaba `denied`, acorde a la nueva semántica.
 - Limitaciones: los textos visibles siguen siendo los antiguos y mencionan solo Chrome; se sustituirán en F7-010. No se probó en navegadores reales ni con el teclado físico.
 - Próximo paso: F7-006 [NET] — verificar las rutas de configuración MIDI de los navegadores Chromium y escribir la pantalla previa y la ayuda de bloqueado/descartado.
+
+## 2026-11-22T03:54:23-03:00 · F7-006
+
+- Acción: se verificaron con red las rutas de permisos MIDI y se registraron en ENTORNO y ADR-048. Se creó `src/midi/permissions.ts` con las rutas profundas confirmadas (Chrome, Brave y Opera) y `src/components/MidiPermissionFlow.tsx`, que muestra una explicación antes de pedir permiso y ayuda según `failureKind`. El componente se usa en la barra de estado y en el panel de diagnóstico. Se añadieron ocho claves nuevas de texto en español e inglés.
+- Resultado: typecheck OK; **258 archivos / 1821 tests** en verde; build OK; presupuesto 275,54 kB gzip (< 300 kB). Commit `934d4e7`. Los tests cubren las rutas por etiqueta y plataforma, la cancelación de la confirmación, la ayuda de bloqueo y de diálogo descartado, y la presencia de las claves en ambos idiomas.
+- Correcciones: `navigator.platform` en Android es `Linux armv8l`, así que la detección de Android se apoya también en el User-Agent; se ajustó el texto del botón según esté en la barra de estado o en el diagnóstico para conservar las etiquetas que ya usaban los tests.
+- Limitaciones: las rutas se verificaron en documentación, no abriendo cada navegador. No se encontró fuente fiable para `edge://…` ni `vivaldi://…`, por lo que esos navegadores reciben la instrucción genérica del icono del sitio. No se probó en Edge, Vivaldi, Samsung Internet ni Chrome Android reales, ni con teclado físico.
+- Próximo paso: F7-007 — flujo Firefox: dos diálogos del complemento, consejo de conectar el teclado primero, botón «Volver a buscar dispositivos» y aviso de Firefox Android.

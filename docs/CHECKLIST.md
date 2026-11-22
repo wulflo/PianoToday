@@ -4,11 +4,11 @@
 
 ## PUNTO DE REANUDACIÓN
 
-- **Tarea actual:** F7-006
-- **Última verificada en verde:** F7-005 (`7491baa`, 2026-11-22T03:44:55-03:00)
-- **Actualizado:** 2026-11-22T03:44:55-03:00
+- **Tarea actual:** F7-007
+- **Última verificada en verde:** F7-006 (`934d4e7`, 2026-11-22T03:54:23-03:00)
+- **Actualizado:** 2026-11-22T03:54:23-03:00
 - **Fase:** F7 — MIDI multi-navegador y rediseño visual (Etapa B: corrección y compatibilidad)
-- **Nota:** Etapa A cerrada y corrección iniciada: el contexto ya distingue denegación real de descarte, complemento o contexto inseguro, expone `failure`/`failureKind` y no fija `denied` al montar. Los textos siguen siendo los antiguos (solo Chrome) y se cambiarán en F7-010. F7-006 requiere verificar rutas de configuración con red. F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
+- **Nota:** El botón de conexión explica ahora qué se va a pedir y muestra ayuda verificada por familia; las rutas `edge://` y `vivaldi://` no se escribieron por falta de fuente (ADR-048). Faltan los flujos de Firefox y Safari/WebKit y la sustitución de los textos viejos en el diagnóstico (F7-010). F6-054 sigue `[ ]` a propósito. Sin push, tags ni releases sin confirmación.
 
 ## LEYENDA
 
@@ -1691,12 +1691,13 @@ Quedó funcionando:
 
 ### Etapa B — Corrección y compatibilidad
 
-- [~] **F7-006** — Flujo Chromium y ayuda de permiso
+- [x] **F7-006** — Flujo Chromium y ayuda de permiso
   - Aceptación: pantalla previa que explica qué se pedirá; ayuda para bloqueado y descartado con rutas de configuración verificadas; cubre Chrome, Edge, Brave, Opera, Vivaldi, Samsung Internet y Chrome Android; textos en ES y EN.
   - Deps: F7-005 · Red: sí · [NET]
-  - Progreso (2026-11-22T03:53:58-03:00): ✔ rutas verificadas con red, ADR-048 y ENTORNO actualizado · ✔ `permissions.ts` y tests · ✔ pantalla previa, ayuda en ES/EN y wiring en barra de estado y diagnóstico · ✔ 1821 tests, typecheck, build y budget (275,54 kB gzip) en verde · ◻ cierre con hash y LOG
+  - Progreso (2026-11-22T03:53:58-03:00): ✔ rutas verificadas con red, ADR-048 y ENTORNO actualizado · ✔ `permissions.ts` y tests · ✔ pantalla previa, ayuda en ES/EN y wiring en barra de estado y diagnóstico · ✔ 1821 tests, typecheck, build y budget (275,54 kB gzip) en verde · ✔ cierre con hash y LOG
   - Archivos tocados: src/midi/permissions.ts, src/components/MidiPermissionFlow.tsx, src/components/MidiStatusBar.tsx, src/components/MidiDiagnostics.tsx, src/state/settings.tsx, tests/midi-permissions.test.ts, tests/midi-permission-flow.test.tsx, tests/midi-diagnostics.test.tsx, tests/songs-page.test.tsx, docs/DECISIONES.md, docs/ENTORNO.md, docs/CHECKLIST.md
-- [ ] **F7-007** — Flujo Firefox y complemento de permiso del sitio
+  - Commit: 934d4e7 · 2026-11-22T03:54:23-03:00
+- [~] **F7-007** — Flujo Firefox y complemento de permiso del sitio
   - Aceptación: se explican los dos diálogos; ante `SecurityError` el primer consejo es encender y conectar el teclado en modo USB-MIDI o con driver y recargar; botón «Volver a buscar dispositivos» que vuelve a pedir acceso sin depender de `onstatechange`; ayuda de ventana privada y políticas solo si está verificada; aviso de Firefox Android sin Web MIDI; textos en ES y EN.
   - Deps: F7-005 · Red: no
 - [ ] **F7-008** — Flujo Safari y WebKit
