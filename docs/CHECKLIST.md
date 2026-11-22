@@ -1664,7 +1664,7 @@ Quedó funcionando:
   - Progreso (2026-11-22T03:23:02-03:00): ✔ plan de 19 tareas registrado y validado · ✔ línea base medida (254 archivos / 1767 tests, 273,53 kB gzip) · ✔ 11 capturas Playwright en test-results/baseline · ✔ cierre con hash y LOG
   - Archivos tocados: docs/CHECKLIST.md, docs/ENTORNO.md, test-results/baseline/ (ignorado)
   - Commit: 429e5e6 · 2026-11-22T03:23:37-03:00
-- [~] **F7-002** — Resultado tipado de `requestMidiAccess`
+- [x] **F7-002** — Resultado tipado de `requestMidiAccess`
   - Aceptación: `src/midi/detect.ts` devuelve `ok` con el acceso o `failure` con `name`, `message` e `isSecureContext` sin tragar excepciones; `connectMidiInput` y los tests existentes actualizados; `sysex: false` conservado.
   - Deps: F7-001 · Red: no
   - Progreso (2026-11-22T03:28:32-03:00): ✔ tipo `MidiAccessResult` en detect.ts · ✔ `connectMidiInput` y contexto adaptados · ✔ tests de éxito, excepción y ausencia de API · ✔ typecheck, 1780 tests, build y budget (273,67 kB gzip) en verde · ✔ cierre con hash y LOG
