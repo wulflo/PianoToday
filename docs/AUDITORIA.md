@@ -13,22 +13,22 @@ Lo escribe `npm run audit` (auditorías offline: audio, licencias, código y tex
 | 🟢 OK | Audio (manifiesto y muestras) | `npm run audit:audio` | OK · 30 muestras registradas y verificadas en public/audio/samples |
 | 🟢 OK | Licencias de producción | `npm run audit:licenses` | OK · todas las licencias de producción son permisivas y coinciden con THIRD_PARTY_LICENSES.md. |
 | 🟢 OK | Código (duplicación y encabezados) | `npm run audit:code` | OK · sin encabezados ajenos. |
-| 🟢 OK | Texto (originalidad) | `npm run audit:text` | OK · comparación completa; 0 coincidencia(s) de 8 palabras. |
+| 🟡 NO VERIFICABLE | Texto (originalidad) | `npm run audit:text` | NO VERIFICABLE · no hay textos de referencia en /home/alonso/Documentos/Repositorios/PianoToday/refs (no se versionan). |
 
-Las cuatro auditorías offline pasaron sin hallazgos bloqueantes.
+Sin fallas. NO VERIFICABLE: `npm run audit:text` (requiere datos locales que no se versionan).
 <!-- audit:summary:end -->
 
 <!-- audit:code:start -->
 ## Duplicación de código y encabezados ajenos
 
 - Comando: `npm run audit:code` (jscpd 5.4.3)
-- jscpd sobre `src/`: 186 archivos, 93 clones, 1205 líneas duplicadas (2.61 %) y 7447 tokens duplicados (3.27 %).
+- jscpd sobre `src/`: 190 archivos, 94 clones, 1212 líneas duplicadas (2.55 %) y 7506 tokens duplicados (3.18 %).
 
 ### Clones detectados
 
 | Ubicación A | Ubicación B | Líneas | Tokens | Tipo |
 |---|---|---:|---:|---|
-| `src/audio/engine.ts:383-397` | `src/audio/engine.ts:413-427` | 15 | 94 | exact |
+| `src/audio/engine.ts:443-457` | `src/audio/engine.ts:473-487` | 15 | 94 | exact |
 | `src/components/Demo.tsx:394-401` | `src/components/ExercisePlayer.tsx:981-990` | 8 | 61 | exact |
 | `src/components/ExercisePlayer.tsx:594-601` | `src/components/ExercisePlayer.tsx:642-649` | 8 | 66 | exact |
 | `src/components/ExercisePlayer.tsx:594-601` | `src/components/ExercisePlayer.tsx:663-670` | 8 | 66 | exact |
@@ -43,12 +43,12 @@ Las cuatro auditorías offline pasaron sin hallazgos bloqueantes.
 | `src/components/ExercisePlayer.tsx:951-963` | `src/components/ExercisePlayer.tsx:1047-1059` | 13 | 64 | exact |
 | `src/components/ExercisePlayer.tsx:953-963` | `src/components/ExercisePlayer.tsx:995-1005` | 11 | 53 | exact |
 | `src/components/ExerciseSuggestions.tsx:35-45` | `src/components/LessonPlayer.tsx:42-52` | 11 | 68 | exact |
-| `src/components/GrandStaff.tsx:51-69` | `src/components/Staff.tsx:57-75` | 19 | 119 | exact |
-| `src/components/GrandStaff.tsx:101-116` | `src/components/Staff.tsx:98-113` | 16 | 60 | exact |
-| `src/components/GrandStaff.tsx:148-166` | `src/components/Staff.tsx:128-146` | 19 | 87 | exact |
-| `src/components/GrandStaff.tsx:166-184` | `src/components/Staff.tsx:146-164` | 19 | 111 | exact |
+| `src/components/GrandStaff.tsx:52-70` | `src/components/Staff.tsx:58-76` | 19 | 129 | exact |
+| `src/components/GrandStaff.tsx:104-120` | `src/components/Staff.tsx:106-122` | 17 | 66 | exact |
+| `src/components/GrandStaff.tsx:152-170` | `src/components/Staff.tsx:137-155` | 19 | 89 | exact |
+| `src/components/GrandStaff.tsx:170-188` | `src/components/Staff.tsx:155-173` | 19 | 111 | exact |
 | `src/components/RepertoirePlayer.tsx:62-68` | `src/components/SongPlayer.tsx:24-29` | 7 | 69 | exact |
-| `src/components/RepertoirePlayer.tsx:161-172` | `src/components/SongPlayer.tsx:88-99` | 12 | 63 | exact |
+| `src/components/RepertoirePlayer.tsx:161-172` | `src/components/SongPlayer.tsx:88-99` | 12 | 52 | exact |
 | `src/components/RepertoirePlayer.tsx:274-284` | `src/components/RepertoirePlayer.tsx:289-299` | 11 | 78 | exact |
 | `src/components/SongRecorder.tsx:236-244` | `src/components/SongRecorder.tsx:250-258` | 9 | 57 | exact |
 | `src/content/validate.ts:830-842` | `src/content/validate.ts:867-879` | 13 | 102 | exact |
@@ -111,16 +111,17 @@ Las cuatro auditorías offline pasaron sin hallazgos bloqueantes.
 | `src/schemas/content.ts:533-540` | `src/schemas/content.ts:542-549` | 8 | 53 | exact |
 | `src/schemas/content.ts:648-661` | `src/schemas/content.ts:716-729` | 14 | 85 | exact |
 | `src/schemas/content.ts:672-682` | `src/schemas/content.ts:682-692` | 11 | 62 | exact |
-| `src/staff/grand-staff.ts:558-567` | `src/staff/render.ts:175-184` | 10 | 54 | exact |
+| `src/staff/grand-staff.ts:813-818` | `src/staff/render.ts:216-221` | 6 | 51 | exact |
+| `src/staff/grand-staff.ts:840-849` | `src/staff/render.ts:229-238` | 10 | 54 | exact |
 | `src/state/lesson-progress.ts:180-194` | `src/state/lesson-progress.ts:200-214` | 15 | 86 | exact |
 | `src/state/repositories.ts:424-433` | `src/state/repositories.ts:446-455` | 10 | 86 | exact |
 | `src/state/use-course-progress.ts:74-89` | `src/state/use-progress-dashboard.ts:85-100` | 16 | 79 | exact |
-| `src/styles.css:70-114` | `src/styles.css:117-161` | 45 | 507 | exact |
-| `src/styles.css:105-115` | `src/styles.css:152-163` | 11 | 184 | exact |
-| `src/styles.css:591-597` | `src/styles.css:1365-1371` | 7 | 52 | exact |
-| `src/styles.css:1739-1749` | `src/styles.css:1896-1906` | 11 | 54 | exact |
-| `src/styles.css:2098-2103` | `src/styles.css:2603-2608` | 6 | 87 | exact |
-| `src/styles.css:2194-2204` | `src/styles.css:2838-2848` | 11 | 52 | exact |
+| `src/styles.css:87-131` | `src/styles.css:134-178` | 45 | 507 | exact |
+| `src/styles.css:122-132` | `src/styles.css:169-180` | 11 | 185 | exact |
+| `src/styles.css:608-614` | `src/styles.css:1382-1388` | 7 | 52 | exact |
+| `src/styles.css:1756-1766` | `src/styles.css:1913-1923` | 11 | 54 | exact |
+| `src/styles.css:2115-2120` | `src/styles.css:2620-2625` | 6 | 87 | exact |
+| `src/styles.css:2211-2221` | `src/styles.css:2855-2865` | 11 | 52 | exact |
 
 ### Encabezados de copyright o licencia ajenos
 
@@ -134,9 +135,7 @@ Sin hallazgos.
 
 - Comando: `npm run audit:text` (n-gramas de 8 palabras)
 - Fuente de las referencias: Open Music Theory v2 (CC BY-SA 4.0) — https://github.com/OpenMusicTheory/OpenMusicTheory.
-- Referencias: 142 archivos, 80804 n-gramas únicos.
-- Texto de contenido: 829 archivos, 78637 cadenas.
-- Coincidencias: 0.
+- NO VERIFICABLE: no hay textos de referencia en `refs/` (no se versionan).
 
-Sin coincidencias de 8 palabras con los textos de referencia.
+Descargá los textos de referencia (por ejemplo, Open Music Theory, CC BY-SA 4.0) a `refs/` y volvé a correr el comando.
 <!-- audit:text:end -->
