@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useScopedActiveIds, useScopedPlayback } from '../audio/playback-scope'
 import { useMidi } from '../midi/context'
 import { useSettings } from '../state/settings'
 import {
@@ -38,6 +39,8 @@ export function Staff({
 }: StaffProps) {
   const { settings, t } = useSettings()
   const { heldNotes } = useMidi()
+  const { activeNotes: scopedNotes, includeMidiNotes } = useScopedPlayback(activeNotes)
+  const scopedIds = useScopedActiveIds(activeIds)
   const scrollRef = useRef<HTMLDivElement>(null)
   const renderRef = useRef<HTMLDivElement>(null)
   const onNoteClickRef = useRef(onNoteClick)
@@ -49,8 +52,11 @@ export function Staff({
    * haya sonido de la app de por medio.
    */
   const mergedActiveNotes = useMemo(
-    () => [...new Set([...activeNotes, ...heldNotes])].sort((a, b) => a - b),
-    [activeNotes, heldNotes],
+    () =>
+      [
+        ...new Set([...scopedNotes, ...(includeMidiNotes ? heldNotes : [])]),
+      ].sort((a, b) => a - b),
+    [scopedNotes, includeMidiNotes, heldNotes],
   )
 
   const [width, setWidth] = useState(640)
@@ -74,7 +80,7 @@ export function Staff({
   }, [])
 
   const activeKey = mergedActiveNotes.join(',')
-  const activeIdKey = activeIds.join(',')
+  const activeIdKey = scopedIds.join(',')
   const canvasWidth = renderWidth ?? width
 
   // Mientras dura el nuevo dibujo se usa el ancho teórico; el anterior podría
@@ -98,7 +104,8 @@ export function Staff({
       height: STAFF_HEIGHT,
       notation: settings.notation,
       activeNotes: mergedActiveNotes,
-      activeIds,
+      activeIds: scopedIds,
+      showFingering: settings.showFingering,
       onNoteClick: (payload) => onNoteClickRef.current?.(payload),
     })
       .then((result) => {
@@ -119,7 +126,7 @@ export function Staff({
     }
     // activeKey resume el contenido de activeNotes sin depender de su identidad.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [measures, clef, keySignature, timeSignature, width, settings.notation, activeKey, activeIdKey])
+  }, [measures, clef, keySignature, timeSignature, width, settings.notation, settings.showFingering, activeKey, activeIdKey])
 
   const notesText = useMemo(
     () => describeStaffNotes(measures, settings.notation) || t('staff.noNotes'),

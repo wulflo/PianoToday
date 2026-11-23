@@ -107,6 +107,66 @@ describe('renderStaff con VexFlow', () => {
     errorSpy.mockRestore()
   })
 
+  it('dibuja el número de dedo debajo de la nota con fuente pequeña', async () => {
+    const container = document.createElement('div')
+    await renderStaff(container, {
+      measures: [{ ...measure('C4'), finger: 3 }],
+    })
+    const notes = container.querySelectorAll('[data-staff-note]')
+    expect(notes).toHaveLength(1)
+    expect(container.textContent).toContain('3')
+    const fingerText = [...container.querySelectorAll('text')].find(
+      (text) => text.textContent === '3',
+    )
+    expect(fingerText).toBeDefined()
+    expect(Number.parseFloat(fingerText?.getAttribute('font-size') ?? '99')).toBeLessThanOrEqual(10)
+  })
+
+  it('muestra todos los dedos de un acorde debajo de la nota', async () => {
+    const container = document.createElement('div')
+    await renderStaff(container, {
+      measures: [{ ...measure('C4'), fingers: [1, 3, 5] }],
+    })
+    const fingerText = [...container.querySelectorAll('text')].find((text) =>
+      (text.textContent ?? '').includes('1·3·5'),
+    )
+    expect(fingerText).toBeDefined()
+  })
+
+  it('reserva espacio extra para la digitación', async () => {
+    const plain = document.createElement('div')
+    const withFinger = document.createElement('div')
+    const base = { measures: [measure('C4')], height: 150 }
+    const plainResult = await renderStaff(plain, base)
+    const fingerResult = await renderStaff(withFinger, {
+      ...base,
+      measures: [{ ...measure('C4'), finger: 1 }],
+    })
+    expect(fingerResult.height).toBeGreaterThan(plainResult.height)
+  })
+
+  it('no dibuja dedos cuando se desactiva la preferencia', async () => {
+    const container = document.createElement('div')
+    await renderStaff(container, {
+      measures: [{ ...measure('C4'), finger: 3 }],
+      showFingering: false,
+    })
+    expect([...container.querySelectorAll('text')].some((text) => text.textContent === '3')).toBe(false)
+  })
+
+  it('dibuja barras de compás solo en el inicio de cada compás', async () => {
+    const container = document.createElement('div')
+    await renderStaff(container, {
+      measures: [
+        { ...measure('C4'), barline: false },
+        { ...measure('D4'), barline: true },
+        { ...measure('E4'), barline: false },
+        { ...measure('F4'), barline: true },
+      ],
+    })
+    expect(container.querySelectorAll('[data-staff-barline]')).toHaveLength(2)
+  })
+
   it('emite click y teclado por nota', async () => {
     const container = document.createElement('div')
     const onNoteClick = vi.fn()

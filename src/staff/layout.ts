@@ -16,6 +16,8 @@ export interface VerticalNoteInput {
   chordSymbol?: boolean
   /** La marca de pedal se dibuja debajo de la nota. */
   pedal?: boolean
+  /** El número de dedo se dibuja debajo de la nota. */
+  finger?: boolean
 }
 
 export interface VerticalExtent {
@@ -34,6 +36,7 @@ const STEM_PADDING = 42
 const NOTE_PADDING = 18
 const CHORD_SYMBOL_PADDING = 34
 const PEDAL_PADDING = 24
+const FINGER_PADDING = 18
 const STAFF_TOP_LINE = 40
 const STAFF_BOTTOM_LINE = 80
 
@@ -70,7 +73,10 @@ export function verticalExtent(
     )
     bottom = Math.max(
       bottom,
-      lowestY + NOTE_PADDING + (input.pedal ? PEDAL_PADDING : 0),
+      lowestY +
+        NOTE_PADDING +
+        (input.pedal ? PEDAL_PADDING : 0) +
+        (input.finger ? FINGER_PADDING : 0),
     )
   }
 

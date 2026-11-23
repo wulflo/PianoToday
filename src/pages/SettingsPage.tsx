@@ -29,6 +29,7 @@ export function SettingsPage() {
 
       <Tabs
         label={t('tabs.settings.label')}
+        persistKey="settings"
         items={[
           {
             id: 'preferences',

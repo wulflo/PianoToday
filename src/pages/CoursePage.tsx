@@ -94,6 +94,7 @@ export function CoursePage() {
         {status === 'ready' && summary !== null ? (
           <Tabs
             label={t('tabs.course.label')}
+            persistKey="course-map"
             initialSelected={Math.max(
               0,
               summary.modules.findIndex((module) =>

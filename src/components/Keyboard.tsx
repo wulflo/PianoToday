@@ -7,6 +7,7 @@ import {
   type KeyboardEvent as ReactKeyboardEvent,
   type PointerEvent as ReactPointerEvent,
 } from 'react'
+import { useScopedPlayback } from '../audio/playback-scope'
 import {
   BLACK_KEY_OFFSET,
   BLACK_KEY_WIDTH,
@@ -58,7 +59,9 @@ export function Keyboard({
   className,
 }: KeyboardProps) {
   const { settings, t } = useSettings()
-  const { heldNotes: midiNotes } = useMidi()
+  const { heldNotes } = useMidi()
+  const { activeNotes: scopedNotes, includeMidiNotes } = useScopedPlayback(activeNotes)
+  const midiNotes = includeMidiNotes ? heldNotes : []
   const showFingering = settings.showFingering && fingering.length > 0
   const layout = useMemo(
     () => buildKeyboardLayout(startMidi, octaves),
@@ -72,8 +75,8 @@ export function Keyboard({
   }, [fingering])
   const highlightedSet = useMemo(() => new Set(highlighted), [highlighted])
   const externalActiveSet = useMemo(
-    () => new Set([...activeNotes, ...midiNotes]),
-    [activeNotes, midiNotes],
+    () => new Set([...scopedNotes, ...midiNotes]),
+    [scopedNotes, midiNotes],
   )
 
   const [pressed, setPressed] = useState<ReadonlySet<number>>(() => new Set())

@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { Tabs } from '../src/components/Tabs'
 
 const items = [
@@ -9,6 +9,10 @@ const items = [
 ]
 
 describe('Subpestañas', () => {
+  beforeEach(() => {
+    localStorage.clear()
+  })
+
   it('muestra solo el panel seleccionado y expone la relación ARIA', () => {
     render(<Tabs label="Secciones" items={items} />)
 
@@ -52,5 +56,32 @@ describe('Subpestañas', () => {
 
     fireEvent.keyDown(third, { key: 'Home' })
     expect(first).toHaveFocus()
+  })
+
+  it('recuerda la pestaña elegida al volver a montar', () => {
+    const first = render(
+      <Tabs label="Secciones" items={items} persistKey="leccion:uno" />,
+    )
+    fireEvent.click(screen.getByRole('tab', { name: 'Dos' }))
+    first.unmount()
+
+    render(<Tabs label="Secciones" items={items} persistKey="leccion:uno" />)
+    expect(screen.getByRole('tab', { name: 'Dos' })).toHaveAttribute(
+      'aria-selected',
+      'true',
+    )
+    expect(screen.getByText('Contenido dos')).toBeVisible()
+  })
+
+  it('no guarda la selección si no se indica persistKey', () => {
+    const first = render(<Tabs label="Secciones" items={items} />)
+    fireEvent.click(screen.getByRole('tab', { name: 'Tres' }))
+    first.unmount()
+
+    render(<Tabs label="Secciones" items={items} />)
+    expect(screen.getByRole('tab', { name: 'Uno' })).toHaveAttribute(
+      'aria-selected',
+      'true',
+    )
   })
 })

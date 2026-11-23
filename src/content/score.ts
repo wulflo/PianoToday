@@ -6,6 +6,7 @@ import type {
   Score,
   SpelledPitch,
 } from '../schemas'
+import { fingerAt, fingeringFor } from '../keyboard/fingering'
 import type { StaffMeasure } from '../staff/render'
 import type { StaffDuration } from '../staff/vex'
 import { midiOf, parsePitch, type Pitch } from '../theory/pitch'
@@ -94,7 +95,8 @@ export function scoreToMeasures(score: Score): StaffMeasure[] {
     absolute:
       (mark.measure - 1) * beatsPerMeasure + mark.beat,
   }))
-  return sorted.map((event) => {
+  const fingerPositions: Record<Hand, number> = { right: 0, left: 0 }
+  return sorted.map((event, index) => {
     const absolute =
       (event.measure - 1) * beatsPerMeasure + event.beat
     // Una marca que cae después del ataque se dibuja sobre la nota que la
@@ -104,10 +106,23 @@ export function scoreToMeasures(score: Score): StaffMeasure[] {
       Math.abs(mark.absolute - absolute) < 1e-6 ||
       (Math.abs(mark.absolute - absolute) <= 1 &&
         mark.absolute > absolute)
+    const midis = event.pitches.map(spelledPitchToMidi)
+    const position = fingerPositions[event.hand]
+    fingerPositions[event.hand] += 1
+    const chordFingers =
+      midis.length > 1
+        ? fingeringFor(midis, { mode: 'chord', hand: event.hand }).map(
+            (assignment) => assignment.finger,
+          )
+        : []
+    const finger = fingerAt(position, event.hand)
     return {
       id: event.id,
       pitches: event.pitches.map(spelledPitchToPitch),
       duration: DURATION_TO_STAFF[event.value.duration],
+      finger,
+      fingers: chordFingers.length > 0 ? chordFingers : undefined,
+      barline: index > 0 && event.measure !== sorted[index - 1]?.measure,
       pedalPress: marks.some(
         (mark) => mark.action === 'press' && touches(mark),
       ),

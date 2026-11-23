@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useSectionScope } from '../audio/playback-scope'
 import { useMidi } from '../midi/context'
 import { evaluateTaskAttempt, taskExpectedStrikes } from '../midi/exercise-attempt'
 import type { AudioEngine, AudioEngineState } from '../audio/engine'
@@ -39,6 +40,7 @@ function errorMessage(error: unknown): string {
 
 export function KeyboardTask({ task, engine, audio }: KeyboardTaskProps) {
   const { settings, t } = useSettings()
+  const scope = useSectionScope()
   const { status, events, devices, clearEvents } = useMidi()
   const locale: Locale = settings.language
   const checklist = taskChecklist(task, locale)
@@ -142,6 +144,7 @@ export function KeyboardTask({ task, engine, audio }: KeyboardTaskProps) {
 
   const playDemo = () => {
     if (task.demoScore === undefined) return
+    scope.claim()
     setError(null)
 
     if (demoActive) {
@@ -162,7 +165,11 @@ export function KeyboardTask({ task, engine, audio }: KeyboardTaskProps) {
   }
 
   return (
-    <section className="panel lesson-task" aria-labelledby="lesson-task-title">
+    <section
+      className="panel lesson-task"
+      aria-labelledby="lesson-task-title"
+      {...scope.scopeProps}
+    >
       <div className="panel-heading">
         <h2 id="lesson-task-title">{t('lesson.task.title')}</h2>
         <p className="muted">

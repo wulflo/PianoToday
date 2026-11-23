@@ -8,6 +8,12 @@ export interface FingerAssignment {
   hand: Hand
 }
 
+/** Dedo que corresponde a una posición de escala, para digitar partituras. */
+export function fingerAt(index: number, hand: Hand = 'right'): number {
+  const pattern = SCALE_PATTERNS[hand]
+  return pattern[((index % pattern.length) + pattern.length) % pattern.length] ?? 1
+}
+
 export type FingeringMode = 'note' | 'scale' | 'interval' | 'chord'
 
 export interface FingeringOptions {

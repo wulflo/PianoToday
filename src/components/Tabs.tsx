@@ -1,4 +1,11 @@
-import { useId, useState, type KeyboardEvent, type ReactNode } from 'react'
+import {
+  useEffect,
+  useId,
+  useState,
+  type KeyboardEvent,
+  type ReactNode,
+} from 'react'
+import { readTabSelection, writeTabSelection } from '../state/tab-selection'
 
 /**
  * Subpestañas horizontales con navegación de teclado.
@@ -20,6 +27,8 @@ export interface TabsProps {
   items: readonly TabItem[]
   /** Índice seleccionado al abrir. Por defecto, el primero. */
   initialSelected?: number
+  /** Si se indica, la selección se guarda y se restaura al recargar. */
+  persistKey?: string
 }
 
 /** Índice siguiente según la tecla pulsada, con envolvente. */
@@ -39,13 +48,33 @@ function navigate(key: string, current: number, count: number): number | null {
   }
 }
 
-export function Tabs({ label, items, initialSelected = 0 }: TabsProps) {
+export function Tabs({
+  label,
+  items,
+  initialSelected = 0,
+  persistKey,
+}: TabsProps) {
   const baseId = `tab-${useId().replace(/:/g, '')}`
-  const [selected, setSelected] = useState(initialSelected)
+  const [selected, setSelected] = useState(() =>
+    readTabSelection(persistKey, items.length, initialSelected),
+  )
   const count = items.length
 
-  const select = (index: number) => {
+  useEffect(() => {
+    setSelected((current) => {
+      const next = Math.min(current, Math.max(0, count - 1))
+      if (next !== current) writeTabSelection(persistKey, next)
+      return next
+    })
+  }, [count, persistKey])
+
+  const choose = (index: number) => {
     setSelected(index)
+    writeTabSelection(persistKey, index)
+  }
+
+  const select = (index: number) => {
+    choose(index)
     document.getElementById(`${baseId}-tab-${index}`)?.focus()
   }
 
@@ -69,7 +98,7 @@ export function Tabs({ label, items, initialSelected = 0 }: TabsProps) {
             aria-selected={selected === index}
             aria-controls={`${baseId}-panel-${index}`}
             tabIndex={selected === index ? 0 : -1}
-            onClick={() => setSelected(index)}
+            onClick={() => choose(index)}
             onKeyDown={(event) => onKeyDown(event, index)}
           >
             <span className="tab-label">{item.label}</span>

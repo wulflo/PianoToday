@@ -18,6 +18,12 @@ export interface StaffMeasure {
   pedalRelease?: boolean
   /** Cifrado que se dibuja encima de la nota. */
   chordSymbol?: string
+  /** Número de dedo que se dibuja debajo de la nota. */
+  finger?: number
+  /** Varios dedos para un acorde, en el mismo orden que las alturas. */
+  fingers?: readonly number[]
+  /** Traza una barra de compás inmediatamente antes de esta nota. */
+  barline?: boolean
 }
 
 export interface RenderStaffOptions {
@@ -34,6 +40,8 @@ export interface RenderStaffOptions {
    * ocurrencias aunque la altura se repita en la partitura.
    */
   activeIds?: ReadonlyArray<string>
+  /** Dibuja los números de dedo; se respeta la preferencia del usuario. */
+  showFingering?: boolean
   onNoteClick?: (payload: { index: number; midis: number[]; id?: string }) => void
 }
 
@@ -54,6 +62,10 @@ export interface RenderedStaff {
 }
 
 const NOTE_COLOR = '#1d1f23'
+const FINGER_FONT_SIZE = 9
+const BARLINE_OFFSET = 10
+/** Separación mínima desde el principio de la pauta para no tapar la armadura. */
+const BARLINE_MIN_X = 20
 const STAVE_Y = 34
 const EDGE_MARGIN = 8
 /** Margen exterior izquierdo y derecho del SVG respecto al pentagrama. */
@@ -77,6 +89,7 @@ export async function renderStaff(
     notation = 'c',
     activeNotes = [],
     activeIds = [],
+    showFingering = true,
     onNoteClick,
   } = options
 
@@ -90,6 +103,9 @@ export async function renderStaff(
       duration: measure.duration ?? 'q',
       chordSymbol: measure.chordSymbol !== undefined,
       pedal: Boolean(measure.pedalPress || measure.pedalRelease),
+      finger:
+        showFingering &&
+        (measure.finger !== undefined || (measure.fingers?.length ?? 0) > 0),
     })),
     clef,
   )
@@ -132,6 +148,15 @@ export async function renderStaff(
       const symbol = new VF.ChordSymbol()
       symbol.addText(measure.chordSymbol)
       note.addModifier(symbol, 0)
+    }
+    const fingerLabels =
+      measure.fingers ??
+      (measure.finger === undefined ? [] : [measure.finger])
+    if (showFingering && fingerLabels.length > 0) {
+      const finger = new VF.Annotation(fingerLabels.join('·'))
+      finger.setVerticalJustification(VF.Annotation.VerticalJustify.BOTTOM)
+      finger.setFont('Arial', FINGER_FONT_SIZE)
+      note.addModifier(finger)
     }
     return note
   })
@@ -200,6 +225,22 @@ export async function renderStaff(
     alignRests: false,
   })
   voice.draw(context, stave)
+
+  // El contenido guarda el compás de cada evento, pero VexFlow dibuja una sola
+  // pauta: sin estas barras la división en compases es casi invisible.
+  const rectsBefore = container.querySelectorAll('svg rect').length
+  for (const [index, measure] of measures.entries()) {
+    if (measure.barline !== true) continue
+    const x = Math.max(
+      BARLINE_MIN_X,
+      (vexNotes[index]?.getAbsoluteX() ?? BARLINE_MIN_X) - BARLINE_OFFSET,
+    )
+    new VF.Barline(VF.Barline.type.SINGLE).drawVerticalBar(stave, x)
+  }
+  const barlines = container.querySelectorAll('svg rect')
+  for (let index = rectsBefore; index < barlines.length; index += 1) {
+    barlines[index].setAttribute('data-staff-barline', '')
+  }
 
   const references: RenderedStaffNote[] = []
   vexNotes.forEach((note, index) => {

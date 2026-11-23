@@ -169,14 +169,22 @@ export function Demo() {
 
   const staffMeasures = useMemo<StaffMeasure[]>(() => {
     if (mode === 'chord') {
-      return [{ id: 'chord', pitches, duration: 'h' }]
+      return [
+        {
+          id: 'chord',
+          pitches,
+          duration: 'h',
+          fingers: fingering.map((assignment) => assignment.finger),
+        },
+      ]
     }
     return pitches.map((pitch, index) => ({
       id: `note-${index}`,
       pitches: [pitch],
       duration: 'q',
+      finger: fingering[index]?.finger,
     }))
-  }, [mode, pitches])
+  }, [mode, pitches, fingering])
 
   const playMidis = (midis: number[]) => {
     if (midis.length === 0) return

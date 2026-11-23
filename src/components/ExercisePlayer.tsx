@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useSectionScope } from '../audio/playback-scope'
 import type { AudioEngine, AudioEngineState } from '../audio/engine'
 import {
   beatDuration,
@@ -169,6 +170,7 @@ export function ExercisePlayer({
   showLessonLink = true,
 }: ExercisePlayerProps) {
   const { settings, t } = useSettings()
+  const scope = useSectionScope()
   const locale: Locale = settings.language
   const { repositories } = useProgress()
   const [loadState, setLoadState] = useState<ExerciseLoadState>({
@@ -315,6 +317,7 @@ export function ExercisePlayer({
   }
 
   const play = (timeline: TimelineEvent[]) => {
+    scope.claim()
     setAudioError(null)
     void engine.playTimeline(timeline).catch(failAudio)
   }
@@ -559,7 +562,7 @@ export function ExercisePlayer({
   const answerHintId = `exercise-answer-hint-${current.id}`
 
   return (
-    <div className="exercise-player">
+    <div className="exercise-player" {...scope.scopeProps}>
       <p className="exercise-progress">
         {t('lesson.exercise.progress', {
           current: currentIndex + 1,

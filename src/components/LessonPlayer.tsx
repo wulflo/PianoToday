@@ -1,4 +1,9 @@
 import { useEffect, useMemo } from 'react'
+import {
+  PlaybackScopeProvider,
+  SectionScopeProvider,
+  useSectionScope,
+} from '../audio/playback-scope'
 import { noteTimeline, scaleTimeline, type TimelineEvent } from '../audio/notes'
 import type { AudioEngine, AudioEngineState } from '../audio/engine'
 import { useAudioEngine } from '../audio/useAudioEngine'
@@ -91,6 +96,7 @@ export function LessonPlayer({ lesson }: LessonPlayerProps) {
   const sectionView = (section: LessonSection) => (
     <LessonSectionView
       key={section.id}
+      lessonId={lesson.id}
       section={section}
       exerciseIds={section.id === exerciseSectionId ? lesson.exerciseIds : []}
       engine={engine}
@@ -107,7 +113,11 @@ export function LessonPlayer({ lesson }: LessonPlayerProps) {
     items.push({
       id: 'content',
       label: t('tabs.lesson.content'),
-      content: <ol className="lesson-sections">{contentSections.map(sectionView)}</ol>,
+      content: (
+        <SectionScopeProvider id={`${lesson.id}:content`}>
+          <ol className="lesson-sections">{contentSections.map(sectionView)}</ol>
+        </SectionScopeProvider>
+      ),
     })
   }
 
@@ -116,19 +126,21 @@ export function LessonPlayer({ lesson }: LessonPlayerProps) {
       id: 'exercises',
       label: t('tabs.lesson.exercises'),
       content: (
-        <ol className="lesson-sections">
-          {exerciseSections.map(sectionView)}
-          {standaloneExercises && (
-            <li className="lesson-section lesson-exercise">
-              <h2>{t('lesson.exercise.title')}</h2>
-              <ExercisePlayer
-                exerciseIds={lesson.exerciseIds}
-                engine={engine}
-                audio={audio}
-              />
-            </li>
-          )}
-        </ol>
+        <SectionScopeProvider id={`${lesson.id}:exercises`}>
+          <ol className="lesson-sections">
+            {exerciseSections.map(sectionView)}
+            {standaloneExercises && (
+              <li className="lesson-section lesson-exercise">
+                <h2>{t('lesson.exercise.title')}</h2>
+                <ExercisePlayer
+                  exerciseIds={lesson.exerciseIds}
+                  engine={engine}
+                  audio={audio}
+                />
+              </li>
+            )}
+          </ol>
+        </SectionScopeProvider>
       ),
     })
   }
@@ -137,35 +149,46 @@ export function LessonPlayer({ lesson }: LessonPlayerProps) {
     items.push({
       id: 'task',
       label: t('tabs.lesson.task'),
-      content: <KeyboardTask task={task} engine={engine} audio={audio} />,
+      content: (
+        <SectionScopeProvider id={`${lesson.id}:task`}>
+          <KeyboardTask task={task} engine={engine} audio={audio} />
+        </SectionScopeProvider>
+      ),
     })
   }
 
   return (
-    <div className="lesson-player">
-      <div className="lesson-audio" role="status">
-        <p className="muted">{audioMessage}</p>
-        {audio.isPlaying && (
-          <button
-            type="button"
-            className="button-secondary"
-            onClick={() => engine.stop()}
-          >
-            {t('lesson.stop')}
-          </button>
+    <PlaybackScopeProvider key={lesson.id}>
+      <div className="lesson-player">
+        <div className="lesson-audio" role="status">
+          <p className="muted">{audioMessage}</p>
+          {audio.isPlaying && (
+            <button
+              type="button"
+              className="button-secondary"
+              onClick={() => engine.stop()}
+            >
+              {t('lesson.stop')}
+            </button>
+          )}
+        </div>
+
+        {items.length > 1 ? (
+          <Tabs
+            label={t('tabs.lesson.label')}
+            persistKey={`lesson:${lesson.id}:tabs`}
+            items={items}
+          />
+        ) : (
+          items[0]?.content
         )}
       </div>
-
-      {items.length > 1 ? (
-        <Tabs label={t('tabs.lesson.label')} items={items} />
-      ) : (
-        items[0]?.content
-      )}
-    </div>
+    </PlaybackScopeProvider>
   )
 }
 
 interface LessonSectionViewProps {
+  lessonId: string
   section: LessonSection
   exerciseIds: readonly string[]
   engine: AudioEngine
@@ -176,6 +199,7 @@ interface LessonSectionViewProps {
 }
 
 function LessonSectionView({
+  lessonId,
   section,
   exerciseIds,
   engine,
@@ -186,6 +210,16 @@ function LessonSectionView({
 }: LessonSectionViewProps) {
   const { settings, t } = useSettings()
   const locale: Locale = settings.language
+  const scopeId = `${lessonId}:${section.id}`
+  const scope = useSectionScope(scopeId)
+  const play = (timeline: TimelineEvent[]) => {
+    scope.claim()
+    onPlay(timeline)
+  }
+  const playMidis = (notes: readonly number[]) => {
+    scope.claim()
+    onPlayMidis(notes)
+  }
   const midis = useMemo(
     () => section.keys.map(spelledPitchToMidi),
     [section.keys],
@@ -199,36 +233,41 @@ function LessonSectionView({
 
   if (section.kind === 'callout') {
     return (
-      <li className="lesson-section lesson-callout">
-        <aside aria-labelledby={`${section.id}-title`}>
-          <h2 id={`${section.id}-title`}>{sectionTitle(section, locale)}</h2>
-          {sectionBody(section, locale) !== undefined && (
-            <p>{sectionBody(section, locale)}</p>
-          )}
-        </aside>
-      </li>
+      <SectionScopeProvider id={scopeId}>
+        <li className="lesson-section lesson-callout" {...scope.scopeProps}>
+          <aside aria-labelledby={`${section.id}-title`}>
+            <h2 id={`${section.id}-title`}>{sectionTitle(section, locale)}</h2>
+            {sectionBody(section, locale) !== undefined && (
+              <p>{sectionBody(section, locale)}</p>
+            )}
+          </aside>
+        </li>
+      </SectionScopeProvider>
     )
   }
 
   if (section.kind === 'exercise') {
     return (
-      <li className="lesson-section lesson-exercise">
-        <p className="eyebrow">{t('lesson.exercise')}</p>
-        <h2 id={`${section.id}-title`}>{sectionTitle(section, locale)}</h2>
-        {sectionBody(section, locale) !== undefined && (
-          <p>{sectionBody(section, locale)}</p>
-        )}
-        <ExercisePlayer
-          exerciseIds={exerciseIds}
-          engine={engine}
-          audio={audio}
-        />
-      </li>
+      <SectionScopeProvider id={scopeId}>
+        <li className="lesson-section lesson-exercise" {...scope.scopeProps}>
+          <p className="eyebrow">{t('lesson.exercise')}</p>
+          <h2 id={`${section.id}-title`}>{sectionTitle(section, locale)}</h2>
+          {sectionBody(section, locale) !== undefined && (
+            <p>{sectionBody(section, locale)}</p>
+          )}
+          <ExercisePlayer
+            exerciseIds={exerciseIds}
+            engine={engine}
+            audio={audio}
+          />
+        </li>
+      </SectionScopeProvider>
     )
   }
 
   return (
-    <li className={`lesson-section lesson-${section.kind}`}>
+    <SectionScopeProvider id={scopeId}>
+      <li className={`lesson-section lesson-${section.kind}`} {...scope.scopeProps}>
       <h2 id={`${section.id}-title`}>{sectionTitle(section, locale)}</h2>
       {sectionBody(section, locale) !== undefined && (
         <p>{sectionBody(section, locale)}</p>
@@ -240,7 +279,7 @@ function LessonSectionView({
             <button
               type="button"
               className="button-primary"
-              onClick={() => onPlayMidis(midis)}
+              onClick={() => playMidis(midis)}
             >
               {t('lesson.play')}
             </button>
@@ -251,9 +290,7 @@ function LessonSectionView({
               activeNotes={activeNotes}
               fingering={fingering}
               onNoteOn={(midi) =>
-                onPlay(
-                  noteTimeline(midi, { tempo: settings.tempo, beats: 1 }),
-                )
+                play(noteTimeline(midi, { tempo: settings.tempo, beats: 1 }))
               }
             />
           </>
@@ -264,7 +301,7 @@ function LessonSectionView({
           <button
             type="button"
             className="button-primary"
-            onClick={() => onPlay(scoreToTimeline(section.score!, settings.tempo))}
+            onClick={() => play(scoreToTimeline(section.score!, settings.tempo))}
           >
             {t('lesson.play')}
           </button>
@@ -280,7 +317,7 @@ function LessonSectionView({
               (audio.activeLabel === undefined ? [] : [audio.activeLabel])
             }
             onNoteClick={({ midis: clicked }) =>
-              onPlay(
+              play(
                 noteTimeline(clicked[0] ?? 60, {
                   tempo: settings.tempo,
                   beats: 1,
@@ -290,6 +327,7 @@ function LessonSectionView({
           />
         </>
       )}
-    </li>
+      </li>
+    </SectionScopeProvider>
   )
 }

@@ -122,6 +122,14 @@ describe('F2-060 — Conversión de partituras', () => {
     expect(measures[2]?.pitches).toHaveLength(3)
   })
 
+  it('numera los dedos y marca el inicio de cada compás', () => {
+    const measures = scoreToMeasures(SCORE)
+
+    expect(measures.map((measure) => measure.finger)).toEqual([1, 2, 3])
+    expect(measures[2]?.fingers).toEqual([1, 3, 5])
+    expect(measures.map((measure) => measure.barline)).toEqual([false, false, true])
+  })
+
   it('aplana las alturas en orden de partitura', () => {
     expect(scoreToMidis(SCORE)).toEqual([60, 64, 60, 64, 67])
   })
