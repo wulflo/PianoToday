@@ -5,6 +5,7 @@ import { COURSE_MODULES, findCourseLesson } from '../src/content/course'
 import { DEMO_HASH, SONGS_HASH, lessonHash } from '../src/router/hash-route'
 import { ProgressDatabase, createProgressDatabase } from '../src/state/db'
 import { createProgressRepositories } from '../src/state/repositories'
+import { SETTINGS_STORAGE_KEY } from '../src/state/settings'
 import type { LessonProgress } from '../src/schemas'
 
 let databaseCounter = 0
@@ -29,6 +30,7 @@ async function seedLessons(
 
 afterEach(() => {
   window.location.hash = ''
+  localStorage.clear()
 })
 
 describe('F2-059 — Mapa visual del curso', () => {
@@ -81,6 +83,31 @@ describe('F2-059 — Mapa visual del curso', () => {
     expect(
       screen.getByRole('link', { name: 'Grabar una canción propia' }),
     ).toHaveAttribute('href', SONGS_HASH)
+
+    unmount()
+  })
+
+  it('enlaza lecciones bloqueadas cuando el bloqueo está desactivado', async () => {
+    window.location.hash = ''
+    localStorage.setItem(
+      SETTINGS_STORAGE_KEY,
+      JSON.stringify({ unlockAllLessons: true }),
+    )
+
+    const { unmount } = render(<App databaseName={uniqueDatabaseName()} />)
+
+    await waitFor(() =>
+      expect(screen.getByText(/0 de 79 lecciones/)).toBeInTheDocument(),
+    )
+    fireEvent.click(screen.getByRole('tab', { name: 'M0' }))
+
+    const normallyLocked = findCourseLesson('lesson.m0-02')!
+    expect(
+      screen.getByRole('link', { name: normallyLocked.titleEs }),
+    ).toHaveAttribute('href', lessonHash('lesson.m0-02'))
+    expect(
+      screen.queryAllByText('Bloqueada', { selector: '.lesson-status' }),
+    ).toHaveLength(0)
 
     unmount()
   })

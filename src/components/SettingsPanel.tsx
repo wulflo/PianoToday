@@ -216,6 +216,20 @@ export function SettingsPanel({ labelledBy }: SettingsPanelProps = {}) {
           </label>
           <span className="muted">{t('settings.fingering.help')}</span>
         </div>
+
+        <div className="field">
+          <label className="checkbox">
+            <input
+              type="checkbox"
+              checked={settings.unlockAllLessons}
+              onChange={(event) =>
+                updateSettings({ unlockAllLessons: event.target.checked })
+              }
+            />
+            <span>{t('settings.unlockAllLessons')}</span>
+          </label>
+          <span className="muted">{t('settings.unlockAllLessons.help')}</span>
+        </div>
       </div>
 
       <details className="keymap">

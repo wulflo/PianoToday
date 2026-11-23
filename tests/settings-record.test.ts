@@ -36,6 +36,7 @@ describe('F2-063 — Puente de ajustes UI ↔ progreso', () => {
       audioVolume: 0.25,
       tempoBpm: 120,
       midiEnabled: true,
+      unlockAllLessons: true,
     })
 
     const settings = settingsFromRecord(record, { a: 60 })
@@ -51,6 +52,7 @@ describe('F2-063 — Puente de ajustes UI ↔ progreso', () => {
       fuzz: true,
       newPerDay: 7,
       midiEnabled: true,
+      unlockAllLessons: true,
       computerKeys: { a: 60 },
     })
   })
@@ -79,6 +81,7 @@ describe('F2-063 — Puente de ajustes UI ↔ progreso', () => {
       fuzz: true,
       newPerDay: 3,
       midiEnabled: true,
+      unlockAllLessons: true,
     })
 
     expect(record).toEqual({
@@ -93,6 +96,7 @@ describe('F2-063 — Puente de ajustes UI ↔ progreso', () => {
       tempoBpm: 132,
       midiEnabled: true,
       showFingering: true,
+      unlockAllLessons: true,
     })
   })
 
@@ -109,6 +113,7 @@ describe('F2-063 — Puente de ajustes UI ↔ progreso', () => {
       fuzz: true,
       newPerDay: 12,
       midiEnabled: true,
+      unlockAllLessons: true,
       computerKeys: { q: 60, w: 61 },
     })
 

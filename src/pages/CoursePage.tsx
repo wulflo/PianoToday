@@ -12,7 +12,8 @@ import { useSettings } from '../state/settings'
  * Muestra los nueve módulos en orden, el avance global y cada lección con su
  * estado. Los estados se anuncian con texto, no solo con color, y las lecciones
  * bloqueadas no son enlaces: no se puede prometer una pantalla que todavía no
- * corresponde abrir.
+ * corresponde abrir. Si el usuario desactiva el bloqueo en los ajustes, todas
+ * las lecciones se muestran disponibles y enlazan con su contenido.
  */
 export function CoursePage() {
   const { settings, t } = useSettings()

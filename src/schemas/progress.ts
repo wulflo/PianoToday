@@ -70,6 +70,11 @@ export const SettingsSchema = z.object({
   tempoBpm: z.number().int().min(20).max(300).default(80),
   midiEnabled: z.boolean().default(false),
   showFingering: z.boolean().default(true),
+  /**
+   * Desactiva el bloqueo por prerrequisitos: todas las lecciones se pueden
+   * abrir en cualquier orden. El progreso se sigue registrando con normalidad.
+   */
+  unlockAllLessons: z.boolean().default(false),
 })
 export type Settings = z.infer<typeof SettingsSchema>
 

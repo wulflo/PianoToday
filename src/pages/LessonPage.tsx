@@ -97,8 +97,12 @@ export function LessonPage({ lessonId }: LessonPageProps) {
   }, [indexLesson, lessonId, request])
 
   // Registrar el inicio una sola vez cuando la lección está disponible.
+  // Con el bloqueo desactivado no se marca nada: abrir una lección para
+  // consultarla no debería alterar el progreso ni desbloquearla de forma
+  // permanente si después se vuelve a activar el bloqueo.
   useEffect(() => {
     if (repositories === null) return
+    if (settings.unlockAllLessons) return
     if (unlockStatus !== 'available') return
     if (startedRef.current === lessonId) return
 
@@ -112,7 +116,13 @@ export function LessonPage({ lessonId }: LessonPageProps) {
         startingRef.current = null
       },
     )
-  }, [courseReload, lessonId, repositories, unlockStatus])
+  }, [
+    courseReload,
+    lessonId,
+    repositories,
+    settings.unlockAllLessons,
+    unlockStatus,
+  ])
 
   if (indexLesson === undefined) {
     return (
@@ -228,7 +238,9 @@ export function LessonPage({ lessonId }: LessonPageProps) {
 
     ready
       .then(() =>
-        completeLesson(repositories, COURSE_LESSON_GRAPH, lessonId),
+        completeLesson(repositories, COURSE_LESSON_GRAPH, lessonId, {
+          ignorePrerequisites: settings.unlockAllLessons,
+        }),
       )
       .then(
         () => {

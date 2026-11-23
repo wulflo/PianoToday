@@ -10,6 +10,7 @@ Formato basado en Keep a Changelog. El proyecto usa tags anotados `fase-N`, publ
 - Flujos de permiso por familia: confirmación previa al pedir acceso, ayuda verificada para Chromium, complemento de permiso del sitio en Firefox con «Volver a buscar dispositivos», guía opcional de extensión de terceros en Safari macOS y aviso de que iOS/iPadOS no tiene Web MIDI. El fallback con teclado virtual y autoevaluación manual sigue intacto.
 - Diagnóstico MIDI con navegador, contexto seguro y fallo real, más un botón «Copiar informe de diagnóstico» en texto plano sin datos personales. Los mensajes que antes mencionaban solo a Chrome se sustituyeron por ayuda por familia en ES y EN.
 - Rediseño visual con paleta cálida (papel, verde profundo y terracota), pila del sistema, espaciado 4/8, radios y elevaciones suaves, micro-celebración al acertar, foco visible, objetivos táctiles de 44 px y movimiento reducido; `theme-color` y manifiesto actualizados.
+- Ajuste «Desbloquear todas las lecciones»: desactiva el bloqueo por prerrequisitos para consultar cualquier lección sin recorrer las anteriores. El ajuste se guarda con el progreso y no marca como empezada una lección solo por abrirla.
 - Documentación nueva: `docs/DIAGNOSTICO-MIDI.md`, ADR-048 a ADR-050, QA visual con 36 capturas en Chromium y Firefox y `docs/DEPENDENCIAS-LICENCIAS.md` (599 paquetes con licencia, ámbito y procedencia, generado por `npm run licenses:dependencies`).
 
 ### Estado

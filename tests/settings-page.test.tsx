@@ -111,6 +111,27 @@ describe('F2-063 — Ajustes completos', () => {
     expect(local).toMatchObject({ notation: 'do', theme: 'dark', newPerDay: 5 })
   })
 
+  it('guarda el desbloqueo total de lecciones en Dexie y localStorage', async () => {
+    const name = uniqueDatabaseName()
+    showSettings()
+    render(<App databaseName={name} />)
+
+    const unlock = await screen.findByRole('checkbox', {
+      name: 'Desbloquear todas las lecciones',
+    })
+    expect(unlock).not.toBeChecked()
+    fireEvent.click(unlock)
+    expect(unlock).toBeChecked()
+
+    await waitFor(async () => {
+      const record = await readSettings(name)
+      expect(record?.unlockAllLessons).toBe(true)
+    })
+
+    const local = JSON.parse(localStorage.getItem(SETTINGS_STORAGE_KEY) ?? '{}')
+    expect(local.unlockAllLessons).toBe(true)
+  })
+
   it('hidrata los ajustes persistidos al abrir la app', async () => {
     const name = uniqueDatabaseName()
     await seed(

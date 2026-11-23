@@ -16,6 +16,9 @@ import type { ProgressRepositories } from './repositories'
  *
  * El cálculo es puro y determinista; la persistencia se hace a través de los
  * repositorios de Dexie.
+ *
+ * `ignorePrerequisites` desactiva el bloqueo desde los ajustes: todas las
+ * lecciones quedan disponibles para consultarlas en cualquier orden.
  */
 
 export const DEFAULT_MASTERY_THRESHOLD = 0.8
@@ -44,6 +47,12 @@ export interface LessonUnlockInput {
 export interface LessonUnlockOptions {
   /** Maestría mínima (0–1) para dar por dominada una habilidad; por defecto 0,8. */
   masteryThreshold?: number
+  /**
+   * Ignora los prerrequisitos y deja todas las lecciones disponibles. Se activa
+   * desde los ajustes para consultar una lección concreta sin recorrer las
+   * anteriores; el progreso se sigue guardando con normalidad.
+   */
+  ignorePrerequisites?: boolean
 }
 
 export interface LessonActionOptions extends LessonUnlockOptions {
@@ -99,6 +108,7 @@ export function computeLessonUnlocks(
   const progress = input.lessons ?? {}
   const skills = input.skills ?? {}
   const threshold = normalizeThreshold(options.masteryThreshold)
+  const ignorePrerequisites = options.ignorePrerequisites === true
   const nodes = new Map(graph.map((node) => [node.id, node]))
   const masteredCache = new Map<string, boolean>()
 
@@ -132,9 +142,9 @@ export function computeLessonUnlocks(
       return { id: node.id, status: 'in-progress', missingPrerequisites: [] }
     }
 
-    const missingPrerequisites = node.prerequisites.filter(
-      (prerequisite) => !isMastered(prerequisite),
-    )
+    const missingPrerequisites = ignorePrerequisites
+      ? []
+      : node.prerequisites.filter((prerequisite) => !isMastered(prerequisite))
     return {
       id: node.id,
       status: missingPrerequisites.length === 0 ? 'available' : 'locked',

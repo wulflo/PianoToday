@@ -5,6 +5,7 @@ import { findCourseLesson } from '../src/content/course'
 import { COURSE_HASH, lessonHash } from '../src/router/hash-route'
 import { createProgressDatabase } from '../src/state/db'
 import { createProgressRepositories } from '../src/state/repositories'
+import { SETTINGS_STORAGE_KEY } from '../src/state/settings'
 import type { LessonProgress } from '../src/schemas'
 
 let databaseCounter = 0
@@ -47,6 +48,7 @@ function showLesson(lessonId: string): void {
 
 afterEach(() => {
   window.location.hash = ''
+  localStorage.clear()
 })
 
 describe('F2-060 — Reproductor de lección', () => {
@@ -80,6 +82,30 @@ describe('F2-060 — Reproductor de lección', () => {
     expect(
       screen.queryByRole('button', { name: 'Marcar como completada' }),
     ).not.toBeInTheDocument()
+  })
+
+  it('abre una lección bloqueada si el bloqueo está desactivado', async () => {
+    const name = uniqueDatabaseName()
+    localStorage.setItem(
+      SETTINGS_STORAGE_KEY,
+      JSON.stringify({ unlockAllLessons: true }),
+    )
+    showLesson('lesson.m0-02')
+    render(<App databaseName={name} />)
+
+    const lesson = findCourseLesson('lesson.m0-02')!
+    await waitFor(() =>
+      expect(
+        screen.getByRole('heading', { level: 1, name: lesson.titleEs }),
+      ).toBeInTheDocument(),
+    )
+    expect(
+      await screen.findByRole('button', { name: 'Marcar como completada' }),
+    ).toBeInTheDocument()
+
+    // Consultar una lección no la marca como empezada: al reactivar el
+    // bloqueo, su estado original se conserva.
+    expect(await readLesson(name, 'lesson.m0-02')).toBeUndefined()
   })
 
   it('muestra secciones, partitura y tarea de una lección disponible', async () => {

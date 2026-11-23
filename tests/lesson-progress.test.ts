@@ -224,6 +224,44 @@ describe('F2-051 — Progreso por lección y desbloqueo por prerrequisitos', () 
     repositories.close()
   })
 
+  it('desbloquea todas las lecciones cuando se ignoran los prerrequisitos', () => {
+    const unlocks = computeLessonUnlocks(GRAPH, {
+      lessons: {
+        'lesson.m0-01': lesson(),
+        'lesson.m0-02': { status: 'in-progress', secondsSpent: 10 },
+      },
+    }, { ignorePrerequisites: true })
+
+    expect(unlocks.map((unlock) => [unlock.id, unlock.status])).toEqual([
+      ['lesson.m0-01', 'completed'],
+      ['lesson.m0-02', 'in-progress'],
+      ['lesson.m0-03', 'available'],
+      ['lesson.m0-04', 'available'],
+    ])
+    expect(unlocks.every((unlock) => unlock.missingPrerequisites.length === 0)).toBe(true)
+  })
+
+  it('permite iniciar y completar una lección bloqueada al ignorar prerrequisitos', async () => {
+    const db = createProgressDatabase({ name: uniqueDatabaseName() })
+    const repositories = createProgressRepositories(db)
+
+    const started = await startLesson(repositories, GRAPH, 'lesson.m0-02', {
+      ignorePrerequisites: true,
+    })
+    expect(started).toMatchObject({ id: 'lesson.m0-02', status: 'in-progress' })
+
+    const completed = await completeLesson(repositories, GRAPH, 'lesson.m0-02', {
+      ignorePrerequisites: true,
+      now: NOW,
+    })
+    expect(completed).toMatchObject({
+      id: 'lesson.m0-02',
+      status: 'completed',
+      completedAt: NOW.toISOString(),
+    })
+    repositories.close()
+  })
+
   it('rechaza lecciones que no están en el grafo', async () => {
     const db = createProgressDatabase({ name: uniqueDatabaseName() })
     const repositories = createProgressRepositories(db)

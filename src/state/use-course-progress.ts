@@ -3,6 +3,7 @@ import { COURSE_INDEX, COURSE_LESSON_GRAPH } from '../content/course'
 import { summarizeCourse, type CourseSummary } from './course-progress'
 import { loadLessonUnlocks } from './lesson-progress'
 import { useProgress } from './progress-context'
+import { useSettings } from './settings'
 
 /**
  * Resumen del curso con el progreso guardado.
@@ -33,6 +34,8 @@ export function useCourseProgress(): CourseProgressState {
     error: databaseError,
     reload: reloadDatabase,
   } = useProgress()
+  const { settings } = useSettings()
+  const ignorePrerequisites = settings.unlockAllLessons
   const [attempt, setAttempt] = useState(0)
   const [state, setState] = useState<Omit<CourseProgressState, 'reload'>>({
     status: 'loading',
@@ -60,7 +63,9 @@ export function useCourseProgress(): CourseProgressState {
         : { ...current, status: 'ready', error: null },
     )
 
-    loadLessonUnlocks(repositories, COURSE_LESSON_GRAPH).then(
+    loadLessonUnlocks(repositories, COURSE_LESSON_GRAPH, {
+      ignorePrerequisites,
+    }).then(
       (unlocks) => {
         if (cancelled) return
         setState({
@@ -78,7 +83,7 @@ export function useCourseProgress(): CourseProgressState {
     return () => {
       cancelled = true
     }
-  }, [attempt, databaseError, databaseStatus, repositories])
+  }, [attempt, databaseError, databaseStatus, ignorePrerequisites, repositories])
 
   const reload = useCallback(() => {
     if (databaseStatus === 'error') reloadDatabase()

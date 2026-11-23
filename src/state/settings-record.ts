@@ -47,6 +47,7 @@ export function settingsFromRecord(
     newPerDay: record.newPerDay,
     midiEnabled: record.midiEnabled,
     showFingering: record.showFingering,
+    unlockAllLessons: record.unlockAllLessons,
     ...(computerKeys === undefined ? {} : { computerKeys }),
   })
 }
@@ -65,5 +66,6 @@ export function settingsToRecord(settings: Settings): ProgressSettings {
     tempoBpm: settings.tempo,
     midiEnabled: settings.midiEnabled,
     showFingering: settings.showFingering,
+    unlockAllLessons: settings.unlockAllLessons,
   })
 }

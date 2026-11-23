@@ -36,6 +36,11 @@ export interface Settings {
   midiEnabled: boolean
   /** Muestra el número de dedo y la mano sobre las teclas con digitación. */
   showFingering: boolean
+  /**
+   * Desactiva el bloqueo por prerrequisitos: cualquier lección se puede abrir
+   * sin completar las anteriores. El progreso se registra igual.
+   */
+  unlockAllLessons: boolean
   /** Color de acento de la app (hex). */
   accentColor: string
   computerKeys: Record<string, number>
@@ -71,6 +76,7 @@ export const DEFAULT_SETTINGS: Settings = {
   newPerDay: DEFAULT_DAILY_CAP,
   midiEnabled: false,
   showFingering: true,
+  unlockAllLessons: false,
   accentColor: DEFAULT_ACCENT_COLOR,
   computerKeys: { ...DEFAULT_COMPUTER_KEY_MAP },
 }
@@ -102,6 +108,7 @@ export function normalizeSettings(input: unknown): Settings {
   const newPerDay = normalizeDailyCap(input.newPerDay)
   const midiEnabled = input.midiEnabled === true
   const showFingering = input.showFingering !== false
+  const unlockAllLessons = input.unlockAllLessons === true
   const accentColors = new Set(ACCENT_COLORS.map((c) => c.value))
   const accentColor =
     typeof input.accentColor === 'string' && accentColors.has(input.accentColor)
@@ -135,6 +142,7 @@ export function normalizeSettings(input: unknown): Settings {
     newPerDay,
     midiEnabled,
     showFingering,
+    unlockAllLessons,
     accentColor,
     computerKeys,
   }
@@ -734,6 +742,8 @@ const ES_DICTIONARY = {
     'settings.fuzz.help': 'Añade variación determinista a los intervalos largos para evitar repasos amontonados.',
     'settings.fingering': 'Mostrar digitación',
     'settings.fingering.help': 'Muestra el número de dedo y la mano (D/I) sobre las teclas que pide cada ejercicio.',
+    'settings.unlockAllLessons': 'Desbloquear todas las lecciones',
+    'settings.unlockAllLessons.help': 'Permite abrir cualquier lección sin completar los prerrequisitos. El progreso y los repasos se siguen registrando con normalidad.',
     'data.eyebrow': 'Datos',
     'data.title': 'Gestión de datos',
     'data.lead': 'Exportá una copia, importá un archivo validado o restablecé el progreso.',
@@ -1466,6 +1476,8 @@ const EN_DICTIONARY: Record<keyof typeof ES_DICTIONARY, string> = {
     'settings.fuzz.help': 'Adds deterministic variation to long intervals to avoid clustered reviews.',
     'settings.fingering': 'Show fingering',
     'settings.fingering.help': 'Shows the finger number and hand (R/L) over the keys each exercise asks for.',
+    'settings.unlockAllLessons': 'Unlock all lessons',
+    'settings.unlockAllLessons.help': 'Lets you open any lesson without completing its prerequisites. Progress and reviews are still recorded as usual.',
     'data.eyebrow': 'Data',
     'data.title': 'Data management',
     'data.lead': 'Export a copy, import a validated file or reset your progress.',
