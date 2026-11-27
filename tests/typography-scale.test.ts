@@ -44,10 +44,20 @@ describe('ADR-050 — escala tipográfica', () => {
       'font-size: clamp(var(--type-xl), 5vw, var(--type-2xl))',
     )
     expect(block('h1 {')).toContain('line-height: var(--leading-heading)')
+    expect(block('h1 {')).toContain('font-family: var(--font-display)')
+    expect(block('h2 {')).toContain('font-family: var(--font-display)')
+    expect(block('h3 {')).toContain('font-family: var(--font-display)')
     expect(block('h2 {')).toContain('font-size: var(--type-lg)')
     expect(block('h3 {')).toContain('font-size: var(--type-md)')
     expect(root).toContain('line-height: var(--leading-body)')
     expect(block('.lede {')).toContain('font-size: var(--type-md)')
+  })
+
+  it('mantiene la marca por debajo del h1 y unifica los tamaños de control', () => {
+    expect(css).toContain('font-size: clamp(1.5rem, 2.5vw, 1.9rem)')
+    expect(
+      css.match(/font-size: var\(--type-base\)/g)?.length ?? 0,
+    ).toBeGreaterThanOrEqual(3)
   })
 
   it('no declara una fuente que no se descarga', () => {
