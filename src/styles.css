@@ -45,6 +45,7 @@
   --error: #9c2f26;
   --error-container: #f6dbd6;
   --on-error-container: #3b120d;
+  --on-error: #ffffff;
   --staff-bg: #ffffff;
   --staff-ink: #1d1f23;
   --staff-accent: #a33b2b;
@@ -129,6 +130,7 @@
     --error: #f0a79a;
     --error-container: #5e2019;
     --on-error-container: #f6dbd6;
+    --on-error: #3b120d;
     --staff-bg: #1d1b20;
     --staff-ink: #e6e0e9;
     --staff-accent: #ffb4ab;
@@ -184,6 +186,7 @@
   --error: #f0a79a;
   --error-container: #5e2019;
   --on-error-container: #f6dbd6;
+  --on-error: #3b120d;
   --staff-bg: #1d1b20;
   --staff-ink: #e6e0e9;
   --staff-accent: #ffb4ab;
@@ -501,7 +504,7 @@ h1 {
 
 .piano-key.is-pressed {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-primary);
   transform: translateY(1px);
   box-shadow: inset 0 3px 6px rgb(0 0 0 / 0.35);
 }
@@ -522,8 +525,8 @@ h1 {
   gap: 0;
   padding: 0.08rem 0.22rem;
   border-radius: 999px;
-  background: #b3261e;
-  color: #ffffff;
+  background: var(--error-container);
+  color: var(--error);
   transform: translateX(-50%);
   pointer-events: none;
   font-size: clamp(0.4rem, 1vw, 0.55rem);
@@ -532,16 +535,16 @@ h1 {
   white-space: nowrap;
 }
 
-/* El color del indicador distingue la mano: rojo para la derecha y azul para
-   la izquierda. El número de dedo sigue siendo el dato principal. */
+/* El color del indicador distingue la mano: acento para la izquierda y rojo
+   para la derecha, siempre derivado de los tokens del tema activo. */
 .key-fingering[data-hand='left'] {
-  background: #0b57d0;
-  color: #ffffff;
+  background: var(--primary-container);
+  color: var(--primary);
 }
 
 .key-fingering[data-hand='right'] {
-  background: #b3261e;
-  color: #ffffff;
+  background: var(--error-container);
+  color: var(--error);
 }
 
 .key-fingering-finger {
@@ -772,14 +775,8 @@ h1 {
 
 .staff-error {
   margin: 0.5rem 0 0;
-  color: #b3261e;
+  color: var(--error);
   font-size: 0.9rem;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) .staff-error {
-    color: #ffb4ab;
-  }
 }
 
 /* --- Reproductor de piezas (F5-023) --- */
@@ -897,14 +894,8 @@ h1 {
 }
 
 .audio-error {
-  color: #b3261e;
+  color: var(--error);
   font-weight: 600;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) .audio-error {
-    color: #ffb4ab;
-  }
 }
 
 .demo-controls {
@@ -924,7 +915,7 @@ h1 {
 
 .button-primary {
   padding: 0.55rem 1.1rem;
-  color: #fff;
+  color: var(--on-primary);
   background: var(--accent);
   border: 1px solid transparent;
   border-radius: var(--radius-lg);
@@ -967,7 +958,7 @@ h1 {
 
 .error-panel {
   margin-top: 1.5rem;
-  border-color: #b3261e;
+  border-color: var(--error);
 }
 
 .error-panel h2 {
@@ -1466,7 +1457,7 @@ h1 {
 }
 
 .voice-leading-clean {
-  color: #3b7d4a;
+  color: var(--success);
   font-weight: 600;
 }
 
@@ -1554,8 +1545,8 @@ h1 {
 }
 
 .exercise-feedback.is-correct {
-  border-color: #3b7d4a;
-  background: color-mix(in srgb, #3b7d4a 8%, var(--bg-panel));
+  border-color: var(--success);
+  background: color-mix(in srgb, var(--success) 8%, var(--bg-panel));
 }
 
 .exercise-feedback.is-incorrect {
@@ -2109,11 +2100,12 @@ h1 {
 
 .data-danger {
   margin-top: 1rem;
-  border-color: #b3261e;
+  border-color: var(--error);
 }
 
 .data-danger .button-primary {
-  background: #b3261e;
+  background: var(--error);
+  color: var(--on-error);
 }
 
 .data-danger .checkbox {
@@ -2375,7 +2367,7 @@ input[type='range'] {
 }
 
 .piano-key-white {
-  border-right-color: #c9c4cf;
+  border-right-color: var(--piano-white-border);
   border-radius: 0 0 0.4rem 0.4rem;
 }
 

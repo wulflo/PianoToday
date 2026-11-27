@@ -76,6 +76,10 @@ const pairs = [
   ['on-primary-container', 'primary-container'],
   ['on-tertiary-container', 'tertiary-container'],
   ['on-success-container', 'success-container'],
+  ['error', 'error-container'],
+  ['on-error', 'error'],
+  ['primary', 'primary-container'],
+  ['on-primary', 'primary'],
   ['focus', 'bg'],
   ['focus', 'bg-panel'],
 ] as const
@@ -105,13 +109,14 @@ describe('F2-064 — Tema claro/oscuro con persistencia', () => {
     expect(script).toBeLessThan(head)
     expect(html).toMatch(/document\.documentElement\.dataset\.theme =/)
     expect(html).toMatch(/theme === 'dark' \? 'dark' : 'light'/)
+    expect(html).toMatch(/removeAttribute\('data-theme'\)/)
   })
 
   it('usa el tema claro por defecto y rechaza valores desconocidos', () => {
     expect(DEFAULT_SETTINGS.theme).toBe('light')
     expect(normalizeSettings({ theme: 'light' }).theme).toBe('light')
     expect(normalizeSettings({ theme: 'dark' }).theme).toBe('dark')
-    expect(normalizeSettings({ theme: 'system' }).theme).toBe('light')
+    expect(normalizeSettings({ theme: 'system' }).theme).toBe('system')
     expect(normalizeSettings({ theme: 'sepia' }).theme).toBe('light')
   })
 })
@@ -194,14 +199,18 @@ describe('F6-036 — Teclado estable y resaltado legible', () => {
 })
 
 describe('F6-036 — El tema claro no hereda piezas del sistema oscuro', () => {
-  it('limita el teclado y los errores oscuros al tema oscuro', () => {
+  it('limita el teclado oscuro al tema oscuro y deriva los errores de tokens', () => {
     expect(block('.piano-key-white {')).toContain(
       'background: var(--piano-white)',
     )
     expect(dark['piano-white']).not.toBe(light['piano-white'])
     expect(dark['piano-white']).toBe(darkSystem['piano-white'])
-    expect(css).toContain(":root:not([data-theme='light']) .staff-error")
-    expect(css).toContain(":root:not([data-theme='light']) .audio-error")
+    expect(block('.staff-error {')).toContain('color: var(--error)')
+    expect(block('.audio-error {')).toContain('color: var(--error)')
+    expect(block('.voice-leading-clean {')).toContain('color: var(--success)')
+    expect(block('.data-danger .button-primary {')).toContain(
+      'color: var(--on-error)',
+    )
   })
 
   it('atenúa el resaltado de las teclas en el tema oscuro', () => {

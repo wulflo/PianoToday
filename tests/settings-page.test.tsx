@@ -177,7 +177,7 @@ describe('F2-063 — Ajustes completos', () => {
     })
   })
 
-  it('aplica el tema claro y el oscuro sin opción de sistema', async () => {
+  it('aplica los temas claro, oscuro y del sistema', async () => {
     const name = uniqueDatabaseName()
     showSettings()
     render(<App databaseName={name} />)
@@ -189,7 +189,11 @@ describe('F2-063 — Ajustes completos', () => {
     fireEvent.change(theme, { target: { value: 'dark' } })
     expect(document.documentElement.dataset.theme).toBe('dark')
 
-    expect(screen.queryByRole('option', { name: 'Sistema' })).toBeNull()
+    expect(
+      screen.getByRole('option', { name: 'Según el sistema' }),
+    ).not.toBeNull()
+    fireEvent.change(theme, { target: { value: 'system' } })
+    expect(document.documentElement.hasAttribute('data-theme')).toBe(false)
   })
 
   it('exporta el progreso con los ajustes actuales', async () => {

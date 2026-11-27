@@ -95,7 +95,9 @@ export function normalizeSettings(input: unknown): Settings {
   const notation = input.notation === 'do' ? 'do' : 'c'
   const language = input.language === 'en' ? 'en' : 'es'
   const theme =
-    input.theme === 'dark' ? 'dark' : 'light'
+    input.theme === 'dark' || input.theme === 'system'
+      ? input.theme
+      : 'light'
   const volumeDb = typeof input.volumeDb === 'number' && Number.isFinite(input.volumeDb)
     ? clamp(input.volumeDb, -40, 0)
     : DEFAULT_SETTINGS.volumeDb
@@ -725,6 +727,7 @@ const ES_DICTIONARY = {
     'settings.theme': 'Tema',
     'settings.theme.light': 'Claro',
     'settings.theme.dark': 'Oscuro',
+    'settings.theme.system': 'Según el sistema',
     'settings.accentColor': 'Color de acento',
     'settings.newPerDay': 'Ítems nuevos por día',
     'settings.newPerDay.help': 'Entre {min} y {max}; se aplica a la cola de repaso.',
@@ -1459,6 +1462,7 @@ const EN_DICTIONARY: Record<keyof typeof ES_DICTIONARY, string> = {
     'settings.theme': 'Theme',
     'settings.theme.light': 'Light',
     'settings.theme.dark': 'Dark',
+    'settings.theme.system': 'System',
     'settings.accentColor': 'Accent color',
     'settings.newPerDay': 'New items per day',
     'settings.newPerDay.help': 'Between {min} and {max}; applies to the review queue.',

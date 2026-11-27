@@ -81,15 +81,19 @@ export function SettingsPanel({ labelledBy }: SettingsPanelProps = {}) {
         <label className="field">
           <span>{t('settings.theme')}</span>
           <select
-            value={settings.theme === 'dark' ? 'dark' : 'light'}
+            value={settings.theme}
             onChange={(event) =>
               updateSettings({
-                theme: event.target.value === 'dark' ? 'dark' : 'light',
+                theme:
+                  event.target.value === 'dark' || event.target.value === 'system'
+                    ? event.target.value
+                    : 'light',
               })
             }
           >
             <option value="light">{t('settings.theme.light')}</option>
             <option value="dark">{t('settings.theme.dark')}</option>
+            <option value="system">{t('settings.theme.system')}</option>
           </select>
         </label>
 
