@@ -183,6 +183,12 @@ describe('renderStaff con VexFlow', () => {
     })
     const barlines = [...container.querySelectorAll('[data-staff-barline]')]
     expect(barlines).toHaveLength(2)
+    // Los divisores viven en su propio vector, fuera del grupo de cada nota.
+    const group = container.querySelector('[data-staff-barlines]')
+    expect(group?.children).toHaveLength(2)
+    for (const barline of barlines) {
+      expect(barline.parentElement).toBe(group)
+    }
     barlines.forEach((barline, index) => {
       const x = Number(barline.getAttribute('x'))
       // La caja incluye el accidental: la barra debe quedar entre compases,
@@ -190,6 +196,11 @@ describe('renderStaff con VexFlow', () => {
       expect(x).toBeGreaterThan(boxes[index].right + 1)
       expect(x).toBeLessThan(boxes[index + 1].left - 1)
     })
+    // Mástil y cabeza siguen unidos dentro del mismo grupo vectorial.
+    const noteGroup = result.notes[1].element!
+    expect(noteGroup.querySelector('[data-note-part="stem"]')).not.toBeNull()
+    expect(noteGroup.querySelector('[data-note-stem]')).not.toBeNull()
+    expect(noteGroup.querySelector('[data-note-part="head"]')).not.toBeNull()
   })
 
   it('emite click y teclado por nota', async () => {

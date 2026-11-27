@@ -49,6 +49,8 @@
   --staff-bg: #ffffff;
   --staff-ink: #1d1f23;
   --staff-accent: #a33b2b;
+  /* Divisores de compás: más tenues que la tinta de las notas. */
+  --staff-divider: color-mix(in srgb, var(--border) 75%, var(--staff-ink));
   --piano-white: #fffdf8;
   --piano-white-text: #1c1b1f;
   --piano-white-border: #bcb7ab;
@@ -84,8 +86,18 @@
   --motion-slow: 320ms;
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
   --touch-min: 2.75rem;
+  /* Escala tipográfica 1,25 e interlineados del ADR-050. */
+  --type-xs: 0.75rem;
+  --type-sm: 0.875rem;
+  --type-base: 1rem;
+  --type-md: 1.25rem;
+  --type-lg: 1.5rem;
+  --type-xl: 2rem;
+  --type-2xl: 2.5rem;
+  --leading-body: 1.5;
+  --leading-heading: 1.2;
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-  line-height: 1.5;
+  line-height: var(--leading-body);
 }
 
 :root[data-theme='light'] {
@@ -134,6 +146,7 @@
     --staff-bg: #1d1b20;
     --staff-ink: #e6e0e9;
     --staff-accent: #ffb4ab;
+    --staff-divider: color-mix(in srgb, var(--border) 80%, var(--staff-ink));
     --piano-white: #ded9ce;
     --piano-white-text: #1d1f23;
     --piano-white-border: #8f8a80;
@@ -190,6 +203,7 @@
   --staff-bg: #1d1b20;
   --staff-ink: #e6e0e9;
   --staff-accent: #ffb4ab;
+  --staff-divider: color-mix(in srgb, var(--border) 80%, var(--staff-ink));
   --piano-white: #ded9ce;
   --piano-white-text: #1d1f23;
   --piano-white-border: #8f8a80;
@@ -332,16 +346,26 @@ code {
 h1 {
   margin: 0;
   max-width: 22ch;
-  font-size: clamp(2rem, 6vw, 3.4rem);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  font-size: clamp(var(--type-xl), 5vw, var(--type-2xl));
+  line-height: var(--leading-heading);
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: var(--type-lg);
+  line-height: var(--leading-heading);
+}
+
+h3 {
+  font-size: var(--type-md);
+  line-height: var(--leading-heading);
 }
 
 .lede {
   max-width: 62ch;
-  margin: 1.25rem 0 0;
+  margin: var(--space-4) 0 0;
   color: var(--muted);
-  font-size: 1.05rem;
+  font-size: var(--type-md);
 }
 
 .panel {
@@ -732,6 +756,23 @@ h1 {
 /* VexFlow fija las líneas adicionales con un gris propio. */
 .staff-canvas svg [stroke='#444'] {
   stroke: var(--staff-ink);
+}
+
+/* Cada nota es un único grupo vectorial: mástil, cabeza, accidentales y
+   digitación comparten la misma tinta. Los divisores de compás se agrupan
+   aparte y se dibujan más tenues para que no se lean como mástiles. */
+.staff-canvas [data-note-stem] {
+  stroke: var(--staff-ink);
+  stroke-width: 1.5;
+}
+
+.staff-canvas [data-staff-barlines] {
+  fill: var(--staff-divider);
+  opacity: 0.7;
+}
+
+.staff-canvas [data-staff-barline] {
+  fill: var(--staff-divider);
 }
 
 .staff-canvas [data-staff-note] {

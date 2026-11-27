@@ -228,6 +228,20 @@ export async function renderStaff(
 
   // El contenido guarda el compás de cada evento, pero VexFlow dibuja una sola
   // pauta: sin estas barras la división en compases es casi invisible.
+  // Los divisores de compás se agrupan en su propio vector, separado de los
+  // grupos `vf-stavenote`: así el mástil de una nota nunca se confunde con una
+  // barra de tiempo, aunque compartan orientación vertical.
+  const svgElement = container.querySelector('svg')
+  const barlineGroup = svgElement?.ownerDocument.createElementNS(
+    'http://www.w3.org/2000/svg',
+    'g',
+  )
+  if (svgElement !== null && barlineGroup !== undefined) {
+    barlineGroup.setAttribute('class', 'vf-barlines')
+    barlineGroup.setAttribute('data-staff-barlines', '')
+    svgElement.appendChild(barlineGroup)
+  }
+
   const rectsBefore = container.querySelectorAll('svg rect').length
   for (const [index, measure] of measures.entries()) {
     if (measure.barline !== true) continue
@@ -251,7 +265,9 @@ export async function renderStaff(
   }
   const barlines = container.querySelectorAll('svg rect')
   for (let index = rectsBefore; index < barlines.length; index += 1) {
-    barlines[index].setAttribute('data-staff-barline', '')
+    const barline = barlines[index]
+    barline.setAttribute('data-staff-barline', '')
+    barlineGroup?.appendChild(barline)
   }
 
   const references: RenderedStaffNote[] = []
@@ -265,6 +281,16 @@ export async function renderStaff(
       element.setAttribute('data-staff-note', String(index))
       element.setAttribute('data-midi', midis.join(','))
       element.setAttribute('data-highlighted', String(highlightedFlags[index]))
+      // Todas las piezas de la nota quedan marcadas como un único vector.
+      for (const part of element.querySelectorAll('.vf-stem, .vf-notehead')) {
+        part.setAttribute(
+          'data-note-part',
+          part.classList.contains('vf-stem') ? 'stem' : 'head',
+        )
+      }
+      for (const stem of element.querySelectorAll('.vf-stem path')) {
+        stem.setAttribute('data-note-stem', '')
+      }
       element.setAttribute('data-x', note.getAbsoluteX().toFixed(2))
       const box = note.getBoundingBox()
       if (box !== undefined) {

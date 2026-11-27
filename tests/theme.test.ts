@@ -139,6 +139,17 @@ describe('F3-004a — El pentagrama se adapta al tema', () => {
     )
   })
 
+  it('diferencia los mástiles de las notas de los divisores de compás', () => {
+    expect(block('.staff-canvas [data-note-stem] {')).toContain(
+      'stroke: var(--staff-ink)',
+    )
+    expect(block('.staff-canvas [data-staff-barlines] {')).toContain(
+      'fill: var(--staff-divider)',
+    )
+    expect(light['staff-divider']).toBeUndefined() // color-mix, no hex fijo
+    expect(block(':root {')).toContain('--staff-divider: color-mix')
+  })
+
   it('mantiene contraste AA entre la tinta y el fondo en cada tema', () => {
     expect(contrast(staffInkLight, staffBgLight)).toBeGreaterThanOrEqual(4.5)
     expect(contrast(staffInkDark, staffBgDark)).toBeGreaterThanOrEqual(4.5)
