@@ -9,9 +9,10 @@ import { useMemo, useState } from 'react'
 import { getMidiBrowserInfo, type MidiBrowserInfo } from '../midi/browser'
 import { useMidi } from '../midi/context'
 import {
-  isWindowsNonChromium,
+  isWindows,
   permissionHelpFor,
   SAFARI_WEBMIDI_EXTENSION_URL,
+  windowsHelpKeyFor,
 } from '../midi/permissions'
 import { useSettings } from '../state/settings'
 
@@ -31,9 +32,10 @@ export function MidiPermissionFlow({
   const detected = useMemo(() => getMidiBrowserInfo(), [browserInfo])
   const info = browserInfo ?? detected
   const help = useMemo(() => permissionHelpFor(info), [info])
+  const windowsKey = windowsHelpKeyFor(info)
+  const failedConnection = status === 'denied' || status === 'error'
   const windowsHelp =
-    isWindowsNonChromium(info) &&
-    (status === 'denied' || status === 'error')
+    windowsKey !== null && (failedConnection || status === 'unsupported')
   const [confirming, setConfirming] = useState(false)
 
   if (
@@ -56,8 +58,9 @@ export function MidiPermissionFlow({
   }
 
   // En macOS sin API (Safari sin la extensión) no se puede pedir permiso: se
-  // ofrece la guía opcional y se recuerda que el modo manual sigue disponible.
-  if (info.family === 'webkit-mac' && !supported) {
+  // ofrece la guía opcional. En Windows esa extensión no aplica: se usa la
+  // ayuda específica de Windows más abajo.
+  if (info.family === 'webkit-mac' && !supported && !isWindows(info)) {
     return (
       <div className="midi-webkit-guide">
         <aside className="notice" role="status">
@@ -72,7 +75,8 @@ export function MidiPermissionFlow({
     )
   }
 
-  if (status === 'requesting' || status === 'unsupported') return null
+  if (status === 'requesting') return null
+  if (status === 'unsupported' && windowsKey === null) return null
 
   let helpText: string | null = null
   if (failureKind === 'permission-denied') {
@@ -143,9 +147,9 @@ export function MidiPermissionFlow({
           <p>{helpText}</p>
         </aside>
       )}
-      {windowsHelp && (
+      {windowsHelp && windowsKey !== null && (
         <aside className="notice" role="status">
-          <p>{t('midi.help.windowsNonChromium')}</p>
+          <p>{t(windowsKey)}</p>
         </aside>
       )}
     </div>

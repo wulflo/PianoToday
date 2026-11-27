@@ -159,10 +159,10 @@ as the Yamaha PSR-373.
 - **It does not replace a teacher.** Notes, tempo and evenness can be checked;
   posture, tension and musicality need a human ear.
 - **MIDI depends on the device, driver and browser.** Latency and port visibility
-  vary; physical MIDI is still pending manual confirmation. On Windows, non-
-  Chromium browsers may never show the permission dialog (reported; Linux is
-  unaffected); the app shows specific guidance and manual self-assessment
-  remains available.
+  vary; physical MIDI is still pending manual confirmation. On Windows the
+  permission dialog may not appear in non-Chromium browsers (reported; Linux is
+  unaffected); the app gives family-specific guidance for Chromium, Firefox and
+  Safari/WebKit, and manual self-assessment remains available.
 - **Manual self-assessment is required** when no MIDI device is available.
 - **Some browsers have no Web MIDI.** The app degrades gracefully but cannot give
   objective MIDI feedback there.

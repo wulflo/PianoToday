@@ -67,7 +67,7 @@ El helper `tests/helpers/fake-midi.ts` (`installFakeMidi`, `emit`, `notifyStateC
 | Safari macOS | No nativo; guía de extensión + autoevaluación | Solo mocks de componente |
 | iOS / iPadOS | No en ningún navegador (todos WebKit) | Aviso en `MidiPermissionFlow`; sin prueba en dispositivo |
 | Firefox Android / WebKit (Playwright) | No / no ejecutable en este host (`libicudata.so.74`) | `npx playwright test --project=webkit` falla por entorno, no por código |
-| Windows con navegador no Chromium (informe del usuario 2026-11-27) | El diálogo de permiso **nunca aparece**; en Linux funciona en todos | No reproducido aquí: `isWindowsNonChromium()` solo elige el texto `midi.help.windowsNonChromium`; no afirma causa ni bloquea el intento. Ver hipótesis H6 en `docs/DIAGNOSTICO-MIDI.md` |
+| Windows por familia (informe del usuario 2026-11-27) | Linux sin problemas; en Windows el diálogo puede no aparecer con no Chromium | `windowsHelpKeyFor()` elige texto por familia: Chromium → `midi.help.windows.chromium`, Firefox y derivados → `midi.help.firefox.windows`, WebKit/Safari → `midi.help.windows.webkit`, resto → `midi.help.windowsNonChromium`. No afirma causa ni bloquea el intento; H6 en `docs/DIAGNOSTICO-MIDI.md` |
 
 **Regla de oro:** un test con API simulada demuestra el flujo de UI, **no** la compatibilidad del dispositivo. `docs/PRUEBAS-MANUALES.md` P2 (Yamaha PSR-373 por USB-MIDI), P3 Safari, P4 iOS y P5 Android siguen pendientes de humano; `docs/DIAGNOSTICO-MIDI.md` marca H1-H5 como hipótesis no verificadas en hardware. No las reportes como «verificado».
 

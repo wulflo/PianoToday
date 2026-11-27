@@ -31,16 +31,37 @@ const VERIFIED_SETTINGS_URLS: Readonly<Record<string, string>> = {
   Opera: 'opera://settings/content/midiDevices',
 }
 
+/** Windows por plataforma o User-Agent (Chrome Android informa Linux armv8l). */
+export function isWindows(info: MidiBrowserInfo): boolean {
+  return /win32|win64|windows/i.test(`${info.platform} ${info.userAgent}`)
+}
+
 /**
  * Windows con un navegador no basado en Chromium: el diálogo de permiso Web
  * MIDI puede no llegar a mostrarse (informe de campo, sin reproducir en este
  * entorno). Solo cambia la ayuda mostrada; nunca bloquea el intento.
  */
 export function isWindowsNonChromium(info: MidiBrowserInfo): boolean {
-  const windows = /win32|win64|windows/i.test(
-    `${info.platform} ${info.userAgent}`,
-  )
-  return windows && info.family !== 'chromium' && info.family !== 'webkit-ios'
+  return isWindows(info) && info.family !== 'chromium'
+}
+
+/** Windows + Firefox o derivado: ruta de ayuda específica del complemento. */
+export function isWindowsFirefoxBased(info: MidiBrowserInfo): boolean {
+  return isWindowsNonChromium(info) && info.family === 'firefox'
+}
+
+/**
+ * Texto de ayuda en Windows para cada familia soportada. Las rutas profundas
+ * solo se prescriben cuando están verificadas (Chrome/Brave/Opera).
+ */
+export function windowsHelpKeyFor(info: MidiBrowserInfo): string | null {
+  if (!isWindows(info)) return null
+  if (info.family === 'chromium') return 'midi.help.windows.chromium'
+  if (info.family === 'firefox') return 'midi.help.firefox.windows'
+  if (info.family === 'webkit-mac' || info.family === 'webkit-ios') {
+    return 'midi.help.windows.webkit'
+  }
+  return 'midi.help.windowsNonChromium'
 }
 
 export function permissionHelpFor(info: MidiBrowserInfo): MidiPermissionHelp {

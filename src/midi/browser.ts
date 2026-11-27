@@ -61,7 +61,15 @@ export function detectBrowserFamily(env: BrowserEnvironment): MidiBrowserFamily 
 
   // iOS usa WebKit en todos los navegadores, incluidos Chrome y Firefox.
   if (chromiumSignal && !isIOS(env)) return 'chromium'
-  if (env.hasInstallTrigger || /\bfirefox\//i.test(ua)) return 'firefox'
+  if (isIOS(env)) return 'webkit-ios'
+  // Derivados de Firefox comparten el modelo de complemento de permiso de
+  // sitio: se reconocen por su token de UA, aunque no expongan InstallTrigger.
+  const firefoxSignal =
+    env.hasInstallTrigger ||
+    /\b(firefox(?:-esr)?|waterfox|librewolf|icecat|palemoon|basilisk|seamonkey)\//i.test(
+      ua,
+    )
+  if (firefoxSignal) return 'firefox'
 
   const webkitSignal =
     (env.vendor === 'Apple Computer, Inc.' && /\bsafari\//i.test(ua)) ||
@@ -94,7 +102,13 @@ export function browserLabel(env: BrowserEnvironment): string {
   if (/edg([ea]?)\//i.test(hints)) return 'Edge'
   if (/crios\//i.test(hints)) return 'Chrome en iOS'
   if (/fxios\//i.test(hints)) return 'Firefox en iOS'
-  if (/\bfirefox\//i.test(hints)) return 'Firefox'
+  if (/waterfox/i.test(hints)) return 'Waterfox'
+  if (/librewolf/i.test(hints)) return 'LibreWolf'
+  if (/icecat/i.test(hints)) return 'IceCat'
+  if (/palemoon/i.test(hints)) return 'Pale Moon'
+  if (/basilisk/i.test(hints)) return 'Basilisk'
+  if (/seamonkey/i.test(hints)) return 'SeaMonkey'
+  if (/\bfirefox(?:-esr)?\//i.test(hints)) return 'Firefox'
   if (/chromium\//i.test(hints)) return 'Chromium'
   if (/chrome\//i.test(hints)) return 'Chrome'
   if (/\bsafari\//i.test(hints)) return 'Safari'

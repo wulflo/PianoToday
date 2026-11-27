@@ -110,9 +110,61 @@ describe('F7-006 — explicación previa del permiso MIDI', () => {
 
     await waitFor(() =>
       expect(
-        screen.getByText(/En Windows, los navegadores no basados en Chromium/),
+        screen.getByText(/Firefox y sus derivados/),
       ).toBeInTheDocument(),
     )
+  })
+
+  it('da la ruta verificada de Chromium en Windows', async () => {
+    Object.defineProperty(navigator, 'requestMIDIAccess', {
+      configurable: true,
+      writable: true,
+      value: undefined,
+    })
+    render(
+      <SettingsProvider>
+        <MidiProvider>
+          <MidiPermissionFlow
+            browserInfo={{
+              family: 'chromium',
+              label: 'Chrome',
+              platform: 'Win32',
+              userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+            }}
+          />
+        </MidiProvider>
+      </SettingsProvider>,
+    )
+
+    expect(
+      screen.getByText(/chrome:\/\/settings\/content\/midiDevices/),
+    ).toBeInTheDocument()
+  })
+
+  it('no ofrece la extensión de macOS a Safari en Windows', async () => {
+    Object.defineProperty(navigator, 'requestMIDIAccess', {
+      configurable: true,
+      writable: true,
+      value: undefined,
+    })
+    render(
+      <SettingsProvider>
+        <MidiProvider>
+          <MidiPermissionFlow
+            browserInfo={{
+              family: 'webkit-mac',
+              label: 'Safari',
+              platform: 'Win32',
+              userAgent: 'Mozilla/5.0 (Windows NT 10.0) Version/5.1.7 Safari/534.57.2',
+            }}
+          />
+        </MidiProvider>
+      </SettingsProvider>,
+    )
+    expect(document.querySelector('a[href*="safari-webmidi"]')).toBeNull()
+    expect(
+      screen.getByText(/Safari para Windows no ofrece Web MIDI/),
+    ).toBeInTheDocument()
   })
 
   it('explica por qué un diálogo descartado no es una denegación', async () => {
@@ -146,6 +198,9 @@ describe('F7-006 — explicación previa del permiso MIDI', () => {
         'midi.help.dismissed',
         'midi.help.insecure',
         'midi.help.windowsNonChromium',
+        'midi.help.firefox.windows',
+        'midi.help.windows.chromium',
+        'midi.help.windows.webkit',
       ]) {
         expect(dictionary[key], `${key} en ${language}`).toBeTruthy()
       }

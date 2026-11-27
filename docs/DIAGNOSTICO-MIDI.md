@@ -66,10 +66,13 @@ host no expone un subsystem MIDI. **NO VERIFICADO** con teclado físico.
   2026-11-27:** en Linux el permiso aparece con normalidad en todos los
   navegadores probados; en Windows, con navegadores no Chromium, el diálogo de
   conexión **nunca aparece**. **NO REPRODUCIDO** aquí (sin Windows ni teclado
-  físico). La app ya muestra una ayuda específica en ese caso, pero no afirma
-  una causa: puede depender del complemento de sitio, del controlador MIDI de
-  Windows o del propio navegador. Conviene repetir con un teclado USB-MIDI y
-  recoger `failure.name`/`failure.message` desde «Copiar informe de diagnóstico».
+  físico). La app ya decide la ayuda en Windows **por familia**: ruta verificada
+  para Chromium, complemento de sitio para Firefox y derivados (Waterfox,
+  LibreWolf, IceCat, Pale Moon, SeaMonkey), y aviso honesto para Safari/WebKit
+  (la extensión verificada es solo macOS). No afirma una causa: puede depender
+  del complemento, del controlador MIDI de Windows o del navegador. Conviene
+  repetir con un teclado USB-MIDI y recoger `failure.name`/`failure.message`
+  desde «Copiar informe de diagnóstico».
 
 ## Fuentes consultadas (2026-11-22)
 

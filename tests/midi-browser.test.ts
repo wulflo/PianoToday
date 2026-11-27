@@ -65,6 +65,31 @@ describe('F7-003 — familia de navegador por características', () => {
       'firefox',
     ],
     [
+      'Waterfox en Windows se reconoce como Firefox',
+      env({
+        hasChrome: false,
+        hasWebkitAudio: false,
+        hasInstallTrigger: false,
+        vendor: '',
+        platform: 'Win32',
+        userAgent:
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:115.0) Gecko/20100101 Waterfox/115.0',
+      }),
+      'firefox',
+    ],
+    [
+      'Safari en Windows',
+      env({
+        hasChrome: false,
+        hasWebkitAudio: false,
+        vendor: 'Apple Computer, Inc.',
+        platform: 'Win32',
+        userAgent:
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2',
+      }),
+      'webkit-mac',
+    ],
+    [
       'Safari en macOS',
       env({
         hasChrome: false,
@@ -143,6 +168,15 @@ describe('F7-003 — familia de navegador por características', () => {
     expect(browserLabel(edge)).toBe('Edge')
     expect(browserLabel(samsung)).toBe('Samsung Internet')
     expect(browserLabel(firefox)).toBe('Firefox')
+    expect(
+      browserLabel(
+        env({
+          hasChrome: false,
+          userAgent:
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:115.0) Gecko/20100101 LibreWolf/115.0',
+        }),
+      ),
+    ).toBe('LibreWolf')
   })
 
   it('prefixa la etiqueta desde UA-CH cuando no hay token en el UA', () => {
