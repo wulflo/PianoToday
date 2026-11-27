@@ -231,10 +231,22 @@ export async function renderStaff(
   const rectsBefore = container.querySelectorAll('svg rect').length
   for (const [index, measure] of measures.entries()) {
     if (measure.barline !== true) continue
-    const x = Math.max(
-      BARLINE_MIN_X,
-      (vexNotes[index]?.getAbsoluteX() ?? BARLINE_MIN_X) - BARLINE_OFFSET,
-    )
+    // `getAbsoluteX()` es el centro de la nota, pero la caja de un accidental
+    // empieza ~10 px antes: restar un offset fijo dibujaba la barra encima del
+    // sostenido/bemol. Se coloca en el centro del hueco entre la caja de la
+    // última nota del compás anterior y la de la primera del nuevo.
+    const previousBox = vexNotes[index - 1]?.getBoundingBox()
+    const currentBox = vexNotes[index]?.getBoundingBox()
+    const currentLeft =
+      currentBox?.getX() ??
+      (vexNotes[index]?.getAbsoluteX() ?? BARLINE_MIN_X)
+    const x =
+      previousBox === undefined
+        ? Math.max(BARLINE_MIN_X, currentLeft - BARLINE_OFFSET)
+        : Math.max(
+            BARLINE_MIN_X,
+            (previousBox.getX() + previousBox.getW() + currentLeft) / 2,
+          )
     new VF.Barline(VF.Barline.type.SINGLE).drawVerticalBar(stave, x)
   }
   const barlines = container.querySelectorAll('svg rect')

@@ -167,6 +167,31 @@ describe('renderStaff con VexFlow', () => {
     expect(container.querySelectorAll('[data-staff-barline]')).toHaveLength(2)
   })
 
+  it('sitúa la barra de compás en el hueco sin superponer notas con accidental', async () => {
+    const container = document.createElement('div')
+    const result = await renderStaff(container, {
+      measures: [
+        measure('C4'),
+        { ...measure('F#4'), barline: true },
+        { ...measure('Bb4'), barline: true },
+      ],
+    })
+    const boxes = result.notes.map((note) => {
+      const element = note.element!
+      const x = Number(element.getAttribute('data-box-x'))
+      return { left: x, right: x + Number(element.getAttribute('data-box-width')) }
+    })
+    const barlines = [...container.querySelectorAll('[data-staff-barline]')]
+    expect(barlines).toHaveLength(2)
+    barlines.forEach((barline, index) => {
+      const x = Number(barline.getAttribute('x'))
+      // La caja incluye el accidental: la barra debe quedar entre compases,
+      // no encima del sostenido/bemol ni de la nota anterior.
+      expect(x).toBeGreaterThan(boxes[index].right + 1)
+      expect(x).toBeLessThan(boxes[index + 1].left - 1)
+    })
+  })
+
   it('emite click y teclado por nota', async () => {
     const container = document.createElement('div')
     const onNoteClick = vi.fn()
