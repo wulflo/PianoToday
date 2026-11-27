@@ -31,6 +31,18 @@ const VERIFIED_SETTINGS_URLS: Readonly<Record<string, string>> = {
   Opera: 'opera://settings/content/midiDevices',
 }
 
+/**
+ * Windows con un navegador no basado en Chromium: el diálogo de permiso Web
+ * MIDI puede no llegar a mostrarse (informe de campo, sin reproducir en este
+ * entorno). Solo cambia la ayuda mostrada; nunca bloquea el intento.
+ */
+export function isWindowsNonChromium(info: MidiBrowserInfo): boolean {
+  const windows = /win32|win64|windows/i.test(
+    `${info.platform} ${info.userAgent}`,
+  )
+  return windows && info.family !== 'chromium' && info.family !== 'webkit-ios'
+}
+
 export function permissionHelpFor(info: MidiBrowserInfo): MidiPermissionHelp {
   // En Android Chrome informa `platform = Linux armv8l`: el UA o el UA-CH son
   // la única señal fiable de que el navegador corre sobre Android.

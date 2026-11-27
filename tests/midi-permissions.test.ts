@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { MidiBrowserInfo } from '../src/midi/browser'
-import { permissionHelpFor } from '../src/midi/permissions'
+import { isWindowsNonChromium, permissionHelpFor } from '../src/midi/permissions'
 
 function info(
   label: string,
@@ -47,6 +47,22 @@ describe('F7-006 — ayuda de permisos con rutas verificadas', () => {
       expect(help.useAndroidMenu).toBe(true)
     },
   )
+
+  it('detecta Windows con navegador no Chromium para mostrar la ayuda específica', () => {
+    const windowsFirefox = info('Firefox', 'Win32', 'firefox')
+    windowsFirefox.userAgent = 'Mozilla/5.0 (Windows NT 10.0; rv:...)'
+
+    expect(isWindowsNonChromium(windowsFirefox)).toBe(true)
+    expect(
+      isWindowsNonChromium(info('Chrome', 'Win32', 'chromium')),
+    ).toBe(false)
+    expect(
+      isWindowsNonChromium(info('Firefox', 'Linux x86_64', 'firefox')),
+    ).toBe(false)
+    expect(
+      isWindowsNonChromium(info('Safari', 'Win32', 'webkit-mac')),
+    ).toBe(true)
+  })
 
   it('no prescribe rutas de Chromium a Firefox ni a WebKit', () => {
     for (const family of ['firefox', 'webkit-mac', 'webkit-ios'] as const) {

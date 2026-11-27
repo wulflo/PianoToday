@@ -82,6 +82,39 @@ describe('F7-006 — explicación previa del permiso MIDI', () => {
     )
   })
 
+  it('muestra ayuda específica en Windows con navegador no Chromium', async () => {
+    Object.defineProperty(navigator, 'requestMIDIAccess', {
+      configurable: true,
+      writable: true,
+      value: async () => {
+        throw new DOMException('Permission denied', 'SecurityError')
+      },
+    })
+    render(
+      <SettingsProvider>
+        <MidiProvider>
+          <MidiPermissionFlow
+            browserInfo={{
+              family: 'firefox',
+              label: 'Firefox',
+              platform: 'Win32',
+              userAgent: 'Mozilla/5.0 (Windows NT 10.0; rv:...)',
+            }}
+          />
+        </MidiProvider>
+      </SettingsProvider>,
+    )
+
+    fireEvent.click(screen.getByRole('button', { name: 'Conectar entrada MIDI' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Pedir permiso MIDI' }))
+
+    await waitFor(() =>
+      expect(
+        screen.getByText(/En Windows, los navegadores no basados en Chromium/),
+      ).toBeInTheDocument(),
+    )
+  })
+
   it('explica por qué un diálogo descartado no es una denegación', async () => {
     Object.defineProperty(navigator, 'requestMIDIAccess', {
       configurable: true,
@@ -112,6 +145,7 @@ describe('F7-006 — explicación previa del permiso MIDI', () => {
         'midi.help.denied.android',
         'midi.help.dismissed',
         'midi.help.insecure',
+        'midi.help.windowsNonChromium',
       ]) {
         expect(dictionary[key], `${key} en ${language}`).toBeTruthy()
       }

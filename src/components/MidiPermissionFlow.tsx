@@ -9,6 +9,7 @@ import { useMemo, useState } from 'react'
 import { getMidiBrowserInfo, type MidiBrowserInfo } from '../midi/browser'
 import { useMidi } from '../midi/context'
 import {
+  isWindowsNonChromium,
   permissionHelpFor,
   SAFARI_WEBMIDI_EXTENSION_URL,
 } from '../midi/permissions'
@@ -30,6 +31,9 @@ export function MidiPermissionFlow({
   const detected = useMemo(() => getMidiBrowserInfo(), [browserInfo])
   const info = browserInfo ?? detected
   const help = useMemo(() => permissionHelpFor(info), [info])
+  const windowsHelp =
+    isWindowsNonChromium(info) &&
+    (status === 'denied' || status === 'error')
   const [confirming, setConfirming] = useState(false)
 
   if (
@@ -137,6 +141,11 @@ export function MidiPermissionFlow({
       {helpText !== null && (
         <aside className="notice" role="status">
           <p>{helpText}</p>
+        </aside>
+      )}
+      {windowsHelp && (
+        <aside className="notice" role="status">
+          <p>{t('midi.help.windowsNonChromium')}</p>
         </aside>
       )}
     </div>

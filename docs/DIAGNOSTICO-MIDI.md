@@ -62,6 +62,14 @@ host no expone un subsystem MIDI. **NO VERIFICADO** con teclado físico.
   reproducciones se hicieron en `127.0.0.1`, que es seguro.
 - **H5 (regresión propia):** revisada por lectura de código; `git bisect` no es
   posible con el historial disponible en esta copia del repositorio.
+- **H6 (Windows, navegadores no basados en Chromium) — informe del usuario
+  2026-11-27:** en Linux el permiso aparece con normalidad en todos los
+  navegadores probados; en Windows, con navegadores no Chromium, el diálogo de
+  conexión **nunca aparece**. **NO REPRODUCIDO** aquí (sin Windows ni teclado
+  físico). La app ya muestra una ayuda específica en ese caso, pero no afirma
+  una causa: puede depender del complemento de sitio, del controlador MIDI de
+  Windows o del propio navegador. Conviene repetir con un teclado USB-MIDI y
+  recoger `failure.name`/`failure.message` desde «Copiar informe de diagnóstico».
 
 ## Fuentes consultadas (2026-11-22)
 
