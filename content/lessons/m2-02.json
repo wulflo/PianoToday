@@ -52,7 +52,7 @@
       "id": "sec.m2-02.score",
       "kind": "score",
       "titleEs": "Escala de Do mayor",
-      "bodyEs": "Escala de Do mayor: Do, Re, Mi, Fa, Sol, La, Si, Do. El patrón T-T-S-T-T-T-S en dos compases de cuatro tiempos.",
+      "bodyEs": "Escala de Do mayor: Do, Re, Mi, Fa, Sol, La, Si, Do. El patrón T-T-S-T-T-T-S en dos compases de cuatro tiempos. Antes de tocar, marcá los dos semitonos: Mi-Fa y Si-Do. Son los únicos lugares sin tecla negra entre las dos blancas; reconocerlos sirve para cualquier escala mayor.",
       "score": {
         "clef": "treble",
         "key": "C",
@@ -226,7 +226,7 @@
         ]
       },
       "titleEn": "C major scale",
-      "bodyEn": "C major scale: C, D, E, F, G, A, B, C. The W-W-H-W-W-W-H pattern over two measures of four beats."
+      "bodyEn": "C major scale: C, D, E, F, G, A, B, C. The W-W-H-W-W-W-H pattern over two measures of four beats. Before playing, point out the two semitones: E-F and B-C. They are the only places without a black key between the two white ones; spotting them works for any major scale."
     },
     {
       "id": "sec.m2-02.exercises",

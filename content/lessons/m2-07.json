@@ -118,8 +118,8 @@
       "kind": "exercise",
       "titleEs": "Romanos y funciones",
       "titleEn": "Roman numerals and functions",
-      "bodyEs": "En los ejercicios se pregunta por el numeral romano de un grado y por la función que cumple, en diferentes tonalidades.",
-      "bodyEn": "The exercises ask for the Roman numeral of a degree and for the function it fulfills, in different keys."
+      "bodyEs": "En los ejercicios se pregunta por el numeral romano de un grado y por la función que cumple, en diferentes tonalidades. Empezá siempre por la armadura: en Do mayor, I es Do, IV es Fa y V es Sol. Después decidí la función escuchando hacia dónde se dirige el acorde; la dominante quiere volver a la tónica y la subdominante prepara esa vuelta.",
+      "bodyEn": "The exercises ask for the Roman numeral of a degree and for the function it fulfills, in different keys. Start from the key signature: in C major, I is C, IV is F and V is G. Then decide the function by listening to where the chord wants to go; the dominant pulls back to the tonic and the subdominant prepares that return."
     }
   ],
   "keyboardTask": {
@@ -144,7 +144,80 @@
       "I played the notes C, E, and G of the C major chord in order",
       "I kept the chord sounding even without pressing the keys hard",
       "I repeated the chord slowly with a quarter-note pulse"
-    ]
+    ],
+    "demoScore": {
+      "clef": "treble",
+      "key": "C",
+      "mode": "major",
+      "timeSignature": {
+        "numerator": 4,
+        "denominator": 4
+      },
+      "tempoBpm": 60,
+      "events": [
+        {
+          "id": "demo.m2-07.1",
+          "measure": 1,
+          "beat": 0,
+          "value": {
+            "duration": "quarter",
+            "dots": 0,
+            "tuplet": "none"
+          },
+          "pitches": [
+            {
+              "step": "C",
+              "accidental": "",
+              "octave": 4
+            }
+          ],
+          "hand": "right",
+          "velocity": 80,
+          "tieToNext": false
+        },
+        {
+          "id": "demo.m2-07.2",
+          "measure": 1,
+          "beat": 1,
+          "value": {
+            "duration": "quarter",
+            "dots": 0,
+            "tuplet": "none"
+          },
+          "pitches": [
+            {
+              "step": "E",
+              "accidental": "",
+              "octave": 4
+            }
+          ],
+          "hand": "right",
+          "velocity": 80,
+          "tieToNext": false
+        },
+        {
+          "id": "demo.m2-07.3",
+          "measure": 1,
+          "beat": 2,
+          "value": {
+            "duration": "quarter",
+            "dots": 0,
+            "tuplet": "none"
+          },
+          "pitches": [
+            {
+              "step": "G",
+              "accidental": "",
+              "octave": 4
+            }
+          ],
+          "hand": "right",
+          "velocity": 80,
+          "tieToNext": false
+        }
+      ],
+      "pedals": []
+    }
   },
   "contentLicense": "cc-by-sa-4.0",
   "status": "published"

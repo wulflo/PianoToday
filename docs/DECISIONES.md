@@ -826,9 +826,12 @@ consecuencias).
   inicial 175,39 kB gzip.
 - **Limitación:** la checklist no se persiste ni se envía a FSRS; el metrónomo
   no cambia el tempo global ni se guarda. La digitación es texto, no badges por
-  tecla, porque falta estructura en el contenido. Diez tareas de M2 no tienen
-  `demoScore` y muestran el aviso correspondiente. El contenido sigue en español
+  tecla, porque falta estructura en el contenido. El contenido sigue en español
   hasta F2-075.
+- **Actualización F8-004:** las diez tareas de M2 que no traían `demoScore` ya
+  lo incorporan, derivado de sus `keys`, y `lesson.m3-05` completó la digitación.
+  Las 79 lecciones publicadas tienen demo y digitación; el aviso de «sin
+  partitura» se conserva como defensa, no como estado normal del curso.
 
 ## ADR-030 — Autoevaluación de cuatro botones y registro atómico del repaso
 

@@ -116,6 +116,8 @@
       { "step": "C", "accidental": "", "octave": 4 },
       { "step": "G", "accidental": "", "octave": 4 }
     ],
+    "fingeringEs": "Usá 1-3 para la tercera Do4-Mi4 y 1-5 para la quinta Do4-Sol4. Mantené el pulgar suelto y escuchá el intervalo antes de cambiar de dedos.",
+    "fingeringEn": "Use 1-3 for the C4-E4 third and 1-5 for the C4-G4 fifth. Keep the thumb loose and listen to the interval before changing fingers.",
     "tempoBpm": 60,
     "checklistEs": [
       "Toqué la tercera mayor Do4-Mi4 y escuché la distancia ascendente",

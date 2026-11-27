@@ -53,7 +53,7 @@ describe('M2-06 — Menor melódica', () => {
 
     const instructions = task?.instructionsEs.toLowerCase() ?? ''
     expect(instructions).toContain('menor')
-    expect(task?.demoScore).toBeUndefined()
+    expect(task?.demoScore?.events.length).toBeGreaterThanOrEqual(3)
   })
 
   it('tiene un ejercicio de deletreo de la menor melódica', () => {

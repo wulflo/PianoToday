@@ -57,8 +57,8 @@
       "kind": "score",
       "titleEs": "Escala pentatónica mayor de Do",
       "titleEn": "C major pentatonic scale",
-      "bodyEs": "Escala pentatónica mayor de Do: Do, Re, Mi, Sol, La, con el patrón de cinco notas en un compás de cuatro tiempos.",
-      "bodyEn": "C major pentatonic scale: C, D, E, G, A, with the five-note pattern in a four-beat measure.",
+      "bodyEs": "Escala pentatónica mayor de Do: Do, Re, Mi, Sol, La, con el patrón de cinco notas en un compás de cuatro tiempos. Faltan Fa y Si, justo las dos notas que forman semitonos con sus vecinas. Por eso no hay tensión de sensible: escuchá cómo la escala suena abierta incluso cuando vuelve a Do.",
+      "bodyEn": "C major pentatonic scale: C, D, E, G, A, with the five-note pattern in a four-beat measure. F and B are left out, precisely the two notes that form semitones with their neighbours. That is why there is no leading-tone tension: listen how open the scale sounds even when it returns to C.",
       "score": {
         "clef": "treble",
         "key": "C",
@@ -155,7 +155,120 @@
       "I played the degrees of the major pentatonic in order",
       "I kept the scale without skipping notes",
       "I repeated the scale slowly with a quarter-note pulse"
-    ]
+    ],
+    "demoScore": {
+      "clef": "treble",
+      "key": "C",
+      "mode": "major",
+      "timeSignature": {
+        "numerator": 4,
+        "denominator": 4
+      },
+      "tempoBpm": 60,
+      "events": [
+        {
+          "id": "demo.m2-09.1",
+          "measure": 1,
+          "beat": 0,
+          "value": {
+            "duration": "quarter",
+            "dots": 0,
+            "tuplet": "none"
+          },
+          "pitches": [
+            {
+              "step": "C",
+              "accidental": "",
+              "octave": 4
+            }
+          ],
+          "hand": "right",
+          "velocity": 80,
+          "tieToNext": false
+        },
+        {
+          "id": "demo.m2-09.2",
+          "measure": 1,
+          "beat": 1,
+          "value": {
+            "duration": "quarter",
+            "dots": 0,
+            "tuplet": "none"
+          },
+          "pitches": [
+            {
+              "step": "D",
+              "accidental": "",
+              "octave": 4
+            }
+          ],
+          "hand": "right",
+          "velocity": 80,
+          "tieToNext": false
+        },
+        {
+          "id": "demo.m2-09.3",
+          "measure": 1,
+          "beat": 2,
+          "value": {
+            "duration": "quarter",
+            "dots": 0,
+            "tuplet": "none"
+          },
+          "pitches": [
+            {
+              "step": "E",
+              "accidental": "",
+              "octave": 4
+            }
+          ],
+          "hand": "right",
+          "velocity": 80,
+          "tieToNext": false
+        },
+        {
+          "id": "demo.m2-09.4",
+          "measure": 1,
+          "beat": 3,
+          "value": {
+            "duration": "quarter",
+            "dots": 0,
+            "tuplet": "none"
+          },
+          "pitches": [
+            {
+              "step": "G",
+              "accidental": "",
+              "octave": 4
+            }
+          ],
+          "hand": "right",
+          "velocity": 80,
+          "tieToNext": false
+        },
+        {
+          "id": "demo.m2-09.5",
+          "measure": 2,
+          "beat": 0,
+          "value": {
+            "duration": "quarter",
+            "dots": 0,
+            "tuplet": "none"
+          },
+          "pitches": [
+            {
+              "step": "A",
+              "accidental": "",
+              "octave": 4
+            }
+          ],
+          "hand": "right",
+          "velocity": 80,
+          "tieToNext": false
+        }
+      ],
+      "pedals": []
+    }
   },
   "contentLicense": "cc-by-sa-4.0",
   "status": "published"

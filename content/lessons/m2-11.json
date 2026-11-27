@@ -43,8 +43,8 @@
       "kind": "score",
       "titleEs": "Escala de tonos enteros en Do",
       "titleEn": "Whole-tone scale in C",
-      "bodyEs": "Escala de tonos enteros en Do: Do, Re, Fa, Sol, La y Do, con seis notas equidistantes de seis semitonos.",
-      "bodyEn": "Whole-tone scale in C: C, D, F, G, A, and C, with six evenly spaced notes six semitones apart.",
+      "bodyEs": "Escala de tonos enteros en Do: Do, Re, Fa, Sol, La y Do, con seis notas equidistantes de seis semitonos. Como no hay semitonos, ninguna nota empuja hacia la tónica: el centro tonal queda deliberadamente difuso. Esa es la razón de su sonido onírico y de su uso en el impresionismo; comprobala tocando Do y después Si, que no pertenece a la escala.",
+      "bodyEn": "Whole-tone scale in C: C, D, F, G, A, and C, with six evenly spaced notes six semitones apart. With no semitones, no note pushes towards the tonic: the key centre stays deliberately blurred. That explains its dreamy sound and its use in Impressionism; check it by playing C and then B, which is outside the scale.",
       "score": {
         "clef": "treble",
         "key": "C",
@@ -141,7 +141,120 @@
       "I played the degrees of the whole-tone scale in order",
       "I kept the equal distances between notes",
       "I repeated the scale slowly with a quarter-note pulse"
-    ]
+    ],
+    "demoScore": {
+      "clef": "treble",
+      "key": "C",
+      "mode": "major",
+      "timeSignature": {
+        "numerator": 4,
+        "denominator": 4
+      },
+      "tempoBpm": 60,
+      "events": [
+        {
+          "id": "demo.m2-11.1",
+          "measure": 1,
+          "beat": 0,
+          "value": {
+            "duration": "quarter",
+            "dots": 0,
+            "tuplet": "none"
+          },
+          "pitches": [
+            {
+              "step": "C",
+              "accidental": "",
+              "octave": 4
+            }
+          ],
+          "hand": "right",
+          "velocity": 80,
+          "tieToNext": false
+        },
+        {
+          "id": "demo.m2-11.2",
+          "measure": 1,
+          "beat": 1,
+          "value": {
+            "duration": "quarter",
+            "dots": 0,
+            "tuplet": "none"
+          },
+          "pitches": [
+            {
+              "step": "D",
+              "accidental": "",
+              "octave": 4
+            }
+          ],
+          "hand": "right",
+          "velocity": 80,
+          "tieToNext": false
+        },
+        {
+          "id": "demo.m2-11.3",
+          "measure": 1,
+          "beat": 2,
+          "value": {
+            "duration": "quarter",
+            "dots": 0,
+            "tuplet": "none"
+          },
+          "pitches": [
+            {
+              "step": "F",
+              "accidental": "",
+              "octave": 4
+            }
+          ],
+          "hand": "right",
+          "velocity": 80,
+          "tieToNext": false
+        },
+        {
+          "id": "demo.m2-11.4",
+          "measure": 1,
+          "beat": 3,
+          "value": {
+            "duration": "quarter",
+            "dots": 0,
+            "tuplet": "none"
+          },
+          "pitches": [
+            {
+              "step": "G",
+              "accidental": "",
+              "octave": 4
+            }
+          ],
+          "hand": "right",
+          "velocity": 80,
+          "tieToNext": false
+        },
+        {
+          "id": "demo.m2-11.5",
+          "measure": 2,
+          "beat": 0,
+          "value": {
+            "duration": "quarter",
+            "dots": 0,
+            "tuplet": "none"
+          },
+          "pitches": [
+            {
+              "step": "A",
+              "accidental": "",
+              "octave": 4
+            }
+          ],
+          "hand": "right",
+          "velocity": 80,
+          "tieToNext": false
+        }
+      ],
+      "pedals": []
+    }
   },
   "contentLicense": "cc-by-sa-4.0",
   "status": "published"

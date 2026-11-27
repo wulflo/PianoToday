@@ -81,7 +81,7 @@ describe('M2-03 — Relativas y homónimas', () => {
 
     const instructions = task?.instructionsEs.toLowerCase() ?? ''
     expect(instructions).toContain('menor')
-    expect(task?.demoScore).toBeUndefined()
+    expect(task?.demoScore?.events.length).toBeGreaterThanOrEqual(3)
   })
 
   it('tiene tres ejercicios de clasificación con respuestas correctas', () => {

@@ -54,8 +54,8 @@
       "kind": "keyboard",
       "titleEs": "Escuchá tres octavas",
       "titleEn": "Listen to three octaves",
-      "bodyEs": "Tocá Do3, Do4 y Do5. El nombre de la nota es el mismo; lo que cambia es el número de octava y la altura que escuchás.",
-      "bodyEn": "Play C3, C4 and C5. The note name is the same; what changes is the octave number and the pitch you hear.",
+      "bodyEs": "Tocá Do3, Do4 y Do5. El nombre de la nota es el mismo; lo que cambia es el número de octava y la altura que escuchás. El número salta al llegar a Do, no en cualquier tecla: entre Si4 y Do5 cambia de 4 a 5. Escuchá los tres como si fueran la misma nota en tres registros y después tocá Si4 justo antes de Do5 para oír el salto de octava.",
+      "bodyEn": "Play C3, C4 and C5. The note name is the same; what changes is the octave number and the pitch you hear. The number changes when you reach C, not on any other key: between B4 and C5 it goes from 4 to 5. Listen to the three as the same note in three registers, then play B4 right before C5 to hear the octave leap.",
       "keys": [
         {
           "step": "C",

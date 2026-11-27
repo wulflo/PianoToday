@@ -51,7 +51,7 @@ describe('M2-05 — Menor armónica', () => {
 
     const instructions = task?.instructionsEs.toLowerCase() ?? ''
     expect(instructions).toContain('menor')
-    expect(task?.demoScore).toBeUndefined()
+    expect(task?.demoScore?.events.length).toBeGreaterThanOrEqual(3)
   })
 
   it('tiene un ejercicio de deletreo del menor armónico', () => {

@@ -41,8 +41,8 @@
       "kind": "keyboard",
       "titleEs": "Escuchá y mirá",
       "titleEn": "Listen and watch",
-      "bodyEs": "Tocá las teclas resaltadas. Fijate que el Do aparece siempre en el mismo lugar del patrón, en cualquier octava.",
-      "bodyEn": "Play the highlighted keys. Notice that C always appears in the same spot in the pattern, in any octave.",
+      "bodyEs": "Tocá las teclas resaltadas. Fijate que el Do aparece siempre en el mismo lugar del patrón, en cualquier octava: es la tecla blanca inmediatamente a la izquierda del grupo de dos negras. Probá a nombrar el grupo en voz alta antes de tocar; así no dependés de contar teclas y reconocés el patrón de oído.",
+      "bodyEn": "Play the highlighted keys. Notice that C always sits in the same place in the pattern, in any octave: the white key immediately to the left of the group of two black keys. Say the group name out loud before playing, so you recognise the pattern by ear instead of counting keys.",
       "keys": [
         {
           "step": "C",
