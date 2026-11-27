@@ -27,8 +27,13 @@ describe('licencias del repositorio', () => {
 
   it('la app muestra la atribución de audio y contenido', () => {
     const strings = read('src/state/settings.tsx')
-    expect(strings).toContain('Salamander')
-    expect(strings).toContain('CC BY 3.0')
-    expect(strings).toContain('CC BY-SA 4.0')
+    expect(strings).toContain('© 2026 Alonso')
+    expect(strings).toContain('licencia MIT')
+    expect(strings).toContain("'attributions.audio.title'")
+    expect(read('LICENSE-CONTENT')).toContain('CC BY-SA 4.0')
+    // El crédito de las muestras sale del manifiesto, no del pie de página.
+    const manifest = read('assets/audio/manifest.json')
+    expect(manifest).toContain('Salamander Grand Piano')
+    expect(manifest).toContain('CC-BY-3.0')
   })
 })

@@ -106,8 +106,14 @@ describe('F2-065 — i18n base ES/EN', () => {
   })
 
   it('traduce el pie y los textos del pentagrama en ambos idiomas', () => {
-    expect(es['app.footer']).toContain('Salamander')
-    expect(en['app.footer']).toContain('Salamander')
+    expect(es['app.footer']).toContain('Alonso')
+    expect(es['app.footer']).toContain('licencia MIT')
+    expect(en['app.footer']).toContain('MIT license')
+    // El detalle de licencias y muestras vive en #/atribuciones, no en el pie.
+    expect(es['app.footer']).not.toContain('Salamander')
+    expect(en['app.footer']).not.toContain('Salamander')
+    expect(es['app.footer']).not.toContain('CC BY-SA')
+    expect(en['app.footer']).not.toContain('CC BY-SA')
     expect(es['staff.noNotes']).toBe('Sin notas')
     expect(en['staff.noNotes']).toBe('No notes')
     expect(es['staff.error']).toContain('{message}')

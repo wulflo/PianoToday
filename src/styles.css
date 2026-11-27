@@ -14,6 +14,7 @@
   --bg-tint: color-mix(in srgb, var(--accent) 15%, var(--bg-base));
   --bg-panel: #fffdf9;
   --surface: #fffdf9;
+  --header-bg: #ebe5da;
   --surface-container-low: #f5efe6;
   --surface-container: #efe7db;
   --surface-container-high: #e7ddcd;
@@ -115,6 +116,7 @@
     --bg-tint: color-mix(in srgb, var(--accent) 15%, var(--bg-base));
     --bg-panel: #202521;
     --surface: #202521;
+    --header-bg: #101410;
     --surface-container-low: #1c211d;
     --surface-container: #272d28;
     --surface-container-high: #313832;
@@ -172,6 +174,7 @@
   --bg-tint: color-mix(in srgb, var(--accent) 15%, var(--bg-base));
   --bg-panel: #202521;
   --surface: #202521;
+  --header-bg: #101410;
   --surface-container-low: #1c211d;
   --surface-container: #272d28;
   --surface-container-high: #313832;
@@ -225,6 +228,12 @@
   box-sizing: border-box;
 }
 
+/* Ningún enlace debe quedar con el azul del navegador: las reglas específicas
+   de nav, botones y tarjetas siguen ganando por orden y especificidad. */
+a:any-link {
+  color: var(--accent);
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -244,11 +253,14 @@ code {
   width: 100%;
   max-width: none;
   margin: 0 auto;
-  padding: clamp(1rem, 2vw, 2rem) clamp(1rem, 3vw, 3rem) var(--space-7);
+  padding: 0 clamp(1rem, 3vw, 3rem) var(--space-7);
 }
 
 .site-header {
-  padding-bottom: 1.5rem;
+  /* Franja a todo el ancho, teñida con el acento y pegada arriba. */
+  margin-inline: calc(-1 * clamp(1rem, 3vw, 3rem));
+  padding: clamp(1rem, 2vw, 2rem) clamp(1rem, 3vw, 3rem) 1.5rem;
+  background: color-mix(in srgb, var(--accent) 12%, var(--header-bg));
   border-bottom: 1px solid var(--border);
 }
 
@@ -324,14 +336,27 @@ code {
 .page-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem 1.25rem;
+  align-items: center;
+  gap: var(--space-3);
   margin: 1.25rem 0 0;
 }
 
 .page-actions a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-min);
+  padding: 0.4rem 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: var(--elev-1);
   color: var(--accent);
   font-weight: 600;
-  text-underline-offset: 0.2em;
+  text-decoration: none;
+}
+
+.page-actions a:hover {
+  background: var(--primary-container);
 }
 
 .settings-next {
@@ -910,6 +935,12 @@ h3 {
 
 .repertoire-card h2 a {
   color: var(--accent);
+  text-decoration: none;
+}
+
+.repertoire-card h2 a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .repertoire-card .page-actions {
@@ -1117,7 +1148,7 @@ h3 {
 }
 
 .hero .page-actions {
-  min-height: 4.5rem;
+  min-height: var(--touch-min);
 }
 
 .course-progress {
@@ -1840,6 +1871,7 @@ h3 {
 }
 
 .lesson-nav .page-actions {
+  justify-content: center;
   gap: var(--space-3);
   margin-top: var(--space-4);
   padding-top: var(--space-3);
@@ -1853,9 +1885,21 @@ h3 {
 }
 
 .lesson-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-min);
+  padding: 0.4rem 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: var(--elev-1);
   color: var(--accent);
   font-weight: 600;
-  text-underline-offset: 0.2em;
+  text-decoration: none;
+}
+
+.lesson-nav a:hover {
+  background: var(--primary-container);
 }
 
 /* --- Repaso de hoy (F2-061) --- */
@@ -2256,11 +2300,11 @@ body {
   width: 100%;
   max-width: none;
   margin: 0 auto;
-  padding: clamp(1rem, 2vw, 2rem) clamp(1rem, 3vw, 3rem) var(--space-7);
+  padding: 0 clamp(1rem, 3vw, 3rem) var(--space-7);
 }
 
 .site-header {
-  padding: 0.5rem 0 1rem;
+  padding-bottom: 1rem;
   border-bottom: 1px solid var(--outline-variant);
 }
 
@@ -2457,13 +2501,6 @@ input[type='range'] {
 
 .lesson-row {
   border-top-color: var(--outline-variant);
-}
-
-.lesson-row a,
-.page-actions a,
-.lesson-nav a {
-  color: var(--primary);
-  text-underline-offset: 0.2em;
 }
 
 /* Teclado: teclas blancas con forma M3 y pulsación tonal */
@@ -2768,7 +2805,7 @@ input[type='range'] {
   width: 100%;
   max-width: none;
   margin: 0 auto;
-  padding: clamp(1rem, 2vw, 2rem) clamp(1rem, 3vw, 3rem) var(--space-7);
+  padding: 0 clamp(1rem, 3vw, 3rem) var(--space-7);
 }
 
   .panel,
@@ -3124,11 +3161,11 @@ progress::-moz-progress-bar {
   width: 100%;
   max-width: none;
   margin: 0 auto;
-  padding: clamp(1rem, 2vw, 2rem) clamp(1rem, 3vw, 3rem) var(--space-7);
+  padding: 0 clamp(1rem, 3vw, 3rem) var(--space-7);
 }
 
 .site-header {
-  padding: var(--space-3) 0 var(--space-4);
+  padding-bottom: var(--space-4);
   border-bottom-color: color-mix(
     in srgb,
     var(--primary) 24%,
@@ -3232,7 +3269,7 @@ progress::-moz-progress-bar {
   width: 100%;
   max-width: none;
   margin: 0 auto;
-  padding: clamp(1rem, 2vw, 2rem) clamp(1rem, 3vw, 3rem) var(--space-7);
+  padding: 0 clamp(1rem, 3vw, 3rem) var(--space-7);
 }
 
   .site-nav ul {
@@ -3552,9 +3589,9 @@ input:focus-visible {
   display: flex;
   justify-content: center;
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 600;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.01em;
 }
 
 .brand-link {
@@ -3601,7 +3638,7 @@ input:focus-visible {
 }
 
 .brand-text {
-  color: var(--text);
+  color: var(--accent);
   white-space: nowrap;
 }
 

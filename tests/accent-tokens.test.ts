@@ -48,6 +48,19 @@ describe('Acentos personalizables', () => {
     }
   })
 
+  it('mantiene cada acento legible sobre papel y panel claro', () => {
+    for (const color of ACCENT_COLORS) {
+      expect(
+        contrast(color.value, '#faf7f2'),
+        `${color.label} sobre fondo`,
+      ).toBeGreaterThanOrEqual(4.5)
+      expect(
+        contrast(color.value, '#fffdf9'),
+        `${color.label} sobre panel`,
+      ).toBeGreaterThanOrEqual(4.5)
+    }
+  })
+
   it('cae al verde por defecto ante un color no válido', () => {
     expect(accentTokens('no-es-un-color', false)['--primary']).toBe('#2f5d50')
   })

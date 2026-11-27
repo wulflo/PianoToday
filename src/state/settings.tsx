@@ -48,16 +48,16 @@ export interface Settings {
 
 /** Paleta de 10 colores de acento disponibles. */
 export const ACCENT_COLORS: Array<{ id: string; label: string; value: string }> = [
-  { id: 'verde', label: 'Verde', value: '#2f5d50' },
-  { id: 'azul', label: 'Azul', value: '#1d4ed8' },
-  { id: 'indigo', label: 'Índigo', value: '#4338ca' },
-  { id: 'purpura', label: 'Púrpura', value: '#7c3aed' },
-  { id: 'rosa', label: 'Rosa', value: '#db2777' },
-  { id: 'rojo', label: 'Rojo', value: '#b91c1c' },
-  { id: 'naranja', label: 'Naranja', value: '#d97706' },
-  { id: 'ambar', label: 'Ámbar', value: '#ca8a04' },
-  { id: 'esmeralda', label: 'Esmeralda', value: '#059669' },
-  { id: 'cian', label: 'Cian', value: '#0891b2' },
+  { id: 'verde', label: 'Verde bosque', value: '#2f5d50' },
+  { id: 'pizarra', label: 'Azul pizarra', value: '#36577a' },
+  { id: 'indigo', label: 'Índigo tinta', value: '#46466f' },
+  { id: 'ciruela', label: 'Ciruela', value: '#6d4767' },
+  { id: 'terracota', label: 'Terracota', value: '#9b4f36' },
+  { id: 'granate', label: 'Granate', value: '#8f3530' },
+  { id: 'mostaza', label: 'Mostaza', value: '#8a6320' },
+  { id: 'oliva', label: 'Oliva', value: '#5d6b35' },
+  { id: 'esmeralda', label: 'Esmeralda', value: '#256b57' },
+  { id: 'petroleo', label: 'Petróleo', value: '#1f6b74' },
 ]
 
 export const DEFAULT_ACCENT_COLOR = '#2f5d50'
@@ -184,7 +184,7 @@ interface SettingsContextValue {
 const ES_DICTIONARY = {
     'app.title': 'Piano Today',
     'app.lead': 'Teoría, teclado, pentagrama y audio en un solo lugar para empezar desde cero.',
-    'app.footer': 'Código MIT. Contenido CC BY-SA 4.0. Muestras de piano: Salamander Grand Piano, Alexander Holm (CC BY 3.0).',
+    'app.footer': '© 2026 Alonso · Código bajo licencia MIT.',
     'app.credits': 'Créditos y licencias',
     'attributions.audio.title': 'Muestras de audio y software',
     'attributions.audio.lead': 'Las muestras de audio se acreditan desde el manifiesto del proyecto. El audio se reproduce con Tone.js (MIT) y la notación se dibuja con VexFlow (MIT).',
@@ -927,7 +927,7 @@ const ES_DICTIONARY = {
 const EN_DICTIONARY: Record<keyof typeof ES_DICTIONARY, string> = {
     'app.title': 'Piano Today',
     'app.lead': 'Theory, keyboard, staff and audio in one place to start from zero.',
-    'app.footer': 'MIT code. Content CC BY-SA 4.0. Piano samples: Salamander Grand Piano, Alexander Holm (CC BY 3.0).',
+    'app.footer': '© 2026 Alonso · Code under MIT license.',
     'app.credits': 'Credits and licenses',
     'attributions.audio.title': 'Audio samples and software',
     'attributions.audio.lead': 'Audio samples are credited from the project manifest. Audio is played with Tone.js (MIT) and notation is drawn with VexFlow (MIT).',

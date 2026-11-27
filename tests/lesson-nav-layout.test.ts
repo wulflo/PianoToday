@@ -38,5 +38,11 @@ describe('encabezado y navegación de lección', () => {
     expect(block('.lesson-nav li {')).toContain('flex: 1 1 14rem')
     expect(block('.lesson-nav li:last-child {')).toContain('text-align: right')
     expect(block('.lesson-nav .page-actions {')).toContain('border-top: 1px solid var(--border)')
+    expect(block('.lesson-nav .page-actions {')).toContain(
+      'justify-content: center',
+    )
+    expect(block('.lesson-nav a {')).toContain('text-decoration: none')
+    expect(block('.lesson-nav a {')).toContain('min-height: var(--touch-min)')
+    expect(block('.lesson-nav a {')).toContain('border-radius: var(--radius-md)')
   })
 })

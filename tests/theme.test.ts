@@ -80,6 +80,9 @@ const pairs = [
   ['on-error', 'error'],
   ['primary', 'primary-container'],
   ['on-primary', 'primary'],
+  ['text', 'header-bg'],
+  ['muted', 'header-bg'],
+  ['accent', 'header-bg'],
   ['focus', 'bg'],
   ['focus', 'bg-panel'],
 ] as const
@@ -144,6 +147,15 @@ describe('F3-004a — El pentagrama se adapta al tema', () => {
     expect(block('.license-fiche dd a {')).toContain('color: var(--accent)')
     expect(block('.button {')).toContain('color: var(--accent)')
     expect(block('.button {')).toContain('min-height: var(--touch-min)')
+    expect(block('.page-actions a {')).toContain('text-decoration: none')
+    expect(block('.page-actions a {')).toContain('background: var(--surface)')
+    expect(block('.page-actions {')).toContain('align-items: center')
+    expect(block('.site-header {')).toContain(
+      'background: color-mix(in srgb, var(--accent) 12%, var(--header-bg))',
+    )
+    expect(block('.site-header {')).toContain('margin-inline:')
+    expect(block('.brand-text {')).toContain('color: var(--accent)')
+    expect(block('a:any-link {')).toContain('color: var(--accent)')
     expect(block('.scroll-controls {')).toContain('position: fixed')
     expect(block('.scroll-controls {')).toContain('right: var(--space-4)')
     expect(block('.scroll-controls {')).toContain('flex-direction: column')

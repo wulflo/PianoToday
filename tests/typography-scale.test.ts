@@ -57,7 +57,7 @@ describe('ADR-050 — escala tipográfica', () => {
   })
 
   it('mantiene la marca por debajo del h1 y unifica los tamaños de control', () => {
-    expect(css).toContain('font-size: clamp(1.5rem, 2.5vw, 1.9rem)')
+    expect(css).toContain('font-size: clamp(2rem, 4vw, 3rem)')
     expect(
       css.match(/font-size: var\(--type-base\)/g)?.length ?? 0,
     ).toBeGreaterThanOrEqual(3)
