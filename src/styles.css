@@ -96,9 +96,9 @@
   --type-2xl: 2.5rem;
   --leading-body: 1.5;
   --leading-heading: 1.2;
-  /* Tipografía editorial del logotipo: sistema, sin descargas (ADR-050). */
-  --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia,
-    'Times New Roman', serif;
+  /* Display semibold con carácter, 100% sistema (ADR-050: sin descargas). */
+  --font-display: 'Avenir Next', Avenir, 'Segoe UI', Optima, 'Trebuchet MS',
+    system-ui, sans-serif;
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
   line-height: var(--leading-body);
 }
@@ -316,6 +316,11 @@ code {
   padding-top: 0.5rem;
 }
 
+/* Ritmo vertical: los paneles y secciones de una página no se pegan. */
+.page > * + * {
+  margin-top: var(--space-4);
+}
+
 .page-actions {
   display: flex;
   flex-wrap: wrap;
@@ -383,7 +388,7 @@ h3 {
 
 .panel h2 {
   margin: 0 0 0.75rem;
-  font-size: 1.1rem;
+  font-size: var(--type-md);
 }
 
 .check-list {
@@ -728,6 +733,29 @@ h3 {
   background: color-mix(in srgb, var(--accent) 10%, var(--bg-tint));
 }
 
+/* Botón genérico (p. ej. «Reproducir» del repertorio): mismo lenguaje visual
+   que los atajos de desplazamiento, sin estilo nativo del navegador. */
+.button {
+  min-height: var(--touch-min);
+  padding: 0.5rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--accent);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--primary-container);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* --- Pentagrama (F1-028 a F1-032) --- */
 .staff {
   margin: 1.5rem 0 0;
@@ -877,7 +905,11 @@ h3 {
 
 .repertoire-card h2 {
   margin: 0.2rem 0 0.4rem;
-  font-size: 1.15rem;
+  font-size: var(--type-md);
+}
+
+.repertoire-card h2 a {
+  color: var(--accent);
 }
 
 .repertoire-card .page-actions {
@@ -902,6 +934,11 @@ h3 {
 .license-fiche dd {
   margin: 0;
   overflow-wrap: anywhere;
+}
+
+.license-fiche dd a {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
 }
 
 /* --- Demo integrada F1 (F1-033 y siguientes) --- */
@@ -1095,7 +1132,7 @@ h3 {
 
 .course-map > h2 {
   margin-bottom: 0.75rem;
-  font-size: 1.1rem;
+  font-size: var(--type-md);
 }
 
 .module-list {
@@ -1376,7 +1413,7 @@ h3 {
 
 .lesson-section h2 {
   margin: 0 0 0.5rem;
-  font-size: 1.15rem;
+  font-size: var(--type-md);
 }
 
 .lesson-section p {
@@ -2659,6 +2696,47 @@ input[type='range'] {
   font: inherit;
   font-weight: 600;
   cursor: pointer;
+}
+
+/* F8-008 — Atajos de desplazamiento, fijos abajo a la derecha. */
+.scroll-controls {
+  position: fixed;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.scroll-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--accent);
+  box-shadow: var(--elev-2);
+  cursor: pointer;
+}
+
+.scroll-control svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.scroll-control:hover {
+  background: var(--primary-container);
+}
+
+@media print {
+  .scroll-controls {
+    display: none;
+  }
 }
 
 /* Pie y datos */

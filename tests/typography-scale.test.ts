@@ -51,6 +51,9 @@ describe('ADR-050 — escala tipográfica', () => {
     expect(block('h3 {')).toContain('font-size: var(--type-md)')
     expect(root).toContain('line-height: var(--leading-body)')
     expect(block('.lede {')).toContain('font-size: var(--type-md)')
+    expect(block('.panel h2 {')).toContain('font-size: var(--type-md)')
+    expect(block('.course-map > h2 {')).toContain('font-size: var(--type-md)')
+    expect(block('.lesson-section h2 {')).toContain('font-size: var(--type-md)')
   })
 
   it('mantiene la marca por debajo del h1 y unifica los tamaños de control', () => {
@@ -58,6 +61,10 @@ describe('ADR-050 — escala tipográfica', () => {
     expect(
       css.match(/font-size: var\(--type-base\)/g)?.length ?? 0,
     ).toBeGreaterThanOrEqual(3)
+  })
+
+  it('reserva espacio entre secciones hermanas de una página', () => {
+    expect(block('.page > * + * {')).toContain('margin-top: var(--space-4)')
   })
 
   it('no declara una fuente que no se descarga', () => {

@@ -136,7 +136,8 @@ dist/, test-results/         # ignorados por git
 ## 6. Enrutado, shell y páginas
 
 - `src/router/hash-route.ts`: `parseHash(hash): AppRoute`, `routeHash`, `routeTitleKey`, `isNavActive`, `NAV_ITEMS` (7 entradas). Constantes: `#/curso`, `#/demo`, `#/practica`, `#/repaso`, `#/progreso`, `#/ajustes`, `#/repertorio`, `#/canciones`, `#/atribuciones`; constructores `lessonHash()`, `pieceHash()`. `AppRoute` incluye `not-found`. `useHashRoute.ts` usa `useSyncExternalStore` + `hashchange`.
-- `src/App.tsx`: `RouteView` (switch), `AppShell`, `App({databaseName})`. Orden de providers: `SettingsProvider → MidiProvider → ProgressProvider → SettingsPersistence → AppShell`. DOM: `.app-shell > a.skip-link + header.site-header (brand + nav aria-label) + MidiStatusBar + PwaStatus + ErrorBoundary(key=routeKey) > #main-content[tabIndex=-1] > RouteView + footer.site-footer`. Efectos: `document.documentElement.lang`, `data-theme` (con rama `system`), `accentTokens(settings.accentColor, dark)` como CSS vars, `document.title` por ruta.
+- `src/App.tsx`: `RouteView` (switch), `AppShell`, `App({databaseName})`. Orden de providers: `SettingsProvider → MidiProvider → ProgressProvider → SettingsPersistence → AppShell`. DOM: `.app-shell > a.skip-link + header.site-header (brand + nav aria-label) + MidiStatusBar + PwaStatus + ScrollControls + ErrorBoundary(key=routeKey) > #main-content[tabIndex=-1] > RouteView + footer.site-footer`. Efectos: `document.documentElement.lang`, `data-theme` (con rama `system`), `accentTokens(settings.accentColor, dark)` como CSS vars, `document.title` por ruta.
+- `src/components/ScrollControls.tsx`: dos botones fijos abajo a la derecha, apilados, con chevrons en `--accent`; respeta `prefers-reduced-motion`. Estilos `.scroll-controls`/`.scroll-control`. Claves `scroll.*` en `src/state/settings.tsx`.
 - `src/pages/*.tsx` (11): `CoursePage`, `LessonPage`, `PiecePage`, `RepertoirePage`, `SongsPage`, `PracticePage`, `ReviewPage`, `ProgressPage`, `SettingsPage`, `AttributionsPage`, `NotFoundPage`. Convención: `<main className="page …" aria-labelledby="…">`, `<section className="hero">`, un solo `<h1 id=…>`, `<p className="page-actions">`.
 - `LessonPage.tsx`: `findCourseLesson` → `useCourseProgress()`/`computeLessonUnlocks` → bloqueo o `loadLesson()` → `<LessonPlayer>` → `completeLesson` y nav anterior/siguiente. Ajuste `unlockAllLessons` en `SettingsPanel.tsx` (`b1bc6f1`).
 
@@ -257,6 +258,7 @@ dist/, test-results/         # ignorados por git
 | Ajustes, tema y acento | `src/state/settings.tsx`, `accent.ts`, `src/components/SettingsPanel.tsx`, `src/styles.css` |
 | Navegación y título | `src/router/hash-route.ts`, `useHashRoute.ts`, `src/App.tsx` |
 | PWA / offline | `vite.config.ts`, `src/components/PwaStatus.tsx`, `public/manifest.webmanifest` |
+| Atajos de desplazamiento | `src/components/ScrollControls.tsx`, `src/styles.css` (`.scroll-controls`) |
 | Validación de contenido | `src/content/validate.ts`, `src/schemas/*`, `scripts/validate-content.ts` |
 | Auditoría y estado | `scripts/audit-*.ts`, `scripts/estado.mjs`, `docs/AUDITORIA.md`, `docs/ESTADO.md` |
 

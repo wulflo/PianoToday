@@ -139,6 +139,18 @@ describe('F3-004a — El pentagrama se adapta al tema', () => {
     )
   })
 
+  it('usa el acento en los títulos del repertorio y fija los atajos de scroll', () => {
+    expect(block('.repertoire-card h2 a {')).toContain('color: var(--accent)')
+    expect(block('.license-fiche dd a {')).toContain('color: var(--accent)')
+    expect(block('.button {')).toContain('color: var(--accent)')
+    expect(block('.button {')).toContain('min-height: var(--touch-min)')
+    expect(block('.scroll-controls {')).toContain('position: fixed')
+    expect(block('.scroll-controls {')).toContain('right: var(--space-4)')
+    expect(block('.scroll-controls {')).toContain('flex-direction: column')
+    expect(block('.scroll-control {')).toContain('color: var(--accent)')
+    expect(block('.scroll-control {')).toContain('width: var(--touch-min)')
+  })
+
   it('diferencia los mástiles de las notas de los divisores de compás', () => {
     expect(block('.staff-canvas [data-note-stem] {')).toContain(
       'stroke: var(--staff-ink)',

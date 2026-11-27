@@ -3,6 +3,7 @@ import { Demo } from './components/Demo'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { MidiStatusBar } from './components/MidiStatusBar'
 import { PwaStatus } from './components/PwaStatus'
+import { ScrollControls } from './components/ScrollControls'
 import { AttributionsPage } from './pages/AttributionsPage'
 import { CoursePage } from './pages/CoursePage'
 import { LessonPage } from './pages/LessonPage'
@@ -146,6 +147,7 @@ function AppShell() {
 
       <MidiStatusBar />
       <PwaStatus />
+      <ScrollControls />
 
       <ErrorBoundary
         key={routeKey}
