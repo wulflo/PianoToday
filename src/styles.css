@@ -96,6 +96,9 @@
   --type-2xl: 2.5rem;
   --leading-body: 1.5;
   --leading-heading: 1.2;
+  /* Tipografía editorial del logotipo: sistema, sin descargas (ADR-050). */
+  --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia,
+    'Times New Roman', serif;
   font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
   line-height: var(--leading-body);
 }
@@ -252,7 +255,7 @@ code {
 .site-header-top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1rem;
 }
 
@@ -1778,11 +1781,35 @@ h3 {
 }
 
 .lesson-nav ul {
-  display: grid;
-  gap: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.lesson-nav li {
+  flex: 1 1 14rem;
+}
+
+.lesson-nav li:last-child {
+  text-align: right;
+}
+
+.lesson-nav .page-actions {
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 40rem) {
+  .lesson-nav li:last-child {
+    text-align: left;
+  }
 }
 
 .lesson-nav a {
@@ -3043,12 +3070,6 @@ progress::-moz-progress-bar {
   gap: var(--space-2);
 }
 
-.brand-mark {
-  width: 1.75rem;
-  height: 1.75rem;
-  color: var(--primary);
-}
-
 .site-nav ul {
   gap: var(--space-2);
 }
@@ -3444,29 +3465,63 @@ input:focus-visible {
   }
 }
 
-/* ── Nombre de la app más grande y estilizado ── */
+/* ── Nombre de la app centrado, sin glifo y con tipografía editorial ── */
 .brand {
   margin: 0;
-  font-size: 2rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  display: flex;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
 }
 
 .brand-link {
+  position: relative;
   color: inherit;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 0;
+  padding-inline: clamp(3.5rem, 13vw, 9rem);
+  white-space: nowrap;
 }
 
-.brand-mark {
-  width: 1.75rem;
-  height: 1.75rem;
+/* Ornamentos laterales: una línea que se desvanece hacia el borde y una
+   perla de acento junto al texto. Se dibujan con fondos, sin nodos nuevos. */
+.brand-link::before,
+.brand-link::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: clamp(2rem, 10vw, 6rem);
+  height: 1px;
+  background-image:
+    radial-gradient(circle at 100% 50%, var(--accent) 2.5px, transparent 3px),
+    linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--accent) 55%, transparent)
+    );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  opacity: 0.8;
+}
+
+.brand-link::before {
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.brand-link::after {
+  right: 0;
+  transform: translateY(-50%) scaleX(-1);
 }
 
 .brand-text {
   color: var(--text);
+  white-space: nowrap;
 }
 
 .brand-accent {

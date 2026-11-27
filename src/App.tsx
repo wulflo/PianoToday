@@ -123,17 +123,6 @@ function AppShell() {
         <div className="site-header-top">
           <p className="brand">
             <a href={COURSE_HASH} className="brand-link">
-              <svg
-                className="brand-mark"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path
-                  fill="currentColor"
-                  d="M9 17.5a2.5 2.5 0 1 1-2-2.45V5.2l10-2v9.85a2.5 2.5 0 1 1-2-2.45V5.2L9 6.8v10.7Z"
-                />
-              </svg>
               <span className="brand-text">Piano <span className="brand-accent">Today</span></span>
             </a>
           </p>
